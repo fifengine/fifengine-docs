@@ -1,0 +1,58 @@
+= Fifengine - Developer Manual
+:revnumber:           dev-master
+:description:         This document is the Fifengine Developer Manual.
+:keywords:            fifengine, fife, isometric game engine
+
+:doctype:             book
+:lang:                en
+:encoding:            utf-8
+:gitrepo:             https://github.com/fifengine/fifengine-docs/
+
+:toc:                 left
+ifdef::backend-pdf[]
+:toc:
+endif::backend-pdf[]
+:toc-title:           Contents
+:toclevels:           4
+:sectnums:
+:sectnumlevels:       4
+
+:experimental:
+:ascii-ids:
+:numbered:
+:max-width:           48em
+
+:linkcss:
+:stylesdir:           ../stylesheets
+:stylesheet:          asciidoctor.css
+:imagesdir:           ../images
+:icons:               font
+
+ifdef::backend-pdf[]
+:source-highlighter:  pygments
+:pygments-style:      bw
+endif::backend-pdf[]
+
+ifdef::asciidoctor[]
+:source-highlighter:  highlightjs
+:highlightjs-theme:   monokai_sublime
+endif::asciidoctor[]
+
+// set references
+:license:            https://github.com/fifengine/fifengine/blob/master/LICENSE.md
+:issue-ref:          https://github.com/fifengine/fifengine/issues
+:docs-issue-ref:     https://github.com/fifengine/fifengine-docs/issues
+
+// include book chapters
+
+:sectnums:
+
+include::chapter01_getting-started.adoc[]
+
+:!sectnums:
+
+//include::appendix.adoc[]
+//include::bibliography.adoc[]
+//include::glossary.adoc[]
+
+//include::colophon.adoc[]

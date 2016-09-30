@@ -1,0 +1,10 @@
+[NOTE]
+.This document is under active development and discussion!
+====
+If you find errors or omissions in this document, please don't hesitate to {docs-issue-ref}[submit an issue or open a pull request] with a fix.
+====
+
+[preface]
+== Preface
+
+The developer manual offers programmers documentation and examples useful in working with fifengine.

@@ -16,7 +16,8 @@ cache:
 
 install:
   # install optional dependencies for asccidoctor-diagram
-  - sudo apt-get -qq update && sudo apt-get install -y ditaa plantuml graphviz
+  - sudo apt-get -qq update && sudo apt-get install -y ditaa graphviz
+  - travis_retry _travis/install_plantuml.sh
   # install AsciiDoctor
   - gem install asciidoctor
   # PDF generator

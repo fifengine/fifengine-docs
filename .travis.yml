@@ -68,7 +68,7 @@ script:
   - ls -alF developer-manual
   # cleanup (remove folders before commiting to gh-pages)
   - rm -r asciidoctor-stylesheet-factory-master/
-  - rm -r pdf/
+  #- rm -r pdf/
 
 after_success:
   - ./publish.sh  

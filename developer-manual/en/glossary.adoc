@@ -1,0 +1,74 @@
+[glossary]
+== Glossary
+
+The glossary helps to ease communication between developers and users of fifengine by defining a set of commonly agreed upon terms.
+
+[glossary]
+Agent::
+    An agent is a dynamic map instance. It can move to different map locations at runtime.
+Animation::
+    Sequence of image files that are played in succession to create illusion of e.g. walking. See http://en.wikipedia.org/wiki/Animations
+Archetype::
+    Archetypes hold the basic data used in maps and throughout the game. They provide the IDs and names used in the Map Format.
+Atlas::
+    Atlas or Image Atlas groups together several smaller images into a larger one for performance benefits.
+Backend::
+    Backend From Wikipedia: "In software design, the front-end is the part of a software system that interacts directly with the user, and the back-end comprises the components that process the output from the front-end. The separation of software systems into "front ends" and "back ends" is a kind of abstraction that helps to keep different parts of the system separated."
+Camera::
+    A viewport or scene. Multiple cameras can exist with different scenes being portrayed on each camera.
+Client::
+    A game or tool that uses FIFE as it's engine.
+Console::
+    Console is an in game window that can be used to type commands for fife engine.
+Content::
+    Media (images/music/sound fx/font/etc), map files, or GUI definition files.
+Contributor::
+    Contributors are people working on FIFE on an occasional basis. Contributors have no write access to the FIFE Git repositories. Collaboration is done by forking a repository and sending patches back to the upstream repository via a Github pull request.
+Dataset::
+    TODO
+Developer::
+   Developers are people working on FIFE on a regular basis. They have write access to the FIFE Git repositories.
+Elevation::   
+    Map consists of elevations. Elevation can be thought as a floor in case you think map being a building. Each map has to have at least one elevation.
+Event:: 
+    TODO
+Game creator::
+   A single person or a whole team of individuals who create a FIFE-based game.
+Gamma level:: 
+    TODO
+Geometry:: 
+    TODO 
+Gid::
+ Graphical ID. Used to uniquely identify any piece of graphic inside a set of related xml-file fragments.
+Grid::   
+    TODO 
+Layer::  
+    TODO
+Location::  
+    TODO 
+Map:: 
+    World presentation from FIFE perspective. See Map model.
+Metamodel:: 
+    TODO  
+Model::  
+    TODO
+Object::  
+    TODO
+Offset:: 
+    TODO
+Palette:: 
+    TODO
+Spritesheet animation::
+    Specific type of atlas that represents only one action (animations for all defined directions). Typically, it's one direction per row, one frame per column.
+Tid:: 
+    Tile ID. Same as Gid, but used only for tile related graphics.
+Tile:: 
+    TODO   
+Tileset:: 
+    TODO
+User::
+The term user is often utilized for expressing that the respective person is neither a developer nor a contributor of the development team.
+Visual::
+    TODO 
+View::  
+    TODO  

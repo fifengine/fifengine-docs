@@ -1,0 +1,18 @@
+# Fifengine - Documentations
+
+image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="https://travis-ci.org/fifengine/fifengine-docs"]
+
+:USR-MAN-HTML-EN:   http://fifengine.github.io/docs/user-manual/en/[EN]
+:DEV-MAN-HTML-EN:   http://fifengine.github.io/docs/developer-manual/en/[EN]
+
+
+[width="100%",options="header", cols="2,^1,4"]
+|====================
+| Resource          | Format   | Language / Link
+| User Manual       | HTML     | {USR-MAN-HTML-EN}
+| Developer Manual  | HTML     | {DEV-MAN-HTML-EN}
+| API Documentation | HTML     | http://fifengine.net/api-docu/api-doc.htm
+| Wiki              | HTML     | https://github.com/fifengine/fifengine/wiki
+| Github Pages      | HTML     | http://fifengine.github.io/docs/
+| Docs Repository   | ASCIIDOC | https://github.com/fifengine/fifengine-docs
+|====================

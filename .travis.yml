@@ -1,0 +1,81 @@
+language: ruby
+
+rvm: [2.2.2]
+#python: [2.7]
+
+addons:
+  apt:
+    packages:
+    # fetch Ghostscript to optimize/minimize the PDF, if > 5MB
+    #- ghostscript
+    # optional dependencies for asccidoctor-diagram
+    - graphviz
+    - ditaa
+
+cache:
+  apt: true
+  #directories:    
+    #- $HOME/.cache/pip
+
+install:
+  - gem install asciidoctor
+  # PDF generator
+  - gem install --no-ri --no-rdoc --pre asciidoctor-pdf
+  # syntax highlighter
+  - gem install --no-ri --no-rdoc coderay pygments.rb
+  # diagram support
+  - gem install --no-ri --no-rdoc asciidoctor-diagram
+  # optionally install more diagram tools: blockdiag, seqdiag, actdiag and nwdiag
+  #- pip install --user blockdiag actdiag seqdiag nwdiag
+  #- pip install --user shaape
+  - gem install slim tilt haml
+  # AsciiDoctor Stylesheet Factory - Dependencies
+  - gem install --version '0.12.7' compass --no-ri --no-rdoc
+  - gem install --version '4.3.2' zurb-foundation --no-ri --no-rdoc
+  # AsciiDoctor Stylesheet Factory
+  - wget https://github.com/asciidoctor/asciidoctor-stylesheet-factory/archive/master.zip
+  - unzip master.zip
+  - rm master.zip
+  - cd asciidoctor-stylesheet-factory-master
+  #- ./build-stylesheet.sh colony.css
+  - compass compile
+  - cp -pr stylesheets ../user-manual/
+  - cp -pr stylesheets ../developer-manual/
+  - cd ..  
+  # Copy Images
+  - mkdir -p user-manual/images
+  - cp -p images/* user-manual/images
+
+before_script:
+  - asciidoctor --version
+  - asciidoctor-pdf --version
+  #- asciidoctor-diagram --version
+  - ls -alF
+
+script:
+  # create user-manual
+  - asciidoctor -a stylesheet=../stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a toc=left -a linkcss -a toclevels=2 -a revnumber=$TRAVIS_TAG user-manual/en/book.adoc -o user-manual/en/index.html -v
+  #- asciidoctor -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$TRAVIS_TAG user-manual/en/book.adoc -o user-manual/en/book.pdf -v
+  # create developer-manual
+  - asciidoctor -r asciidoctor-diagram -a stylesheet=../stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a toc=left -a linkcss -a toclevels=2 -a revnumber=$TRAVIS_TAG developer-manual/en/book.adoc -o developer-manual/en/index.html -v
+  #- asciidoctor -r asciidoctor-diagram -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$TRAVIS_TAG developer-manual/en/book.adoc -o developer-manual/en/book.pdf -v
+  # create an index entry page for the website @ http://fifengine.github.io/docs/
+  - asciidoctor README.adoc -o index.html -v
+  # apply PDF document optimizations
+  #- ./bin/optimize-pdf user-manual/en/book.pdf
+  #- ./bin/optimize-pdf developer-manual/en/book.pdf
+  - ls -alF user-manual
+  - ls -alF developer-manual
+  # cleanup (remove folders before commiting to gh-pages)
+  - rm -r asciidoctor-stylesheet-factory-master/
+  - rm -r pdf/
+
+after_success:
+  - ./publish.sh  
+
+env:
+  global:
+    - secure: y+7/Ltd+JR821O81K0Ed6nqMMr8HsJkN7E081wbj/eQxrt1pVgoe8C5zYZjtp7DXwONZGY77j6940hsIx5HsdV6B/C4ollefloz++T2f9gaVAfsejb67l8m35NScs5YQO3QveIPmHaGY8wP6fFkGTdbv+tBO4/cHt1fGifivovOJHLIUmu3I9IGNZNN4kHeu1dNJ5FytHlHlnJgY3r8wCc3qlMA9iGCPYlgoF5dR7MDQ2Cire1xq3t5OnJ/W4kL5NkWtRMcdKhK9WoN88767+PvDPGdUUSdXQLDebVCXVWj8m6pynGo4NYjDqU4B7xa7WqgXXVz/apyMlxlQZOzcJp9TF4A9iON6vAX4gwq5N5QUrf2is1urVQgvL9I2iFZuE6GJyxgeD0lYt0hWPTNh1zF8K1ps4Se8oGWHQOuZV0M6oCqs48XbfHFBJliEOTOAKaXi+eyOQYWg1olSo6u5KY8C7OCO6MggE6GRH6N+YKkvQZiYB7XHjU6OcRKqOfXH2juhWeyC5h3GZCa7eESe92Lf5jCJ8nZ8arpXUM1fN0Wf+qCmbB4xcFJeJmBUDCh5jwTK2uiw4Mnm0WmffFh45Cyh0tzd0wN5X/K7jl0TwXOK1RRefNyOzvZXzEHZBQ7Eksib1oSFOTge1SXEVWIH6n6eXo1UcE1Y9pmBkM9HGAM=
+
+git:
+  depth: 10

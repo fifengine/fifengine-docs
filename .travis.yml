@@ -10,7 +10,7 @@ addons:
     #- ghostscript
     # optional dependencies for asccidoctor-diagram
     - graphviz
-    - ditaa
+    #- ditaa - not whitelisted, yet; install via apt-get, see below
 
 cache:
   apt: true
@@ -18,6 +18,9 @@ cache:
     #- $HOME/.cache/pip
 
 install:
+  # install ditaa (for asciidoctor-diagram)
+  - sudo apt-get -qq update && sudo apt-get install -y ditaa  
+  # install AsciiDoctor
   - gem install asciidoctor
   # PDF generator
   - gem install --no-ri --no-rdoc --pre asciidoctor-pdf

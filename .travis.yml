@@ -3,14 +3,11 @@ language: ruby
 rvm: [2.2.2]
 #python: [2.7]
 
-addons:
-  apt:
-    packages:
+#addons:
+  #apt:
+    #packages:
     # fetch Ghostscript to optimize/minimize the PDF, if > 5MB
     #- ghostscript
-    # optional dependencies for asccidoctor-diagram
-    - graphviz
-    #- ditaa - not whitelisted, yet; install via apt-get, see below
 
 cache:
   apt: true
@@ -18,8 +15,8 @@ cache:
     #- $HOME/.cache/pip
 
 install:
-  # install ditaa (for asciidoctor-diagram)
-  - sudo apt-get -qq update && sudo apt-get install -y ditaa  
+  # install optional dependencies for asccidoctor-diagram
+  - sudo apt-get -qq update && sudo apt-get install -y ditaa plantuml graphviz
   # install AsciiDoctor
   - gem install asciidoctor
   # PDF generator

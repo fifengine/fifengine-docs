@@ -16,6 +16,6 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 | Python API Documentation | HTML     | http://www.fifengine.net/epydoc
 | Python API Logs          | HTML     | http://www.fifengine.net/epydoc/epydoc-log.html
 | Wiki                     | HTML     | https://github.com/fifengine/fifengine/wiki
-| Github Pages             | HTML     | http://fifengine.github.io/docs/
+| Github Pages             | HTML     | https://fifengine.github.io/fifengine-docs/
 | Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifengine-docs
 |====================

@@ -53,6 +53,6 @@ include::chapter01_getting-started.adoc[]
 
 //include::appendix.adoc[]
 //include::bibliography.adoc[]
-//include::glossary.adoc[]
+include::glossary.adoc[]
 
 //include::colophon.adoc[]

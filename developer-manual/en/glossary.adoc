@@ -32,6 +32,8 @@ Elevation::
     Map consists of elevations. Elevation can be thought as a floor in case you think map being a building. Each map has to have at least one elevation.
 Event:: 
     TODO
+FifeChan::
+    FifeChan is a C++ GUI library (libfifechan). It's the successor of GuiChan. The pythonic binding to the C++ API is called PyChan.
 Game creator::
    A single person or a whole team of individuals who create a FIFE-based game.
 Gamma level:: 
@@ -58,6 +60,8 @@ Offset::
     TODO
 Palette:: 
     TODO
+PyChan::
+    PyChan is the pythonic binding to the C++ API of the GUI library FifeChan.
 Spritesheet animation::
     Specific type of atlas that represents only one action (animations for all defined directions). Typically, it's one direction per row, one frame per column.
 Tid:: 

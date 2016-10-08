@@ -19,7 +19,9 @@ For this reason we are constantly looking for help.
 --
 * Engine developers - All skill levels in C++ and Python
 * Web designers - Our website needs an overhaul
+* Packagers - We want to improve or cross-platform build automation
 * Artists - They are always welcome to contribute some art where it's needed
+* Documentors - We want to improve our manuals and API docs
 --
 
 .Engine developers

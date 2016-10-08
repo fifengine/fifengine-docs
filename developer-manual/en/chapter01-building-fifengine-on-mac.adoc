@@ -19,3 +19,5 @@
 ===== Using packaged dependencies
 
 ==== Building Fifengine
+
+Finally, we can compile Fifengine.

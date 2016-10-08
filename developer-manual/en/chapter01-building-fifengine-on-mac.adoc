@@ -1,1 +1,1 @@
-==== Building Fifengine from Source on Mac
+==== Building Fifengine on Mac

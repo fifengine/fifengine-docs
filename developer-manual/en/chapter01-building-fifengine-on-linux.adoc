@@ -1,14 +1,54 @@
-==== Building Fifengine from Source on Linux
+=== Building Fifengine on Linux
 
 This guide will help you build fife on various flavors of linux.
 
-===== Getting started
+==== Environment: IDE
 
-As we do not provide a linux development kit, you have to ensure that all [[dependencies]] are installed properly. 
+The are several good IDEs available, including:
 
-This includes the installation of required build tools like Python 2.7+, CMake and Clang or gcc. 
+- http://codeblocks.org[CodeBlocks]
+  - http://www.codeblocks.org/downloads/26#linux[Downloading CodeBlocks for Linux]
+- http://www.kdevelop.org/[KDevelop]
+  - https://userbase.kde.org/KDevelop/Install#How_to_install_KDevelop[How to install KDevelop?]
 
-Of course, you need to download the [[fife source code|Downloads#source]] package or download the latest source from [[git]].
+==== Environment: build tools
+
+Now, that you have an IDE installed, you need to setup the required build tools.
+This includes an compiler of your choice, the build system CMake, the interface generator Swig and Python.
+
+===== Compiler
+
+You can compile fife with `gcc` or `clang`.
+
+===== CMake
+
+Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.
+
+https://cmake.org/download/
+
+===== SWIG
+
+Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.
+
+http://www.swig.org/
+
+===== Python (2.7+)
+
+To build the Python extension you need Python. Fife works with Python 2.7+. 
+
+NOTE: We are working on Python 3 support.
+
+==== Dependencies
+
+We do not provide a pre-packaged linux development kit.
+
+You have to ensure that all dependencies are installed properly, before you try to build fifengine itself. 
+
+You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
+
+===== Building dependencies from source
+
+===== Using packaged dependencies
 
 ====== Debian based systems
 
@@ -42,9 +82,16 @@ pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zl
 
 **NOTE** that you will also need to install [fifechan](http://fifengine.github.com/fifechan/) from source, until it's available as a debian package.
 
-===== Building fife
+==== Building Fifengine
 
-Once all of the [[dependencies]] have been installed properly change directory to `<fife>` and type: "mkdir _build; cd _build; cmake ..".
+Finally, we can compile Fifengine.
+
+To build Fife, you'll of course need the Fife source code. 
+You can download a Fife source code package or fetch the latest source using git.
+
+Please switch into the `<fife>` source directory. 
+
+Then type: `mkdir _build; cd _build; cmake ..`.
 
 ===== Running the demos
 

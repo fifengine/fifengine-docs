@@ -7,12 +7,19 @@ install all the build-tools, install or build all required dependencies
 for finally being able to build fifengine itself.
 
 This chapter explains how to setup a compilation environment for Fife.
-We'll find detailed setup steps for the following operating systems: Linux, Windows and Mac.
+We'll find detailed setup steps for the operating systems Linux, Windows and Mac.
+
+The individual subchapters have the same structure:
+Firstly, we'll setup an IDE, then the compiler toolchain and some additonal build-tools.
+Secondly, we'll discuss how to get all the dependencies, either by building them from source or by using pre-build binaries.
+Thirdly, we'll show how to build fifengine itself.
+
+Without further ado, let's get started.
 
 === Building Fifengine from Source
 
 include::chapter01-building-fifengine-on-linux.adoc[]
 
-include::chapter01-building-fifengine-on-mac.adoc[]
-
 include::chapter01-building-fifengine-on-windows.adoc[]
+
+include::chapter01-building-fifengine-on-mac.adoc[]

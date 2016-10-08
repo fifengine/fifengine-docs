@@ -16,6 +16,8 @@ endif::backend-pdf[]
 :toclevels:           4
 :sectnums:
 :sectnumlevels:       4
+:sectanchors:
+:sectlinks:
 
 :experimental:
 :ascii-ids:

@@ -38,7 +38,21 @@ The following dependencies are needed to build FIFE from source:
 
 === FifeChan
 
+FifeChan is a C++ GUI library. It has several optional dependencies.
 The following dependencies are needed to build FifeChan from source:
+
+* Allegro support
+  ** http://alleg.sourceforge.net/[Allegro]
+
+* OpenGL (check drivers from your graphics card vendor)
+  ** Optional OpenGL Contrib Dependencies (Set `ENABLE_OPENGL_CONTRIB` to `ON` if you need them)
+  *** http://oglft.sourceforge.net/[OpenGL-FreeType] - optional
+
+* SDL support
+  ** http://www.libsdl.org[SDL2]
+  ** http://www.libsdl.org[SDL2_image]
+  ** Optional SDL Contrib Dependencies (Set `ENABLE_SDL_CONTRIB` to `ON` if you need them)
+  *** SDL2_ttf - http://www.libsdl.org
 
 === Atlas Creator 
 

@@ -4,6 +4,6 @@ We have a set of coding standards that have been followed for some time.
 
 They are quite detailed and have been in the following documents:
 
-include::chapter04-cpp-coding-standard.adoc
+include::chapter04-cpp-coding-standard.adoc[]
 
-include::chapter04-python-coding-standard.adoc
+include::chapter04-python-coding-standard.adoc[]

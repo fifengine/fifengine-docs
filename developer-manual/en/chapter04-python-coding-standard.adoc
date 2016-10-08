@@ -1,0 +1,277 @@
+=== Python Coding Standards
+
+We use a slightly modified version of the official 
+[Style Guide for Python code](http://www.python.org/dev/peps/pep-0008/) as a basis for our coding standards. 
+This article describes our modifications and additions and also contains a summary of the coding standards. 
+Reading the official style guide is highly recommended before moving on, as this article merely complements it.
+
+## Files
+* Python files end with .py
+* Only one class per py file. (With a exception for classes that are extremely simple and clearly belong together.)
+* The files should be named after the (main)class they implement, but all in lowercase.
+
+## Executable python files
+Python files which are meant to be executed directly, should have a shebang on the very first line.  
+If your python file is not made for direct execution, it should not have neither a shebang.
+
+The shebang we use is: `#!/usr/bin/env python`
+
+## Naming Conventions
+
+### General
+
+* Internal or non-public variables, functions or classes are prefixed with an underscore
+* If you **really** do not want subclasses or other parts of python to use a member or method, 
+prefix it with two underscores to invoke python's name mangling
+
+### Package and module names
+* Module names are named after the class it contains, but all lowercase
+* Package names are also lowercase. Do not use underscores: `_`
+
+### Class names
+* Class names use CamelCase. Example: `TestFactory`, **not** `test_factory`, `testFactory`, `Test_Factory`, etc.
+
+### Function and method names
+**This differ from python style guide**
+* Function names start with a small letter. (Example: `def getRoofVisible()`)
+
+### Function and method arguments
+* Always use `self` for the first argument to instance methods. (Example: `def setVisible(self, visible):`)
+* Always use `cls` for the first argument to [class methods](http://docs.python.org/library/functions.html#classmethod). 
+
+**TODO: Write an example**
+
+### Variables and constants
+* Class members start with a prefix _ and are all lowercase (Example: `_roofshift_x` )
+* Parameter variables have no prefix and are also all lowercase. (Example: `myparamvar`)
+* Local variables have no prefix and are all lowercase. (Example: `mylocalvar`)
+
+* Constants are all uppercase with underscore separating the words. Example: `MAX_LINES`
+
+## Coding Style
+
+### Indentation & Whitespace
+* Indentation is done by a real tab. **This differs from python style guide!**
+* Use 4 spaces per indentation level.
+* **Never mix tabs and spaces!**
+* Don't leave whitespace at the end of lines.
+* Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.
+
+### Blank lines
+* Separate top-level functions and class definitions with two blank lines.
+* Method definitions inside a class are separated by a single blank line.
+* Extra blank lines may be used (sparingly) to separate groups of related functions.
+* Use blank lines in functions, sparingly, to indicate logical sections.
+
+### Imports
+* Only one import per line
+
+```py
+# Yes:
+  import os
+  import sys
+
+# No:
+  import os, sys
+```
+
+* Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
+* Imports should be grouped in the following order, separated by a blank line:
+  1. standard library imports
+  2. related third party imports
+  3. local application/library specific imports
+* Always use the absolute package path for all imports.
+
+### Functions
+
+* Keep your functions simple.
+
+### Arguments
+
+Avoid using boolean parameters and if you need them, supply as keywords arguments. 
+If you use them and you can supply the as positional arguments - don't. 
+The rationale here is that the meaning of boolean arguments is very difficult to see for the reader otherwise:
+
+```py
+  # Bad - What does the arg mean? Don't layout?
+  self.adaptLayout(False)
+  
+  # Good - At least the reader has an idea what the arguments means.
+  self.adaptLayout(recurse=False)
+```
+
+### Multiple Inheritance
+
+* In case you feel tempted to use multiple inheritance, 
+read this first: http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4 (even the whole article is a good read).
+* In most of the cases, you can avoid multiple inheritance altogether with proper design. 
+If you still feel urge to use it, try to use pure interfaces (no method implementations in addition to empty destructor). 
+Prefix these classes with `I`-letter (e.g. `ITriggerController`)
+* If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.
+
+## Commenting / Documentation
+**TODO: Add class documentation documentation.**
+
+The level of commenting outlined here may seem excessive, 
+but it will make the code much easier to understand when a new coder has to work with the system, 
+something that will inevitably be happening in an Open Source project like FIFE. 
+So please, don't become lax with the commenting.
+
+This is even more important as we only provide the engine. 
+Remember each comment might fix a misunderstanding and thus problem for the game devs using FIFE.
+
+Write the public documentation and comments from the point of a user.
+
+### Implementation
+* Try to write code someone else understands without any comment.
+* If you need to do something uncommon, or some special trick, comment.
+* Don't comment on something obvious.
+
+### Commenting Files
+
+All files should have a documentation string. 
+That is **the** place to document the interaction and purpose of the module. 
+You should link to most relevant classes and functions for the module. 
+Try to explicitly state bugs, shortcomings and the dark and fuzzy areas of the code which need improvement.
+
+```py
+  """
+  Foo Module
+  ==========
+  
+  ...
+  
+  Performance Issues
+  ------------------
+  
+  If you encounter performance issues with the Foo class. Remember
+  That the @L{FooSet.findSomething} method needs to iterate over all
+  foo instances. Do not use it in an inner loop. Instead use @L{getQueryDict}.
+  
+  Good::
+    d = foo.getQueryDict()
+    for name in names:
+       for foo_instance in d.get(name,[]):
+          doSomething( foo_instance )
+  
+  Bad::
+    for name in names:
+       for foo_instance in foo.findSomething(name):
+          doSomething( foo_instance )
+  """
+```
+
+### Commenting Methods
+
+All methods should be documented, no matter how trivial. 
+Here's an example of how to document using epydoc style. 
+If possible link to other relevant functions, 
+provide a use case and give information on the expected results of the function.
+
+```py
+ def findSomething(self, param):
+    """ Find all instances of foo, which match param
+    
+    Matching is performed by string comparison @C{foo.name == param}.
+    See @L{querySomething} for more complex queries.
+    
+    Example::
+       fooList = stuff.findSomething("some")
+       for x in fooList:
+           print x.name # This will print 'some'
+    """
+```
+
+Comments inside the body of a method should be kept to a minimum in simple functions again. 
+But in large functions, especially those that encapsulate key algorithms, 
+relatively detailed descriptions of how the code is operating will make it much more maintainable.
+
+```py
+ # converts from screen space to world space
+ x += xoffset
+ y += yoffset
+ 
+ # checks to see if an image is already loaded.
+ loaded = image.getImageData() is not None
+```
+
+### Commenting Variables
+
+Member variables should all be commented. Either individual variables, 
+or blocks of variables with a similar function, as long as all member variables 
+are in some way described. This is not a substitute for good variable names, 
+but rather a way to make clear the use of each member variable.
+
+The documentation should be in the `__init__` function.
+
+```py
+ def __init__(self):
+    # Initialise the window size with sane defaults.
+    self.window_width = self.DEFAULT_SIZE[0]
+    self.window_height = self.DEFAULT_SIZE[1]
+    
+    # The command object handles all our commands.
+    # We proxy in the doXYZ() methods.
+    self.command = CommandObject(self)
+```
+
+Parameters are all commented in the method description comment block so additional comments are unnecessary.
+
+Descriptions of local variables shouldn't be necessary as long as descriptive names are used.
+
+### Gotchas
+
+Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
+Consider a robot will parse your comments looking for keywords, stripping them out, 
+and making a report so people can make a special effort where needed.
+
+* Gotcha Keywords
+  * **TODO: topic**
+    * Means there's more to do here, don't forget.
+  * **FIXME: topic**
+    * Means there's a known bug here, explain it and optionally give a trac id
+
+## License
+
+### FIFE Python header
+
+```py
+# -*- coding: utf-8 -*-
+
+# ####################################################################
+#  Copyright (C) 2005-2013 by the FIFE team
+#  http://www.fifengine.net
+#  This file is part of FIFE.
+#
+#  FIFE is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Lesser General Public
+#  License as published by the Free Software Foundation; either
+#  version 2.1 of the License, or (at your option) any later version.
+#
+#  This library is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public
+#  License along with this library; if not, write to the
+#  Free Software Foundation, Inc.,
+#  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# ####################################################################
+```
+
+### Borrowing code
+
+* If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
+* If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
+* You can use this example as a template in this case:
+
+```
+# ###########################################################################
+#  Note! FIFE event channel borrows heavily from ideas of Guichan library
+#  version 0.6                                                            
+# ###########################################################################
+```
+
+## References
+* [Style Guide for Python code](http://www.python.org/dev/peps/pep-0008/)

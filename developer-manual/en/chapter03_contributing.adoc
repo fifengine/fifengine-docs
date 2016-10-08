@@ -14,15 +14,15 @@ not to mention full recognition for your work! It might help out on that next jo
 This is an open source project and developers are contributing on their own time. 
 For this reason we are constantly looking for help.
 
-[sidebar]
+[NOTE] 
 .We are looking for:
---
+====
 * Engine developers - All skill levels in C++ and Python
 * Web designers - Our website needs an overhaul
 * Packagers - We want to improve or cross-platform build automation
 * Artists - They are always welcome to contribute some art where it's needed
 * Documentors - We want to improve our manuals and API docs
---
+====
 
 .**Engine developers**
 

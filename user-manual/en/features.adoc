@@ -11,34 +11,34 @@ NOTE: Just because a feature is listed here does not mean that feature is 100% b
 === Audio
 
   * Supported Formats
-    * http://www.vorbis.com/[OggVorbis]
+    ** http://www.vorbis.com/[OggVorbis]
   * Large file streaming
   * Looping
 
 === Development Helpers
 
   * Logger
-    * Module specific logging functionality
-    * Logging according to priority levels
-    * Logging output to file and stdout
+    ** Module specific logging functionality
+    ** Logging according to priority levels
+    ** Logging output to file and stdout
 
 === Editor tools
 
   * Map Editor
-    * Multi Map Interface (edit multiple maps at the same time)
-    * Object Selector
-    * Deleting instances from map layer
-    * Loading existing maps
-    * Placing instances on map layer
-    * Saving maps
-    * Undo/Redo support for instances
-    * Object Editor plugin
-    * Light Editor plugin
-    * Camera Editor plugin
+    ** Multi Map Interface (edit multiple maps at the same time)
+    ** Object Selector
+    ** Deleting instances from map layer
+    ** Loading existing maps
+    ** Placing instances on map layer
+    ** Saving maps
+    ** Undo/Redo support for instances
+    ** Object Editor plugin
+    ** Light Editor plugin
+    ** Camera Editor plugin
   * Image Atlas Creator
-    * Create/Edit image atlases
-    * cross-platform
-    * written in C++ using the http://qt-project.org/[Qt framework]
+    ** Create/Edit image atlases
+    ** cross-platform
+    ** written in C++ using the http://qt-project.org/[Qt framework]
 
 === Event handling
 
@@ -60,14 +60,14 @@ Support for following font formats:
 
   * Ingame console with support for executing Python code / scripts
   * Fully customizable GUIs via
-    * https://github.com/fifengine/fifechan[fifechan]
-      * Python wrapper via our pychan extension
-      * XML layouts
-      * Skinable
-    * http://www.cegui.org.uk[CEGUI]
-      * Python wrapper http://cegui.org.uk/wiki/PyCEGUI[PyCEGUI]
-    * http://librocket.com/[librocket]
-      * http://librocket.com/wiki/documentation/PythonManual[Python wrapper]
+    ** https://github.com/fifengine/fifechan[fifechan]
+      *** Python wrapper via our pychan extension
+      *** XML layouts
+      *** Skinable
+    ** http://www.cegui.org.uk[CEGUI]
+      *** Python wrapper http://cegui.org.uk/wiki/PyCEGUI[PyCEGUI]
+    ** http://librocket.com/[librocket]
+      *** http://librocket.com/wiki/documentation/PythonManual[Python wrapper]
 
 === Graphics
 
@@ -100,7 +100,7 @@ Support for following font formats:
 ==== Pathfinding
 
   * Exchangable pathfinding backends:
-    * Route path finder
+    ** Route path finder
 
 === Scripting
 
@@ -131,14 +131,14 @@ Support for following font formats:
   * Top down/side views
   * Correct z-order sorting of map instances
   * Support for different renderers:
-    * Blocking renderer
-    * Cell selection renderer
-    * Coordinate renderer
-    * Floating text renderer
-    * Grid renderer
-    * Instance renderer
-    * Quadtree renderer
-    * Light renderer (OpenGL only)
+    ** Blocking renderer
+    ** Cell selection renderer
+    ** Coordinate renderer
+    ** Floating text renderer
+    ** Grid renderer
+    ** Instance renderer
+    ** Quadtree renderer
+    ** Light renderer (OpenGL only)
   * Static layer support which renders an entire layer as one texture
 
 === Virtual file system

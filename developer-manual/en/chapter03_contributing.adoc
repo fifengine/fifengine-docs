@@ -1,6 +1,17 @@
 == Contributing
 
-So, you've got an awesome idea to throw into FIFE or you want to contribute by fixing an https://github.com/fifengine/fifengine/issues[Issue].
+Interested in fife and want to help out? Do you see something that needs improving? 
+Better yet, do you have a solution to one of our open issues? 
+
+If you've got an awesome idea to throw into FIFE or you want to contribute by fixing an https://github.com/fifengine/fifengine/issues[Issue].
+
+You can support the project in all sorts of areas and we would graciously accept any contributions you have to offer!
+
+We are especially looking for:
+
+* Engine developers - All skill levels in C++ and Python
+* Web designers - Our website needs an overhaul
+* Artists - They are always welcome to contribute some art where it's needed
 
 IMPORTANT: Please follow the [[C++ Coding Standards|coding-standards]] or [[Python Coding Standards|Python-coding-standards]] when modifying code.
 

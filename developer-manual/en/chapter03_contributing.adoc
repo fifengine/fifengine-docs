@@ -6,6 +6,9 @@ Better yet, do you have a solution to one of our https://github.com/fifengine/fi
 You can support the project in all sorts of areas and we would graciously accept any contributions you have to offer!
 Please don't hesitate, if you've got an awesome idea to throw into FIFE.
 
+The best part about contributing to an open source project is you get the satisfaction of improving a project, 
+not to mention full recognition for your work! It might help out on that next job application!
+
 [sidebar]
 .We are looking for:
 --
@@ -14,7 +17,6 @@ Please don't hesitate, if you've got an awesome idea to throw into FIFE.
 * Artists - They are always welcome to contribute some art where it's needed
 --
 
-IMPORTANT: Please follow the [[C++ Coding Standards|coding-standards]] or [[Python Coding Standards|Python-coding-standards]] when modifying code.
 
 === Workflow
 
@@ -28,6 +30,8 @@ Here's the most direct way to get your work merged into the project:
 * Push the branch up ( `git push origin my_awesome_feature` ).
 * Create a pull request against fifengine/fifengine and describe what your change
   does and the why you think it should be merged.
+
+IMPORTANT: Please follow the [[C++ Coding Standards|coding-standards]] or [[Python Coding Standards|Python-coding-standards]] when modifying code.
 
 === Gotchas
 

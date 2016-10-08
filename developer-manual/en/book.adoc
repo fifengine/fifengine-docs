@@ -63,6 +63,8 @@ include::chapter02_engine-overview.adoc[]
 
 //include::appendix.adoc[]
 //include::bibliography.adoc[]
+
+include::list-of-dependencies.adoc[]
 include::glossary.adoc[]
 
 //include::colophon.adoc[]

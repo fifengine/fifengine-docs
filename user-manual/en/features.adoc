@@ -1,0 +1,148 @@
+[features]
+== Features
+
+This chapter describes all the features the engine currently supports in the https://github.com/fifengine/fifengine[master branch]. 
+Features are organized into categories for easy reference. 
+
+As we continue to add features to FIFE, we will update this article to keep it up to date. 
+
+NOTE: Just because a feature is listed here does not mean that feature is 100% bug free. You may from time to time stumble upon a bug. Please file any bugs you find using our {issues-ref}[Issue Tracker] on Github.
+
+=== Audio
+
+  * Supported Formats
+    * http://www.vorbis.com/[OggVorbis]
+  * Large file streaming
+  * Looping
+
+=== Development Helpers
+
+  * Logger
+    * Module specific logging functionality
+    * Logging according to priority levels
+    * Logging output to file and stdout
+
+=== Editor tools
+
+  * Map Editor
+    * Multi Map Interface (edit multiple maps at the same time)
+    * Object Selector
+    * Deleting instances from map layer
+    * Loading existing maps
+    * Placing instances on map layer
+    * Saving maps
+    * Undo/Redo support for instances
+    * Object Editor plugin
+    * Light Editor plugin
+    * Camera Editor plugin
+  * Image Atlas Creator
+    * Create/Edit image atlases
+    * cross-platform
+    * written in C++ using the http://qt-project.org/[Qt framework]
+
+=== Event handling
+
+The following event types are supported and can be bound to scripting functionality:
+
+  * Mouse events
+  * Keyboard events
+  * Widget events
+  * Custom commands
+
+=== Fonts
+
+Support for following font formats:
+
+  * True type http://www.libsdl.org/projects/SDL_ttf/[SDL_ttf]
+  * Bitmap fonts
+
+=== Graphical User Interface
+
+  * Ingame console with support for executing Python code / scripts
+  * Fully customizable GUIs via
+    * https://github.com/fifengine/fifechan[fifechan]
+      * Python wrapper via our pychan extension
+      * XML layouts
+      * Skinable
+    * http://www.cegui.org.uk[CEGUI]
+      * Python wrapper http://cegui.org.uk/wiki/PyCEGUI[PyCEGUI]
+    * http://librocket.com/[librocket]
+      * http://librocket.com/wiki/documentation/PythonManual[Python wrapper]
+
+=== Graphics
+
+==== General
+
+  * Support for all formats implemented by http://www.libsdl.org/projects/SDL_image/[SDL_image]
+  * Color key support
+  * Take ingame screenshots via hotkey
+  * Pooling of image resources, resulting enhanced performance and reduced memory consumption
+  * Image atlases (many images contained in one file)
+
+==== Animations
+
+  * Multiple definable key frame animations per object
+
+==== Effects
+
+  * Lighting (OpenGL renderer only)
+  * Fog of War (OpenGL renderer only)
+
+==== Maps
+
+  * 3D geometry definition (defined by tilt, rotation and scale)
+  * Support for different tile and object grids with independent geometries 
+  * Multiple layers per map
+  * All variations of square and hex shape geometries
+  * Multiple cameras / views per map
+  * Custom XML-based map file format
+
+==== Pathfinding
+
+  * Exchangable pathfinding backends:
+    * Route path finder
+
+=== Scripting
+
+  * http://www.python.org/[Python] based scripting system (out of the box)
+  * Scripts be can executed from the console
+
+=== Renderer
+
+  * Support for different renderers via render backend approach (currently SDL + OpenGL backend available)
+  * Various resolutions
+  * Bit-depth (16, 24, 32bit)
+  * Window mode (fullscreen & windowed)
+
+==== SDL
+
+  * Colorkey for fast transparency effects
+
+==== OpenGL
+
+  * Transparency for tiles & objects
+  * Colorkey for fast transparency effects
+  * Lighting effects
+  * Fog of War
+
+=== View
+
+  * Custom Isometric views defined by angle and tilt of camera
+  * Top down/side views
+  * Correct z-order sorting of map instances
+  * Support for different renderers:
+    * Blocking renderer
+    * Cell selection renderer
+    * Coordinate renderer
+    * Floating text renderer
+    * Grid renderer
+    * Instance renderer
+    * Quadtree renderer
+    * Light renderer (OpenGL only)
+  * Static layer support which renders an entire layer as one texture
+
+=== Virtual file system
+
+  * Support for reading files on platforms with different byte orders
+  * Read support for ZIP archives
+  * Lazy loading of files for decreased load times

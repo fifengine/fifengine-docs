@@ -6,3 +6,5 @@ It comes with Python bindings allowing users to create games using Python as wel
 The engine is extendable and enables you to add any feature you can imagine to your project.
 
 This manual describes how to use FIFE to power your game.
+
+include::features.adoc[]

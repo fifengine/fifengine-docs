@@ -1,8 +1,8 @@
 === Building Fifengine on Windows
 
-==== Environment: IDE
+==== Environment: IDE and build tools
 
-==== Environment: build tools
+===== IDE
 
 ===== Compiler
 

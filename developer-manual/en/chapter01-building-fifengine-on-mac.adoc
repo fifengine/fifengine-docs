@@ -1,1 +1,21 @@
-==== Building Fifengine on Mac
+=== Building Fifengine on Mac
+
+==== Environment: IDE
+
+==== Environment: build tools
+
+===== Compiler
+
+===== CMake
+
+===== SWIG
+
+===== Python (2.7+)
+
+==== Dependencies
+
+===== Building dependencies from source
+
+===== Using packaged dependencies
+
+==== Building Fifengine

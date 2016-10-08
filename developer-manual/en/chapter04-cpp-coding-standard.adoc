@@ -205,13 +205,13 @@ enum {
 };
 ```
 
-=== Coding Style/Formatting
+==== Coding Style/Formatting
 
-==== Line Widths
+===== Line Widths
 
   * A line should not exceed 78 characters. The Main argument to do this is because this allows us to easily print readable source code (yes some of us still do this). Also if you have a wide monitor you can fit multiple source files side by side!
 
-==== Braces
+===== Braces
 
   * All braces use the following format. 
 
@@ -248,7 +248,7 @@ if (x == true) {
 
 This is clearer, less likely to cause future errors and has no effect on speed.
 
-==== Indentation & Whitespace
+===== Indentation & Whitespace
 
   * Indentation is done by a real tab and is equivalent to 4 spaces.
   * The content of a namespace is indented.

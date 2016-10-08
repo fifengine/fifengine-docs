@@ -443,7 +443,7 @@ The following are not mandatory but it would be nice if everyone used them consi
 class SomeNiceClass {};
 ```
 
-==== Including examples in your comments
+===== Including examples in your comments
 
 For simple examples you can use **@code** and **@endcode**. 
 
@@ -459,7 +459,7 @@ For simple examples you can use **@code** and **@endcode**.
  */
 ```
 
-=== License
+==== License
 
   * If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
   * If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
@@ -488,6 +488,6 @@ For simple examples you can use **@code** and **@endcode**.
  ***************************************************************************/
 ```
 
-=== References
+==== References
 
   * [C++ Coding Standards](http://www.possibility.com/Cpp/CppCodingStandard.html)

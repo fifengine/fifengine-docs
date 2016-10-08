@@ -235,9 +235,9 @@ and making a report so people can make a special effort where needed.
   * **FIXME: topic**
     * Means there's a known bug here, explain it and optionally give a trac id
 
-=== License
+==== License
 
-==== FIFE Python header
+===== FIFE Python header
 
 ```py
 # -*- coding: utf-8 -*-
@@ -264,6 +264,6 @@ and making a report so people can make a special effort where needed.
 # ####################################################################
 ```
 
-=== References
+==== References
 
 * http://www.python.org/dev/peps/pep-0008/[PEP 8 -- Style Guide for Python Code]

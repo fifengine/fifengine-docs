@@ -17,11 +17,11 @@ The are several good IDEs available, including:
 
 ===== Compiler
 
-You need **msvc** or **gcc** or **mingw-gcc**. 
+You need `msvc` or `gcc` or `mingw-gcc`. 
 
 In case you installed MS Visual Studio, then the MSVC compiler is already installed.
 
-In case you want to build using **gcc**, we suggest using one of the following toolchains:
+In case you want to build using `gcc`, we suggest using one of the following toolchains:
 
 * http://tdm-gcc.tdragon.net/[tdragon's TDM-GCC MinGW]
 ** This compiler and toolchain is also included in our Fife-SDK for MinGW.

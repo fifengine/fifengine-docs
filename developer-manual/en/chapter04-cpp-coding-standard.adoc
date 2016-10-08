@@ -171,15 +171,15 @@ uint32_t myWeightLbs;
 
 [options="header", frame="topbot"]
 |===
-| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing  | Bits | Bytes |
-| int8_t    | signed char                   | signed char                   | Signed   |  8   |   1   |
-| uint8_t   | unsigned char                 | unsigned char                 | Unsigned |  8   |   1   |
-| int16_t   | short                         | short                         | Signed   |  16  |   2   |
-| uint16_t  | unsigned short                | unsigned short                | Unsigned |  16  |   2   | 
-| int32_t   | int                           | int or long                   | Signed   |  32  |   4   |
-| uint32_t  | unsigned int                  | unsigned int or unsigned long | Unsigned |  32  |   4   |
-| int64_t   | long                          | long long                     | Signed   |  64  |   8   |
-| uint64_t  | unsigned long                 | unsigned long long            | Unsigned |  64  |   8   |
+| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing  | Bits | Bytes 
+| int8_t    | signed char                   | signed char                   | Signed   |  8   |   1   
+| uint8_t   | unsigned char                 | unsigned char                 | Unsigned |  8   |   1   
+| int16_t   | short                         | short                         | Signed   |  16  |   2   
+| uint16_t  | unsigned short                | unsigned short                | Unsigned |  16  |   2    
+| int32_t   | int                           | int or long                   | Signed   |  32  |   4   
+| uint32_t  | unsigned int                  | unsigned int or unsigned long | Unsigned |  32  |   4   
+| int64_t   | long                          | long long                     | Signed   |  64  |   8   
+| uint64_t  | unsigned long                 | unsigned long long            | Unsigned |  64  |   8   
 |===
 
 ===== Type Safety

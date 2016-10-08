@@ -63,7 +63,7 @@ uint16_t       m_frameLimit;
 std::string    m_windowTitle;
 ```
 
-This is also known as "lower camel case". See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
+This is also known as "lower camel case". See the http://en.wikipedia.org/wiki/CamelCase[Camel Case] document at wikipedia.
 
 ==== Functions/Methods
 
@@ -90,7 +90,7 @@ void doSomething(int32_t x = 0) { // Correct
 ```
 ==== Function/Method names
 
-  * Use the same rules as for class names except the first letter should be lower case! See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
+  * Use the same rules as for class names except the first letter should be lower case! 
 
 ```
 uint8_t getBitsPerPixel() const; 
@@ -167,11 +167,23 @@ uint32_t myWeightLbs;
 
 ===== Integer types
 
-  * At all times use types as defined in the [C99 Standard Library](http://en.wikipedia.org/wiki/C99_standard_library)
+  * At all times use types as defined in the http://en.wikipedia.org/wiki/C99_standard_library[C99 Standard Library]
+
+[options="header", frame="topbot"]
+|===
+| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing | Bits | Bytes |
+
+| int8_t     
+| signed char                   
+| signed char                   
+| Signed
+| 8 
+| 1 
+
+|===
 
 | Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing | Bits | Bytes |
 |-----------|-------------------------------|-------------------------------|---------|:----:|:-----:|
-|int8_t     | signed char                   | signed char                   | Signed  |    8 |     1 |
 |uint8_t    | unsigned char                 | unsigned char                 | Unsigned|    8 |     1 |
 |int16_t    | short                         | short                         | Signed  |   16 |     2 |
 |uint16_t   | unsigned short                | unsigned short                | Unsigned|   16 |     2 | 

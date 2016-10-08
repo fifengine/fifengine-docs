@@ -207,7 +207,7 @@ enum {
 };
 ```
 
-==== Coding Style/Formatting
+==== Coding Style
 
 ===== Line Widths
 

@@ -41,7 +41,7 @@ prefix it with two underscores to invoke python's name mangling
 
 ===== Function and method arguments
 * Always use `self` for the first argument to instance methods. (Example: `def setVisible(self, visible):`)
-* Always use `cls` for the first argument to [class methods](http://docs.python.org/library/functions.html#classmethod). 
+* Always use `cls` for the first argument to http://docs.python.org/library/functions.html#classmethod[class methods]
 
 **TODO: Write an example**
 
@@ -113,7 +113,7 @@ If you still feel urge to use it, try to use pure interfaces (no method implemen
 Prefix these classes with `I`-letter (e.g. `ITriggerController`)
 * If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.
 
-==== Commenting / Documentation
+==== Commenting
 
 **TODO: Add class documentation.**
 

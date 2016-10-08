@@ -6,7 +6,7 @@ Features are organized into categories for easy reference.
 
 As we continue to add features to FIFE, we will update this article to keep it up to date. 
 
-NOTE: Just because a feature is listed here does not mean that feature is 100% bug free. You may from time to time stumble upon a bug. Please file any bugs you find using our {issues-ref}[Issue Tracker] on Github.
+NOTE: Just because a feature is listed here does not mean that feature is 100% bug free. You may from time to time stumble upon a bug. Please file any bugs you find using our https://github.com/fifengine/fifengine/issues[Issue Tracker] on Github.
 
 === Audio
 

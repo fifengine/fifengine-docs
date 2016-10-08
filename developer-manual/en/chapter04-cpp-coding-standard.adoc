@@ -2,16 +2,16 @@
 
 The following document describes our C++ coding standard.
 
-## Files
+==== Files
 
   * Headers files end with `.h`
   * Source files end with `.cpp`
   * Only one class per h/cpp file. (With a exception for classes that are extremely simple and clearly belong together.)
   * The files should be named after the (main)class they implement, but all in lowercase.
 
-## Conventions
+==== Conventions
 
-### Abbreviations and capitol letters
+===== Abbreviations and capitol letters
 
 We use a mixture of upper and lower camel case (described below). There are
 some cases where you would be tempted to use to capitol letters together. This
@@ -28,16 +28,16 @@ class SdlImage;
 class GuiChanManager;
 ```
 
-### Classes
+==== Classes
 
-#### General guidelines
+===== General guidelines
 
   * Name the class after what it is. If you can't think of what it is that is a clue you have not thought through the design well enough.
   * Compound names of over three words are a clue your design may be confusing various entities in your system. Revisit your design. Try a CRC card session to see if your objects have more responsibilities than they should.
   * Avoid the temptation of bringing the name of the class a class derives from into the derived class's name. A class should stand on its own. It doesn't matter what it derives from.
   * Suffixes are sometimes helpful. For example, if your system uses agents then naming something DownloadAgent conveys real information.
 
-#### Class names
+===== Class names
 
   * First character in a name is upper case
   * Use upper case letters as word separators, lower case for the rest of a word
@@ -51,7 +51,7 @@ class MapView;
 class IResourceManager;
 ```
 
-#### Attribute/Member names
+===== Attribute/Member names
 
   * Start with a `m_`
   * Should not contain any more underscores
@@ -65,9 +65,9 @@ std::string    m_windowTitle;
 
 This is also known as "lower camel case". See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
 
-### Functions/Methods
+==== Functions/Methods
 
-#### General guidelines
+===== General guidelines
 
   * Keep your functions simple.
   * Small functions that should be inlined go to the header file but after the class.
@@ -88,7 +88,7 @@ void doSomething(int32_t x = 0) { // Correct
      .... 
 }
 ```
-#### Function/Method names
+==== Function/Method names
 
   * Use the same rules as for class names except the first letter should be lower case! See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
 
@@ -97,9 +97,9 @@ uint8_t getBitsPerPixel() const;
 bool isFullScreen() const;
 ```
 
-### Variables and parameters
+==== Variables and parameters
 
-#### General guidelines
+===== General guidelines
 
   * **Don't use global variables.**
   * Do not put data definitions in header files.
@@ -146,7 +146,7 @@ int32_t& intReference;
     2. transmitting data over a network
     3. interfacing with external libraries, if those libraries absolutely insist.
 
-#### Variable and parameter names
+===== Variable and parameter names
 
   * Parameter and local variables have no prefix and start with a lowercase letter.
   * Use capitol letters as word separators.
@@ -163,9 +163,9 @@ uint32_t timeoutMsecs;
 uint32_t myWeightLbs;
 ```
 
-#### Types
+==== Types
 
-##### Integer types
+===== Integer types
 
   * At all times use types as defined in the [C99 Standard Library](http://en.wikipedia.org/wiki/C99_standard_library)
 
@@ -180,17 +180,17 @@ uint32_t myWeightLbs;
 |int64_t    | long                          | long long                     | Signed  |   64 |     8 |
 |uint64_t   | unsigned long                 | unsigned long long            | Unsigned|   64 |     8 |
 
-#### Type Safety
+===== Type Safety
 
   * Don't use a #define when an enum or `static const int32_t` is also possible.
   * Do not use the C-style casts; instead use `static_cast`, `dynamic_cast` and `reinterpret_cast` (if really necessary).
 
-#### Const Correctness
+===== Const Correctness
 
   * Be const correct. See: http://www.parashift.com/c++-faq-lite/const-correctness.html
   * Avoid `const_cast`.
 
-#### Magic Numbers
+===== Magic Numbers
 
 Magic numbers are numbers that are compiled into the source code and if they are not properly documented can be difficult to understand what they do.
 
@@ -205,13 +205,13 @@ enum {
 };
 ```
 
-## Coding Style/Formatting
+=== Coding Style/Formatting
 
-### Line Widths
+==== Line Widths
 
   * A line should not exceed 78 characters. The Main argument to do this is because this allows us to easily print readable source code (yes some of us still do this). Also if you have a wide monitor you can fit multiple source files side by side!
 
-### Braces
+==== Braces
 
   * All braces use the following format. 
 
@@ -248,7 +248,7 @@ if (x == true) {
 
 This is clearer, less likely to cause future errors and has no effect on speed.
 
-### Indentation & Whitespace
+==== Indentation & Whitespace
 
   * Indentation is done by a real tab and is equivalent to 4 spaces.
   * The content of a namespace is indented.
@@ -269,11 +269,11 @@ namespace FIFE {
 } //FIFE
 ```
 
-### Includes
+==== Includes
 
   * Try to use forward declarations rather to include other headers to reduce compiletime.
 
-#### Platform specific includes
+===== Platform specific includes
 
   * One of the issues with cross platform engine development are different include paths on different platforms. The FIFE team decided to introduce a set of helper include files to address this issue. You use these files instead of including the platform specific headers directly. Include these files after headers of the C++ std library but before any other 3rd party headers.
   
@@ -295,44 +295,44 @@ namespace FIFE {
 #include "util/math/fife_math.h </pre>
 ```
 
-### Multiple Inheritance
+==== Multiple Inheritance
 
   * In case you feel tempted to use multiple inheritance, read this first: http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4 (the whole article is a good read).
   * In most of the cases, you can avoid multiple inheritance altogether with proper design. If you still feel urge to use it, try to use pure interfaces (no method implementations in addition to empty destructor). Prefix these classes with 'I'-letter (e.g. `ITriggerController`)
   * If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.
 
-### Friend declarations
+==== Friend declarations
 
 In general, don't use friend declarations. Friends tend to get overused, since at first sight they provide quick and easy solution for problem at hand. In many cases however, they violate encapsulation and decrease modularity. There are cases where friends might be beneficial, but consult other developers before making the decision.
 
-### Error Handling
+==== Error Handling
 
   * Use exceptions when something exceptional has happened and cannot be recovered from. Prefer to make an entry in the FIFE log and somehow recover. See the [[Developer guidelines|developer-guidelines]] page for more info on exceptions.
   * Constructors should **always** throw an exception on error conditions.
   * Destructors should **never** throw an exception.
 
-### Sample Source Files
+==== Sample Source Files
 
 Template source files can be found from svn:
 
   * header: [sampleheader.h](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/sampleheader.h)
   * implementation: [samplecpp.cpp](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/samplecpp.cpp)
 
-## Commenting
+=== Commenting
 
 The level of commenting outlined here may seem excessive, but it will make the code much easier to understand when a new coder has to work with the system, something that will inevitably be happening in an Open Source project like FIFE. So please, don't become lax with the commenting.
 
-### Headers
+==== Headers
 
   * Use doxygen-style comments in C++ headers: [Doxygen Manual](http://www.stack.nl/~dimitri/doxygen/manual.html)
 
-### Implementation
+==== Implementation
 
   * Try to write code someone else understands without any comment.
   * If you need to do something uncommon, or some special trick, comment.
   * Don't comment on something obvious.
 
-### Commenting Methods
+==== Commenting Methods
 
 All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable. 
 
@@ -375,7 +375,7 @@ bool loaded;
 loaded = image->getImageData() != 0;
 ```
 
-### Commenting Variables
+==== Commenting Variables
 
 Member variables should all be commented. This is not a substitute for good variable names, but rather a way to make clear the use of each member variable.
 
@@ -394,7 +394,7 @@ Parameters are all commented in the method description comment block so addition
 
 Descriptions of local variables shouldn't be necessary as long as descriptive names are used.
 
-### Commenting Enums
+==== Commenting Enums
 
 When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory. 
 
@@ -407,7 +407,7 @@ enum EnumType {
     int EVal2  /**< enum value 2 */
 };
 ```
-### Doxygen Gotchas
+==== Doxygen Gotchas
 
 Along with other comments, use gotcha keywords to mark unfinished tasks in the code. Consider a robot will parse your comments looking for keywords, stripping them out, and making a report so people can make a special effort where needed.
 
@@ -415,7 +415,7 @@ Along with other comments, use gotcha keywords to mark unfinished tasks in the c
   * **@bug** - This indicates that there is a known bug with the code. Be very descriptive here. Also include a trac ticket!
   * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
 
-### Other Doxygen Comments/Keywords
+==== Other Doxygen Comments/Keywords
 
 The following are not mandatory but it would be nice if everyone used them consistently.
 
@@ -443,7 +443,7 @@ The following are not mandatory but it would be nice if everyone used them consi
 class SomeNiceClass {};
 ```
 
-### Including examples in your comments
+==== Including examples in your comments
 
 For simple examples you can use **@code** and **@endcode**. 
 
@@ -459,7 +459,7 @@ For simple examples you can use **@code** and **@endcode**.
  */
 ```
 
-## License
+=== License
 
   * If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
   * If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
@@ -488,6 +488,6 @@ For simple examples you can use **@code** and **@endcode**.
  ***************************************************************************/
 ```
 
-## References
+=== References
 
   * [C++ Coding Standards](http://www.possibility.com/Cpp/CppCodingStandard.html)

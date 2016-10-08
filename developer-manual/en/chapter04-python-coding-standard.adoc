@@ -5,65 +5,65 @@ We use a slightly modified version of the official
 This article describes our modifications and additions and also contains a summary of the coding standards. 
 Reading the official style guide is highly recommended before moving on, as this article merely complements it.
 
-## Files
+==== Files
 * Python files end with .py
 * Only one class per py file. (With a exception for classes that are extremely simple and clearly belong together.)
 * The files should be named after the (main)class they implement, but all in lowercase.
 
-## Executable python files
+=== Executable python files
 Python files which are meant to be executed directly, should have a shebang on the very first line.  
 If your python file is not made for direct execution, it should not have neither a shebang.
 
 The shebang we use is: `#!/usr/bin/env python`
 
-## Naming Conventions
+=== Naming Conventions
 
-### General
+==== General
 
 * Internal or non-public variables, functions or classes are prefixed with an underscore
 * If you **really** do not want subclasses or other parts of python to use a member or method, 
 prefix it with two underscores to invoke python's name mangling
 
-### Package and module names
+==== Package and module names
 * Module names are named after the class it contains, but all lowercase
 * Package names are also lowercase. Do not use underscores: `_`
 
-### Class names
+==== Class names
 * Class names use CamelCase. Example: `TestFactory`, **not** `test_factory`, `testFactory`, `Test_Factory`, etc.
 
-### Function and method names
+==== Function and method names
 **This differ from python style guide**
 * Function names start with a small letter. (Example: `def getRoofVisible()`)
 
-### Function and method arguments
+==== Function and method arguments
 * Always use `self` for the first argument to instance methods. (Example: `def setVisible(self, visible):`)
 * Always use `cls` for the first argument to [class methods](http://docs.python.org/library/functions.html#classmethod). 
 
 **TODO: Write an example**
 
-### Variables and constants
+==== Variables and constants
 * Class members start with a prefix _ and are all lowercase (Example: `_roofshift_x` )
 * Parameter variables have no prefix and are also all lowercase. (Example: `myparamvar`)
 * Local variables have no prefix and are all lowercase. (Example: `mylocalvar`)
 
 * Constants are all uppercase with underscore separating the words. Example: `MAX_LINES`
 
-## Coding Style
+=== Coding Style
 
-### Indentation & Whitespace
+==== Indentation & Whitespace
 * Indentation is done by a real tab. **This differs from python style guide!**
 * Use 4 spaces per indentation level.
 * **Never mix tabs and spaces!**
 * Don't leave whitespace at the end of lines.
 * Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.
 
-### Blank lines
+==== Blank lines
 * Separate top-level functions and class definitions with two blank lines.
 * Method definitions inside a class are separated by a single blank line.
 * Extra blank lines may be used (sparingly) to separate groups of related functions.
 * Use blank lines in functions, sparingly, to indicate logical sections.
 
-### Imports
+==== Imports
 * Only one import per line
 
 ```py
@@ -82,11 +82,11 @@ prefix it with two underscores to invoke python's name mangling
   3. local application/library specific imports
 * Always use the absolute package path for all imports.
 
-### Functions
+==== Functions
 
 * Keep your functions simple.
 
-### Arguments
+==== Arguments
 
 Avoid using boolean parameters and if you need them, supply as keywords arguments. 
 If you use them and you can supply the as positional arguments - don't. 
@@ -100,7 +100,7 @@ The rationale here is that the meaning of boolean arguments is very difficult to
   self.adaptLayout(recurse=False)
 ```
 
-### Multiple Inheritance
+==== Multiple Inheritance
 
 * In case you feel tempted to use multiple inheritance, 
 read this first: http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4 (even the whole article is a good read).
@@ -109,7 +109,7 @@ If you still feel urge to use it, try to use pure interfaces (no method implemen
 Prefix these classes with `I`-letter (e.g. `ITriggerController`)
 * If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.
 
-## Commenting / Documentation
+=== Commenting / Documentation
 **TODO: Add class documentation documentation.**
 
 The level of commenting outlined here may seem excessive, 
@@ -122,12 +122,12 @@ Remember each comment might fix a misunderstanding and thus problem for the game
 
 Write the public documentation and comments from the point of a user.
 
-### Implementation
+==== Implementation
 * Try to write code someone else understands without any comment.
 * If you need to do something uncommon, or some special trick, comment.
 * Don't comment on something obvious.
 
-### Commenting Files
+==== Commenting Files
 
 All files should have a documentation string. 
 That is **the** place to document the interaction and purpose of the module. 
@@ -161,7 +161,7 @@ Try to explicitly state bugs, shortcomings and the dark and fuzzy areas of the c
   """
 ```
 
-### Commenting Methods
+==== Commenting Methods
 
 All methods should be documented, no matter how trivial. 
 Here's an example of how to document using epydoc style. 
@@ -195,7 +195,7 @@ relatively detailed descriptions of how the code is operating will make it much 
  loaded = image.getImageData() is not None
 ```
 
-### Commenting Variables
+==== Commenting Variables
 
 Member variables should all be commented. Either individual variables, 
 or blocks of variables with a similar function, as long as all member variables 
@@ -219,7 +219,7 @@ Parameters are all commented in the method description comment block so addition
 
 Descriptions of local variables shouldn't be necessary as long as descriptive names are used.
 
-### Gotchas
+==== Gotchas
 
 Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
 Consider a robot will parse your comments looking for keywords, stripping them out, 
@@ -231,9 +231,9 @@ and making a report so people can make a special effort where needed.
   * **FIXME: topic**
     * Means there's a known bug here, explain it and optionally give a trac id
 
-## License
+=== License
 
-### FIFE Python header
+==== FIFE Python header
 
 ```py
 # -*- coding: utf-8 -*-
@@ -260,7 +260,7 @@ and making a report so people can make a special effort where needed.
 # ####################################################################
 ```
 
-### Borrowing code
+==== Borrowing code
 
 * If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
 * If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
@@ -273,5 +273,5 @@ and making a report so people can make a special effort where needed.
 # ###########################################################################
 ```
 
-## References
+=== References
 * [Style Guide for Python code](http://www.python.org/dev/peps/pep-0008/)

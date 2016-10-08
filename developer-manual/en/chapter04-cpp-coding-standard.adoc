@@ -252,11 +252,11 @@ This is clearer, less likely to cause future errors and has no effect on speed.
 
 ===== Indentation & Whitespace
 
-  * Indentation is done by a real tab and is equivalent to 4 spaces.
+  * Indentation is done by 4 spaces.
   * The content of a namespace is indented.
   * Don't leave whitespace at the end of lines.
-  * private:, public:, and protected: are in line with the class definition.
-  * Code after private:, public:, protected: and case foo: is indented.
+  * `private:`, `public:`, and `protected:` are in line with the class definition.
+  * Code after `private:`, `public:`, `protected:` and `case foo:` is indented.
   * Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.
 
 ```

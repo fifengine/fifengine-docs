@@ -4,6 +4,13 @@
 
 ===== IDE
 
+The are several good IDEs available, including:
+
+* http://developer.apple.com/tools/xcode/[XCode]
+** http://www.codeblocks.org/downloads/26#windows[Downloading CodeBlocks for Windows]
+* https://code.visualstudio.com/download[Microsoft "Visual Studio Code"]
+** https://code.visualstudio.com/download[Download "Visual Studio Code"]
+
 ===== Compiler
 
 ===== CMake

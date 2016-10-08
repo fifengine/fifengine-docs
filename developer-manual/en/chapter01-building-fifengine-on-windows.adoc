@@ -4,13 +4,51 @@
 
 ===== IDE
 
+The are several good IDEs available, including:
+
+* https://www.visualstudio.com/[Microsoft Visual Studio]
+** https://www.visualstudio.com/downloads/[Download Visual Studio Community]
+** https://go.microsoft.com/fwlink/?LinkId=691978&clcid=0x409[Download Visual Studio Community - Webinstaller (english)]
+** https://go.microsoft.com/fwlink/?LinkId=691978&clcid=0x407[Download Visual Studio Community - Webinstaller (german)]
+* https://code.visualstudio.com/download[Microsoft "Visual Studio Code" Editor]
+** https://code.visualstudio.com/download[Download "Visual Studio Code"]
+* http://codeblocks.org/[CodeBlocks]
+** http://www.codeblocks.org/downloads/26#windows[Downloading CodeBlocks for Windows]
+
 ===== Compiler
+
+You need msvc or gcc or mingw-gcc. 
+
+In case you installed MS Visual Studio, then the MSVC compiler is already installed.
+
+In case you want to build using `gcc`, we suggest using one of the following toolchains:
+
+* http://tdm-gcc.tdragon.net/[tdragon's TDM-GCC MinGW]
+** This compiler and toolchain is also included in our Fife-SDK for MinGW.
+* http://mingw-w64.org/[MinGW-W64]
 
 ===== CMake
 
+Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.
+
+https://cmake.org/download/
+
 ===== SWIG
 
+Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.
+
+http://www.swig.org/
+
 ===== Python (2.7+)
+
+To build the Python extension you need Python. Fife works with Python 2.7+. 
+
+NOTE: We are working on Python 3 support.
+
+* http://python.org/[Python]
+** https://www.python.org/downloads/windows/[Python Downloads for Windows]
+** https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi[Download Python 2.7.12 (msi)]
+** https://www.python.org/ftp/python/3.5.2/python-3.5.2.exe[Download Python 3.5.2 (exe)]
 
 ==== Dependencies
 

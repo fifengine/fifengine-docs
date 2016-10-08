@@ -52,7 +52,7 @@ The following dependencies are needed to build FifeChan from source:
   ** http://www.libsdl.org[SDL2]
   ** http://www.libsdl.org[SDL2_image]
   ** Optional SDL Contrib Dependencies (Set `ENABLE_SDL_CONTRIB` to `ON` if you need them)
-  *** SDL2_ttf - http://www.libsdl.org
+  *** http://www.libsdl.org[SDL2_ttf]
 
 === Atlas Creator 
 

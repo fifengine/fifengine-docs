@@ -1,8 +1,6 @@
 == Coding standards
 
-We have a set of coding standards that have been followed for some time.
-
-They are quite detailed and have been in the following documents:
+We have a set of quite detailed coding standards that have been followed for some time.
 
 include::chapter04-cpp-coding-standard.adoc[]
 

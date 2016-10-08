@@ -46,3 +46,14 @@ The Atlas Creator tool depends on
 
 * Graphics/GUI libraries
 ** http://qt-project.org/[Qt]
+
+=== Checklist for new dependencies
+
+In case a library gets outdated and has to be replaced or 
+you want to introduce a completely new 3rd party library you should ensure it meets the following guidelines:
+
+-[ ] cross-platform support (Linux, Windows, Mac)
+-[ ] Widely used by other projects and has an active community
+-[ ] Available to download as a package for most platforms
+-[ ] Has been in active development for a number of years
+-[ ] License is compatible with fife

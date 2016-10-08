@@ -318,21 +318,21 @@ Template source files can be found from svn:
   * header: [sampleheader.h](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/sampleheader.h)
   * implementation: [samplecpp.cpp](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/samplecpp.cpp)
 
-=== Commenting
+==== Commenting
 
 The level of commenting outlined here may seem excessive, but it will make the code much easier to understand when a new coder has to work with the system, something that will inevitably be happening in an Open Source project like FIFE. So please, don't become lax with the commenting.
 
-==== Headers
+===== Headers
 
   * Use doxygen-style comments in C++ headers: [Doxygen Manual](http://www.stack.nl/~dimitri/doxygen/manual.html)
 
-==== Implementation
+===== Implementation
 
   * Try to write code someone else understands without any comment.
   * If you need to do something uncommon, or some special trick, comment.
   * Don't comment on something obvious.
 
-==== Commenting Methods
+===== Commenting Methods
 
 All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable. 
 
@@ -375,7 +375,7 @@ bool loaded;
 loaded = image->getImageData() != 0;
 ```
 
-==== Commenting Variables
+===== Commenting Variables
 
 Member variables should all be commented. This is not a substitute for good variable names, but rather a way to make clear the use of each member variable.
 
@@ -394,7 +394,7 @@ Parameters are all commented in the method description comment block so addition
 
 Descriptions of local variables shouldn't be necessary as long as descriptive names are used.
 
-==== Commenting Enums
+===== Commenting Enums
 
 When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory. 
 
@@ -407,15 +407,16 @@ enum EnumType {
     int EVal2  /**< enum value 2 */
 };
 ```
-==== Doxygen Gotchas
+===== Doxygen Gotchas
 
-Along with other comments, use gotcha keywords to mark unfinished tasks in the code. Consider a robot will parse your comments looking for keywords, stripping them out, and making a report so people can make a special effort where needed.
+Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
+Consider a robot will parse your comments looking for keywords, stripping them out, and making a report so people can make a special effort where needed.
 
   * **@todo** - Means there's more to do here, don't forget. Can include known issues and trac ticket numbers if needed.
   * **@bug** - This indicates that there is a known bug with the code. Be very descriptive here. Also include a trac ticket!
   * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
 
-==== Other Doxygen Comments/Keywords
+===== Other Doxygen Comments/Keywords
 
 The following are not mandatory but it would be nice if everyone used them consistently.
 
@@ -433,8 +434,7 @@ The following are not mandatory but it would be nice if everyone used them consi
  * @author John Doe
  * @author Jan Doe
  * @since 0.3.4
- * @deprecated Do not use in version 0.3.5+ as it has been replaced 
- * by EvenNicerClass.
+ * @deprecated Do not use in v0.3.5+. Replaced by EvenNicerClass.
  * @see EvenNicerClass
  * @pre First initialize the system.
  * @bug Not all memory is freed when deleting an object of this class.

@@ -1,5 +1,7 @@
 == Dependencies
 
+=== Fifengine
+
 The following dependencies are needed to build FIFE from source:
 
 * Frameworks
@@ -34,9 +36,13 @@ The following dependencies are needed to build FIFE from source:
 * Linux specific
 ** Xcursor
 
-''' 
+=== FifeChan
 
-TheAtlas Creator tool depends on 
+The following dependencies are needed to build FifeChan from source:
+
+=== Atlas Creator 
+
+The Atlas Creator tool depends on 
 
 * Graphics/GUI libraries
 ** http://qt-project.org/[Qt]

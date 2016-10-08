@@ -8,21 +8,21 @@ As we continue to add features to FIFE, we will update this article to keep it u
 
 NOTE: Just because a feature is listed here does not mean that feature is 100% bug free. You may from time to time stumble upon a bug. Please file any bugs you find using our https://github.com/fifengine/fifengine/issues[Issue Tracker] on Github.
 
-=== Audio
+.Audio
 
   * Supported Formats
     ** http://www.vorbis.com/[OggVorbis]
   * Large file streaming
   * Looping
 
-=== Development Helpers
+.Development Helpers
 
   * Logger
     ** Module specific logging functionality
     ** Logging according to priority levels
     ** Logging output to file and stdout
 
-=== Editor tools
+.Editor tools
 
   * Map Editor
     ** Multi Map Interface (edit multiple maps at the same time)
@@ -40,7 +40,7 @@ NOTE: Just because a feature is listed here does not mean that feature is 100% b
     ** cross-platform
     ** written in C++ using the http://qt-project.org/[Qt framework]
 
-=== Event handling
+.Event handling
 
 The following event types are supported and can be bound to scripting functionality:
 
@@ -49,15 +49,12 @@ The following event types are supported and can be bound to scripting functional
   * Widget events
   * Custom commands
 
-=== Fonts
-
+.Fonts
 Support for following font formats:
-
   * True type http://www.libsdl.org/projects/SDL_ttf/[SDL_ttf]
   * Bitmap fonts
 
-=== Graphical User Interface
-
+.Graphical User Interface
   * Ingame console with support for executing Python code / scripts
   * Fully customizable GUIs via
     ** https://github.com/fifengine/fifechan[fifechan]
@@ -69,63 +66,53 @@ Support for following font formats:
     ** http://librocket.com/[librocket]
       *** http://librocket.com/wiki/documentation/PythonManual[Python wrapper]
 
-=== Graphics
+.Graphics
+  ** General
+    *** Support for all formats implemented by http://www.libsdl.org/projects/SDL_image/[SDL_image]
+    *** Color key support
+    *** Take ingame screenshots via hotkey
+    *** Pooling of image resources, resulting enhanced performance and reduced memory consumption
+    *** Image atlases (many images contained in one file)
+  ** Animations
+    *** Multiple definable key frame animations per object
+  ** Effects
+    *** Lighting (OpenGL renderer only)
+    *** Fog of War (OpenGL renderer only)
+  ** Maps
+    *** 3D geometry definition (defined by tilt, rotation and scale)
+    *** Support for different tile and object grids with independent geometries 
+    *** Multiple layers per map
+    *** All variations of square and hex shape geometries
+    *** Multiple cameras / views per map
+    *** Custom XML-based map file format
+  ** Pathfinding
+    ** Exchangable pathfinding backends:
+    *** Route path finder
 
-==== General
-
-  * Support for all formats implemented by http://www.libsdl.org/projects/SDL_image/[SDL_image]
-  * Color key support
-  * Take ingame screenshots via hotkey
-  * Pooling of image resources, resulting enhanced performance and reduced memory consumption
-  * Image atlases (many images contained in one file)
-
-==== Animations
-
-  * Multiple definable key frame animations per object
-
-==== Effects
-
-  * Lighting (OpenGL renderer only)
-  * Fog of War (OpenGL renderer only)
-
-==== Maps
-
-  * 3D geometry definition (defined by tilt, rotation and scale)
-  * Support for different tile and object grids with independent geometries 
-  * Multiple layers per map
-  * All variations of square and hex shape geometries
-  * Multiple cameras / views per map
-  * Custom XML-based map file format
-
-==== Pathfinding
-
-  * Exchangable pathfinding backends:
-    ** Route path finder
-
-=== Scripting
+.Scripting
 
   * http://www.python.org/[Python] based scripting system (out of the box)
   * Scripts be can executed from the console
 
-=== Renderer
+.Renderer
 
   * Support for different renderers via render backend approach (currently SDL + OpenGL backend available)
   * Various resolutions
   * Bit-depth (16, 24, 32bit)
   * Window mode (fullscreen & windowed)
 
-==== SDL
+.SDL
 
   * Colorkey for fast transparency effects
 
-==== OpenGL
+.OpenGL
 
   * Transparency for tiles & objects
   * Colorkey for fast transparency effects
   * Lighting effects
   * Fog of War
 
-=== View
+.View
 
   * Custom Isometric views defined by angle and tilt of camera
   * Top down/side views
@@ -141,7 +128,7 @@ Support for following font formats:
     ** Light renderer (OpenGL only)
   * Static layer support which renders an entire layer as one texture
 
-=== Virtual file system
+.Virtual file system
 
   * Support for reading files on platforms with different byte orders
   * Read support for ZIP archives

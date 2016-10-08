@@ -50,15 +50,18 @@ The following event types are supported and can be bound to scripting functional
   * Custom commands
 
 .Fonts
+
 Support for following font formats:
+
   * True type http://www.libsdl.org/projects/SDL_ttf/[SDL_ttf]
   * Bitmap fonts
 
 .Graphical User Interface
+
   * Ingame console with support for executing Python code / scripts
   * Fully customizable GUIs via
-    ** https://github.com/fifengine/fifechan[fifechan]
-      *** Python wrapper via our pychan extension
+    ** https://github.com/fifengine/fifechan[FifeChan]
+      *** Python wrapper via our **PyChan** extension
       *** XML layouts
       *** Skinable
     ** http://www.cegui.org.uk[CEGUI]
@@ -96,7 +99,9 @@ Support for following font formats:
 
 .Renderer
 
-  * Support for different renderers via render backend approach (currently SDL + OpenGL backend available)
+  * Support for different renderers (RendererBackends):
+    ** SDL
+    ** OpenGL
   * Various resolutions
   * Bit-depth (16, 24, 32bit)
   * Window mode (fullscreen & windowed)

@@ -2,7 +2,9 @@
 
 This guide will help you build fife on various flavors of linux.
 
-==== Environment: IDE and build tools
+==== Build Environment
+
+Firstly, we need to setup an IDE and several build tools.
 
 ===== IDE
 

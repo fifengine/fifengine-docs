@@ -57,6 +57,7 @@ New contributors are always welcome!
 :sectnums:
 
 include::chapter01_getting-started.adoc[]
+
 include::chapter02_engine-overview.adoc[]
 
 :!sectnums:
@@ -65,6 +66,7 @@ include::chapter02_engine-overview.adoc[]
 //include::bibliography.adoc[]
 
 include::list-of-dependencies.adoc[]
+
 include::glossary.adoc[]
 
 //include::colophon.adoc[]

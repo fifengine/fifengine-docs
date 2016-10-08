@@ -1,4 +1,4 @@
-==== Running the demos
+=== Running the demos
 
 The demos have their own git repository: https://github.com/fifengine/fifengine-demos
 

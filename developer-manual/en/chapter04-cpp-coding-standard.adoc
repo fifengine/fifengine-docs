@@ -1,2 +1,493 @@
 === C++ Coding Standards
 
+The following document describes our C++ coding standard.
+
+## Files
+
+  * Headers files end with `.h`
+  * Source files end with `.cpp`
+  * Only one class per h/cpp file. (With a exception for classes that are extremely simple and clearly belong together.)
+  * The files should be named after the (main)class they implement, but all in lowercase.
+
+## Conventions
+
+### Abbreviations and capitol letters
+
+We use a mixture of upper and lower camel case (described below). There are
+some cases where you would be tempted to use to capitol letters together. This
+should be avoided! When using abbreviations in your variable or class names
+always capitalize the first letter of the abbreviation and lower-case for the
+rest.
+
+```
+class ColorRgb8; 
+class Dat1; 
+class Vfs; 
+class GlImage; 
+class SdlImage; 
+class GuiChanManager;
+```
+
+### Classes
+
+#### General guidelines
+
+  * Name the class after what it is. If you can't think of what it is that is a clue you have not thought through the design well enough.
+  * Compound names of over three words are a clue your design may be confusing various entities in your system. Revisit your design. Try a CRC card session to see if your objects have more responsibilities than they should.
+  * Avoid the temptation of bringing the name of the class a class derives from into the derived class's name. A class should stand on its own. It doesn't matter what it derives from.
+  * Suffixes are sometimes helpful. For example, if your system uses agents then naming something DownloadAgent conveys real information.
+
+#### Class names
+
+  * First character in a name is upper case
+  * Use upper case letters as word separators, lower case for the rest of a word
+  * No underscores: `_`
+  * Abstract classes should start with an `I`
+
+Also knows as "upper camel case". See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) article at wikipedia.
+
+```
+class MapView; 
+class IResourceManager;
+```
+
+#### Attribute/Member names
+
+  * Start with a `m_`
+  * Should not contain any more underscores
+  * First word is lower case, the rest start with an upper case letter
+
+```
+RenderBackend* m_renderBackend; 
+uint16_t       m_frameLimit; 
+std::string    m_windowTitle;
+```
+
+This is also known as "lower camel case". See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
+
+### Functions/Methods
+
+#### General guidelines
+
+  * Keep your functions simple.
+  * Small functions that should be inlined go to the header file but after the class.
+  * Use default parameters instead of inlined overloaded functions if you don't have a reason not to do so.
+
+so don't write: 
+```
+inline void doSomething() {  // Wrong
+    doSomething(0); 
+}
+void doSomething () {
+    ....
+}
+```
+write:
+```
+void doSomething(int32_t x = 0) { // Correct
+     .... 
+}
+```
+#### Function/Method names
+
+  * Use the same rules as for class names except the first letter should be lower case! See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) document at wikipedia.
+
+```
+uint8_t getBitsPerPixel() const; 
+bool isFullScreen() const;
+```
+
+### Variables and parameters
+
+#### General guidelines
+
+  * **Don't use global variables.**
+  * Do not put data definitions in header files.
+    1. It's bad magic to have space consuming code silently inserted through the innocent use of header files.
+    2. It's not common practice to define variables in the header file so it will not occur to developers to look for this when there are problems.
+    3. Consider defining the variable once in a .cpp file and use an extern statement to reference it.
+    4. Consider using a singleton for access to the data.
+  * Don't abuse the singleton objects so that they become global variable repositories. If you can't access a variable easily from where you are you probably shouldn't be accessing it from there. This is a rule of thumb, **not** to be enforced strictly.
+  * Declare 1 variable on each line. 
+
+```
+int32_t x, y, z; // Wrong
+
+int32_t x;  // Correct
+int32_t y; 
+int32_t z;
+```
+
+  * Align variable declarations as shown. This makes the code more readable. 
+
+```
+int32_t     someVar1; 
+DWORD       someVar2; 
+std::string idSting;
+```
+
+  * **Always initialize variables**, and when initializing groups of variables align the code as shown. 
+
+```
+someVar1 = 0; 
+someVar2 = 0; 
+idString = "";
+```
+
+  * When declaring pointers or references, **the * or & is placed beside the type**, not the variable name 
+
+```
+int32_t* intPointer; 
+int32_t& intReference;
+```
+
+  * **Use native types** wherever possible. It is not necessary to "optimize" a loop counter by making it a uint8_t. Ideally, the use of such types would be restricted to three types of places:
+    1. dealing with saving or loading the data (e.g. serialization/de-serialization routines)
+    2. transmitting data over a network
+    3. interfacing with external libraries, if those libraries absolutely insist.
+
+#### Variable and parameter names
+
+  * Parameter and local variables have no prefix and start with a lowercase letter.
+  * Use capitol letters as word separators.
+  * Variables and parameters should not contain underscores.
+  * Include units in Names. If a variable represents time, weight, or some other unit then include the unit in the name so developers can more easily spot problems.
+
+```
+//Example variable and parameter names 
+IEngineChangeListener changeListener;
+std::string           characterId;
+
+//Including units in the name 
+uint32_t timeoutMsecs; 
+uint32_t myWeightLbs;
+```
+
+#### Types
+
+##### Integer types
+
+  * At all times use types as defined in the [C99 Standard Library](http://en.wikipedia.org/wiki/C99_standard_library)
+
+| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing | Bits | Bytes |
+| --------- | ----------------------------- | ----------------------------- | ------- |:----:|:-----:|
+|int8_t     | signed char                   | signed char                   | Signed  |    8 |     1 |
+|uint8_t    | unsigned char                 | unsigned char                 | Unsigned|    8 |     1 |
+|int16_t    | short                         | short                         | Signed  |   16 |     2 |
+|uint16_t   | unsigned short                | unsigned short                | Unsigned|   16 |     2 | 
+|int32_t    | int                           | int or long                   | Signed  |   32 |     4 |
+|uint32_t   | unsigned int                  | unsigned int or unsigned long | Unsigned|   32 |     4 |
+|int64_t    | long                          | long long                     | Signed  |   64 |     8 |
+|uint64_t   | unsigned long                 | unsigned long long            | Unsigned|   64 |     8 |
+
+#### Type Safety
+
+  * Don't use a #define when an enum or `static const int32_t` is also possible.
+  * Do not use the C-style casts; instead use `static_cast`, `dynamic_cast` and `reinterpret_cast` (if really necessary).
+
+#### Const Correctness
+
+  * Be const correct. See: http://www.parashift.com/c++-faq-lite/const-correctness.html
+  * Avoid `const_cast`.
+
+#### Magic Numbers
+
+Magic numbers are numbers that are compiled into the source code and if they are not properly documented can be difficult to understand what they do.
+
+  * Instead of magic numbers use a real name that means something.
+  * Use constants or enums to give meaning to the number.
+
+```
+const int WE_GOOFED = 19;
+
+enum { 
+    THEY_DIDNT_PAY= 16 
+};
+```
+
+## Coding Style/Formatting
+
+### Line Widths
+
+  * A line should not exceed 78 characters. The Main argument to do this is because this allows us to easily print readable source code (yes some of us still do this). Also if you have a wide monitor you can fit multiple source files side by side!
+
+### Braces
+
+  * All braces use the following format. 
+
+```  
+if (x == y) {
+    ...
+} else if (x > y) { 
+    ... 
+} else {
+    ... 
+}
+
+while (condition) { 
+    ... 
+}
+
+for (;;) { 
+    ... 
+}
+
+rtype functionName() {
+    ...
+}
+```
+
+  * Even for trivial if statements always use the 
+brace syntax. 
+
+```
+if (x == true) {
+    return;
+} 
+```
+
+This is clearer, less likely to cause future errors and has no effect on speed.
+
+### Indentation & Whitespace
+
+  * Indentation is done by a real tab and is equivalent to 4 spaces.
+  * The content of a namespace is indented.
+  * Don't leave whitespace at the end of lines.
+  * private:, public:, and protected: are in line with the class definition.
+  * Code after private:, public:, protected: and case foo: is indented.
+  * Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.
+
+```
+namespace FIFE { 
+    class SomeClass { 
+    public: 
+        SomeClass(); 
+        virtual SomeClass();
+    protected: 
+        int32_t m_someval; 
+    }; 
+} //FIFE
+```
+
+### Includes
+
+  * Try to use forward declarations rather to include other headers to reduce compiletime.
+
+#### Platform specific includes
+
+  * One of the issues with cross platform engine development are different include paths on different platforms. The FIFE team decided to introduce a set of helper include files to address this issue. You use these files instead of including the platform specific headers directly. Include these files after headers of the C++ std library but before any other 3rd party headers.
+  
+```
+//Instead of including any OpenGL headers directly, use:
+#include "video/opengl/fife_opengl.h"
+
+//Instead of including the boost unit test header <boost/test/unit_test.hpp> 
+//directly, use for tests that reside in tests/core_tests:
+#include "fife_unit_test.h"
+
+//Instead of including any OpenAL headers directly, use:
+#include "audio/fife_openal.h"
+
+//Instead of including the C99 stdint.h header directly, use:
+#include "util/base/fife_stdint.h"
+
+//Instead of including the cmath header directly, use:
+#include "util/math/fife_math.h </pre>
+```
+
+### Multiple Inheritance
+
+  * In case you feel tempted to use multiple inheritance, read this first: http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4 (the whole article is a good read).
+  * In most of the cases, you can avoid multiple inheritance altogether with proper design. If you still feel urge to use it, try to use pure interfaces (no method implementations in addition to empty destructor). Prefix these classes with 'I'-letter (e.g. `ITriggerController`)
+  * If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.
+
+### Friend declarations
+
+In general, don't use friend declarations. Friends tend to get overused, since at first sight they provide quick and easy solution for problem at hand. In many cases however, they violate encapsulation and decrease modularity. There are cases where friends might be beneficial, but consult other developers before making the decision.
+
+### Error Handling
+
+  * Use exceptions when something exceptional has happened and cannot be recovered from. Prefer to make an entry in the FIFE log and somehow recover. See the [[Developer guidelines|developer-guidelines]] page for more info on exceptions.
+  * Constructors should **always** throw an exception on error conditions.
+  * Destructors should **never** throw an exception.
+
+### Sample Source Files
+
+Template source files can be found from svn:
+
+  * header: [sampleheader.h](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/sampleheader.h)
+  * implementation: [samplecpp.cpp](https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/samplecpp.cpp)
+
+## Commenting
+
+The level of commenting outlined here may seem excessive, but it will make the code much easier to understand when a new coder has to work with the system, something that will inevitably be happening in an Open Source project like FIFE. So please, don't become lax with the commenting.
+
+### Headers
+
+  * Use doxygen-style comments in C++ headers: [Doxygen Manual](http://www.stack.nl/~dimitri/doxygen/manual.html)
+
+### Implementation
+
+  * Try to write code someone else understands without any comment.
+  * If you need to do something uncommon, or some special trick, comment.
+  * Don't comment on something obvious.
+
+### Commenting Methods
+
+All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable. 
+
+```
+/** Short function description**
+ *
+ * @param p1 Short desc
+ * @return Short description of return val
+ */
+rtype Function(ptype p1);
+```
+
+All methods' parameters and return types must be described. This is so that the doxygen generates documentation can be of real use. functions who's use isn't obvious require longer descriptions, which should include a more detailed description of its task as well as a sample of its use. Make the
+example as illustrative as possible. 
+
+```
+/** Short function description
+ *
+ * Detailed description
+ * @code
+ * rtype rVal = complicatedFunction(param1, param2);
+ * @endcode
+ * 
+ * @param p1 Description of parameter
+ * @param p2 Description of parameter
+ * @return Description of return value.
+ */
+rtype complicatedFunction(ptype1 p1, ptype2 p2);
+```
+
+Comments inside the body of a method should be kept to a minimum in simple functions again. But in large functions, especially those that encapsulate key algorithms, relatively detailed descriptions of how the code is opperating will make it much more maintainable. These should be kept to one of two line comments using the // syntax.
+
+```
+// converts from screen space to world space
+x += xoffset; 
+y += yoffset;
+
+// checks to see if an image is already loaded.
+bool loaded;
+loaded = image->getImageData() != 0;
+```
+
+### Commenting Variables
+
+Member variables should all be commented. This is not a substitute for good variable names, but rather a way to make clear the use of each member variable.
+
+```
+//! Window width in pixels. 
+int m_windowWidth;
+
+//! Window height in pixels. 
+int m_windowHeight;
+
+//! SDL_Surface which represents the renderable area of the screen.
+SDL_Surface* m_screen;
+```
+
+Parameters are all commented in the method description comment block so additional comments are unnecessary.
+
+Descriptions of local variables shouldn't be necessary as long as descriptive names are used.
+
+### Commenting Enums
+
+When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory. 
+
+```
+/** An enum type. **
+ * The documentation block cannot be put after the enum! 
+ */
+enum EnumType { 
+    int EVal1, /**< enum value 1 */ 
+    int EVal2  /**< enum value 2 */
+};
+```
+### Doxygen Gotchas
+
+Along with other comments, use gotcha keywords to mark unfinished tasks in the code. Consider a robot will parse your comments looking for keywords, stripping them out, and making a report so people can make a special effort where needed.
+
+  * **@todo** - Means there's more to do here, don't forget. Can include known issues and trac ticket numbers if needed.
+  * **@bug** - This indicates that there is a known bug with the code. Be very descriptive here. Also include a trac ticket!
+  * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
+
+### Other Doxygen Comments/Keywords
+
+The following are not mandatory but it would be nice if everyone used them consistently.
+
+  * **@see** - Use this to cross-reference another class/method/variable
+  * **@author** - If you are the original author or major contributor of a class/method you might as well take credit for it. Multiple author lines are supported!
+  * **@since** - If you are adding to the API you should mark which version of FIFE it will appear in first.
+  * **@deprecated** - Use this keyword if a function/class is now deprecated and marked for removal.
+  * **@throw** - When a method throws an exception you should document it using this keyword.
+  * **@pre** - This describes some pre-existing condition that the following code relies on.
+
+```
+/** Pretty nice class.**
+ * This class is used to demonstrate a number of section commands.
+ * 
+ * @author John Doe
+ * @author Jan Doe
+ * @since 0.3.4
+ * @deprecated Do not use in version 0.3.5+ as it has been replaced 
+ * by EvenNicerClass.
+ * @see EvenNicerClass
+ * @pre First initialize the system.
+ * @bug Not all memory is freed when deleting an object of this class.
+ * @warning Improper use can crash your application
+ */
+class SomeNiceClass {};
+```
+
+### Including examples in your comments
+
+For simple examples you can use **@code** and **@endcode**. 
+
+```
+/** This is an awesome class.**
+ * It's made of pure awesomeness and should be used sparingly
+ * as to not waste the awesomeness.
+ *
+ * @code
+ * AwesomeClass ac;
+ * ac.doSomethingAwesome();
+ * @endcode
+ */
+```
+
+## License
+
+  * If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
+  * If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
+  * You can use this example as a template in this case:
+
+```
+/***************************************************************************
+ *   Copyright (C) 2005-2013 by the FIFE team                              *
+ *   http://www.fifengine.net                                              *
+ *   This file is part of FIFE.                                            *
+ *                                                                         *
+ *   FIFE is free software; you can redistribute it and/or                 *
+ *   modify it under the terms of the GNU Lesser General Public            *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2.1 of the License, or (at your option) any later version.    *
+ *                                                                         *
+ *   This library is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
+ *   Lesser General Public License for more details.                       *
+ *                                                                         *
+ *   You should have received a copy of the GNU Lesser General Public      *
+ *   License along with this library; if not, write to the                 *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA          *
+ ***************************************************************************/
+```
+
+## References
+
+  * [C++ Coding Standards](http://www.possibility.com/Cpp/CppCodingStandard.html)

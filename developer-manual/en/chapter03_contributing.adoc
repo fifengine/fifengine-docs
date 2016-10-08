@@ -6,12 +6,13 @@ Better yet, do you have a solution to one of our https://github.com/fifengine/fi
 You can support the project in all sorts of areas and we would graciously accept any contributions you have to offer!
 Please don't hesitate, if you've got an awesome idea to throw into FIFE.
 
-.We are especially looking for:
-====
+[sidebar]
+.We are looking for:
+--
 * Engine developers - All skill levels in C++ and Python
 * Web designers - Our website needs an overhaul
 * Artists - They are always welcome to contribute some art where it's needed
-====
+--
 
 IMPORTANT: Please follow the [[C++ Coding Standards|coding-standards]] or [[Python Coding Standards|Python-coding-standards]] when modifying code.
 

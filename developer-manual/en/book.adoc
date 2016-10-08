@@ -60,6 +60,10 @@ include::chapter01_getting-started.adoc[]
 
 include::chapter02_engine-overview.adoc[]
 
+include::chapter03_contributing.adoc[]
+
+include::chapter04_coding-standards.adoc[]
+
 :!sectnums:
 
 //include::appendix.adoc[]

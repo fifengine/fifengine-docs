@@ -1,4 +1,5 @@
 = Fifengine - Manual
+:revdate:
 :description:         This document is the Fifengine Manual.
 :keywords:            fifengine, fife, isometric game engine
 

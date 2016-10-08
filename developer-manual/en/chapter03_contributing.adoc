@@ -9,6 +9,11 @@ Please don't hesitate, if you've got an awesome idea to throw into FIFE.
 The best part about contributing to an open source project is you get the satisfaction of improving a project, 
 not to mention full recognition for your work! It might help out on that next job application!
 
+=== Help wanted...
+
+This is an open source project and developers are contributing on their own time. 
+For this reason we are constantly looking for help.
+
 [sidebar]
 .We are looking for:
 --
@@ -16,6 +21,40 @@ not to mention full recognition for your work! It might help out on that next jo
 * Web designers - Our website needs an overhaul
 * Artists - They are always welcome to contribute some art where it's needed
 --
+
+.Engine developers
+
+We are in great need for all skill levels of developers to help with our C++ and Python extensions.
+There is work in just about any field you could imagine, from tool development, to OpenGL eye candy,
+to ear popping sound effects, to demo game development. You name it, we need it. Are you new to
+coding but want to learn? Are you an experienced coder looking for a project to fill that void in
+your life? This is the project for you!
+
+.Web designers
+
+Currently our website is lacking a certain POW. It needs to be re-done in the worst way. We are
+completely open to your ideas as far as the backend goes. There is a template to start from here.
+You could either make some templates for our forums and blog or throw the whole thing out and
+surprise us with something else! It's gotta look amazing to attract as much attention as possible!
+
+.Packagers
+
+There is a bunch of work that needs to be done here. Our Windows installer needs work, our
+development kit needs updating, release packaging needs to be automated, the list is endless really.
+Currently we package every release by hand and this a tedious task so any help in this department
+would be great!
+
+.Artists
+
+What project doesn't need an artist or two? If you have some artistic skills and are looking for a
+project, look no further! We have several demos that would benefit from some new art (tilesets, gui
+art, icons, etc etc), not to mention our website!
+
+.Documentors
+
+As they say, good documentation makes a project. This is one department, where it's difficult to
+find people to volunteer their time to help out. Any time you can spend documenting fife or helping
+with tutorials would definitely help make fife even better!
 
 === Workflow
 

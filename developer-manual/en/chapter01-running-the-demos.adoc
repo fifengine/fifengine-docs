@@ -1,0 +1,6 @@
+==== Running the demos
+
+The demos have their own git repository: https://github.com/fifengine/fifengine-demos
+
+Assuming that you have successfully built fife, 
+you will be able to change directory to one of the fife demos located in `<fifengine-demos>` and type: `python run.py`.

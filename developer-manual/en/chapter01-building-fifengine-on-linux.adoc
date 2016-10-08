@@ -92,9 +92,3 @@ You can download a Fife source code package or fetch the latest source using git
 Please switch into the `<fife>` source directory. 
 
 Then type: `mkdir _build; cd _build; cmake ..`.
-
-===== Running the demos
-
-Get demos from our demos repo: https://github.com/fifengine/fifengine-demos
-
-Assuming that you have successfully built fife, you will be able to change directory to one of the fife demos located in `<fife>/demos/` and type: `python run.py`.

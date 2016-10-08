@@ -6,15 +6,19 @@ This article describes our modifications and additions and also contains a summa
 Reading the official style guide is highly recommended before moving on, as this article merely complements it.
 
 ==== Files
+
 * Python files end with .py
 * Only one class per py file. (With a exception for classes that are extremely simple and clearly belong together.)
 * The files should be named after the (main)class they implement, but all in lowercase.
 
-=== Executable python files
+[IMPORTANT]
+.Executable python files
+====
 Python files which are meant to be executed directly, should have a shebang on the very first line.  
 If your python file is not made for direct execution, it should not have neither a shebang.
 
 The shebang we use is: `#!/usr/bin/env python`
+====
 
 === Naming Conventions
 

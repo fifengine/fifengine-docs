@@ -260,18 +260,6 @@ and making a report so people can make a special effort where needed.
 # ####################################################################
 ```
 
-==== Borrowing code
-
-* If you directly copy and paste code from another project the original copyright header needs to stay in place! Don't add a FIFE header to the file in this case.
-* If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
-* You can use this example as a template in this case:
-
-```
-# ###########################################################################
-#  Note! FIFE event channel borrows heavily from ideas of Guichan library
-#  version 0.6                                                            
-# ###########################################################################
-```
-
 === References
-* [Style Guide for Python code](http://www.python.org/dev/peps/pep-0008/)
+
+* http://www.python.org/dev/peps/pep-0008/[PEP 8 -- Style Guide for Python Code]

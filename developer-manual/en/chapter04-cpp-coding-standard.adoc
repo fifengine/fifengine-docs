@@ -44,7 +44,7 @@ class GuiChanManager;
   * No underscores: `_`
   * Abstract classes should start with an `I`
 
-Also knows as "upper camel case". See the [Camel Case](http://en.wikipedia.org/wiki/CamelCase) article at wikipedia.
+Also known as "upper camel case". See the http://en.wikipedia.org/wiki/CamelCase[Camel Case] article at wikipedia.
 
 ```
 class MapView; 
@@ -170,7 +170,7 @@ uint32_t myWeightLbs;
   * At all times use types as defined in the [C99 Standard Library](http://en.wikipedia.org/wiki/C99_standard_library)
 
 | Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing | Bits | Bytes |
-| --------- | ----------------------------- | ----------------------------- | ------- |:----:|:-----:|
+|-----------|-------------------------------|-------------------------------|---------|:----:|:-----:|
 |int8_t     | signed char                   | signed char                   | Signed  |    8 |     1 |
 |uint8_t    | unsigned char                 | unsigned char                 | Unsigned|    8 |     1 |
 |int16_t    | short                         | short                         | Signed  |   16 |     2 |

@@ -6,10 +6,10 @@ This guide will help you build fife on various flavors of linux.
 
 The are several good IDEs available, including:
 
-- http://codeblocks.org[CodeBlocks]
-  - http://www.codeblocks.org/downloads/26#linux[Downloading CodeBlocks for Linux]
-- http://www.kdevelop.org/[KDevelop]
-  - https://userbase.kde.org/KDevelop/Install#How_to_install_KDevelop[How to install KDevelop?]
+* http://codeblocks.org[CodeBlocks]
+** http://www.codeblocks.org/downloads/26#linux[Downloading CodeBlocks for Linux]
+* http://www.kdevelop.org/[KDevelop]
+** https://userbase.kde.org/KDevelop/Install#How_to_install_KDevelop[How to install KDevelop?]
 
 ==== Environment: build tools
 

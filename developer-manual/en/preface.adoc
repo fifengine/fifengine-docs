@@ -8,3 +8,10 @@ If you find errors or omissions in this document, please don't hesitate to {docs
 == Preface
 
 The developer manual offers programmers documentation and examples useful in working with fifengine.
+
+=== What's in the Manual
+
+This manual will cover all aspects of custom development with fifengine.
+
+  - The Programming Style Guide explains the programming style used. You are encouraged to adhere to these guidelines.
+

@@ -1,0 +1,49 @@
+==== Building Fifengine from Source on Linux
+
+This guide will help you build fife on various flavors of linux.
+
+## Getting started
+
+As we do not provide a linux development kit, you have to ensure that all [[dependencies]] are installed properly. 
+
+This includes the installation of required build tools like Python 2.7+, CMake and Clang or gcc. 
+
+Of course, you need to download the [[fife source code|Downloads#source]] package or download the latest source from [[git]].
+
+### Debian based systems
+
+On debian based systems you can grab all dependencies by installing the following packages: 
+
+```
+apt-get install -y build-essential libalsa-ocaml-dev libsdl2-dev libboost-dev libsdl2-ttf-dev libsdl2-image-dev libvorbis-dev libalut-dev python2.7 python-dev libboost-regex-dev libboost-filesystem-dev libboost-test-dev swig zlib1g-dev libopenal-dev git python-yaml libxcursor1 libxcursor-dev cmake cmake-data libtinyxml-dev
+```
+
+### Gentoo based systems
+
+```
+emerge --ask --verbose --noreplace libvorbis libogg media-libs/openal boost libsdl2 sdl2-image sdl2-ttf git pyyaml dev-lang/swig dev-libs/tinyxml dev-util/cmake
+```
+
+### Fedora based systems
+
+```
+dnf install git python python-devel gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2_ttf SDL2_ttf-devel SDL2_image SDL2_image-devel boost boost-devel libvorbis libvorbis-devel libogg libogg-devel openal-soft openal-soft-devel zlib zlib-devel mesa-libGL mesa-libGL-devel mesa-libGLU mesa-libGLU-devel swig libXcursor libXcursor-devel alsa-lib alsa-lib-devel python-alsa PyYAML allegro5 cmake tinyxml-devel libpng libpng-devel
+```
+
+### Arch Linux based systems
+
+```
+pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zlib libgl libpng tinyxml python2-pillow cmake
+```
+
+**NOTE** that you will also need to install [fifechan](http://fifengine.github.com/fifechan/) from source, until it's available as a debian package.
+
+## Building fife
+
+Once all of the [[dependencies]] have been installed properly change directory to `<fife>` and type: "mkdir _build; cd _build; cmake ..".
+
+## Running the demos
+
+Get demos from our demos repo: https://github.com/fifengine/fifengine-demos
+
+Assuming that you have successfully built fife, you will be able to change directory to one of the fife demos located in `<fife>/demos/` and type: `python run.py`.

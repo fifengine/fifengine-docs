@@ -1,1 +1,9 @@
 == Getting Started
+
+=== Building Fifengine from Source
+
+include::chapter01-building-fifengine-on-linux.adoc[]
+
+include::chapter01-building-fifengine-on-mac.adoc[]
+
+include::chapter01-building-fifengine-on-windows.adoc[]

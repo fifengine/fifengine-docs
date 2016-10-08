@@ -44,13 +44,12 @@ NOTE: We are working on Python 3 support.
 
 Fife depends on a multitude of external libraries.
 
-We do not provide a pre-packaged linux development kit.
-
-You have to ensure that all dependencies are installed properly, before you try to build fifengine itself. 
-
+Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
 You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
 
-Additonally, you find more detailed information in the dependencies chapter.
+We do not provide a pre-packaged software development kit for Linux.
+
+Additionally, you find more detailed information in the dependencies chapter.
 
 ===== Building dependencies from source
 

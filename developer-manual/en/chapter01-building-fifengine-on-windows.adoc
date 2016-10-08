@@ -52,6 +52,15 @@ NOTE: We are working on Python 3 support.
 
 ==== Dependencies
 
+Fife depends on a multitude of external libraries.
+
+Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
+You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
+
+We provide a pre-packaged Windows development kit, the Fife-SDK.
+
+Additonally, you find more detailed information in the dependencies chapter.
+
 ===== Building dependencies from source
 
 ===== Using packaged dependencies

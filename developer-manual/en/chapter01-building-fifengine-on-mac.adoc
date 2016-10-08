@@ -21,6 +21,15 @@ The are several good IDEs available, including:
 
 ==== Dependencies
 
+Fife depends on a multitude of external libraries.
+
+Our next step is to ensure that all dependencies are installed properly.
+We do this by either compiling and installing them manually or by fetching and installing pre-compiled binaries.
+
+We do not provide a pre-packaged software development kit for Mac.
+
+Additionally, you find more detailed information in the dependencies chapter.
+
 ===== Building dependencies from source
 
 ===== Using packaged dependencies

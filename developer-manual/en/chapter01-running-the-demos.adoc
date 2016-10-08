@@ -4,3 +4,5 @@ The demos have their own git repository: https://github.com/fifengine/fifengine-
 
 Assuming that you have successfully built fife, 
 you will be able to change directory to one of the fife demos located in `<fifengine-demos>` and type: `python run.py`.
+
+NOTE: You might also run the demos by double-clicking the `run.py` file in your file browser. This requires python to be associated with .py files in order to work.

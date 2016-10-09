@@ -4,7 +4,7 @@
 This chapter describes all the features the engine currently supports in the https://github.com/fifengine/fifengine[master branch]. 
 Features are organized into categories for easy reference. 
 
-As we continue to add features to FIFE, we will update this article to keep it up to date. 
+As we continue to add features to FIFE, we will update this list to keep it up to date. 
 
 NOTE: Just because a feature is listed here does not mean that feature is 100% bug free. You may from time to time stumble upon a bug. Please file any bugs you find using our https://github.com/fifengine/fifengine/issues[Issue Tracker] on Github.
 

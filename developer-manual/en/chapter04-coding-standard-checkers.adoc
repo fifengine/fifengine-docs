@@ -1,0 +1,24 @@
+=== Coding Standard Checkers
+
+==== Formatting {cpp} code with Astyle
+
+We use Astyle for coding style checks and automatical formatting of {cpp} source code.
+You find the astylerc configuration file in the fifengine repository.
+
+=====Installation of Astyle
+
+===== Usage
+
+==== Formatting Python code with Pylint
+
+We use the `pylint` for coding style checks and automatical formatting of Python source code.
+You find the astylerc configuration file in the fifengine repository.
+
+===== Installation of pylint
+
+[source, bash]
+----
+python -m pip install pylint
+----
+
+===== Usage

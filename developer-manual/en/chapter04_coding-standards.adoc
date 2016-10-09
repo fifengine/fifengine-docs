@@ -5,3 +5,28 @@ We have a set of quite detailed coding standards that have been followed for som
 include::chapter04-cpp-coding-standard.adoc[]
 
 include::chapter04-python-coding-standard.adoc[]
+
+include::chapter04-coding-standard-checkers.adoc[]
+
+=== Formatting {cpp} code with Astyle
+
+We use Astyle for coding style checks and automatical formatting of {cpp} source code.
+You find the astylerc configuration file in the fifengine repository.
+
+==== Installation of Astyle
+
+==== Usage
+
+=== Formatting Python code with Pylint
+
+We use the `pylint` for coding style checks and automatical formatting of Python source code.
+You find the astylerc configuration file in the fifengine repository.
+
+==== Installation of pylint
+
+[source, bash]
+----
+python -m pip install pylint
+----
+
+==== Usage

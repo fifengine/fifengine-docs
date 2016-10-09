@@ -87,7 +87,7 @@ dnf install git python python-devel gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2
 pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zlib libgl libpng tinyxml python2-pillow cmake
 ----
 
-**NOTE** that you will also need to install [fifechan](http://fifengine.github.com/fifechan/) from source, until it's available as a debian package.
+**NOTE** that you will also need to install http://fifengine.github.com/fifechan/[fifechan] from source, until it's available as a debian package.
 
 ==== Building Fifengine
 

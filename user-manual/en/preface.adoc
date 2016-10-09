@@ -1,8 +1,8 @@
 [preface]
 == Preface
 
-Flexible Isometric Free Engine (FIFE) is a multi-platform isometric game engine written in C\\++. 
-It comes with Python bindings allowing users to create games using Python as well as C\\++. 
+Flexible Isometric Free Engine (FIFE) is a multi-platform isometric game engine written in `C++`. 
+It comes with Python bindings allowing users to create games using `Python` as well as `C++`. 
 The engine is extendable and enables you to add any feature you can imagine to your project.
 
 It's a very flexible game creation framework and not tied to any genre, 

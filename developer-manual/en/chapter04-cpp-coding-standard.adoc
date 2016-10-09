@@ -279,23 +279,23 @@ namespace FIFE {
 
   * One of the issues with cross platform engine development are different include paths on different platforms. The FIFE team decided to introduce a set of helper include files to address this issue. You use these files instead of including the platform specific headers directly. Include these files after headers of the C++ std library but before any other 3rd party headers.
   
-```
-//Instead of including any OpenGL headers directly, use:
-#include "video/opengl/fife_opengl.h"
+[source,cpp]
+----
+#include "video/opengl/fife_opengl.h"   // <1>
 
-//Instead of including the boost unit test header <boost/test/unit_test.hpp> 
-//directly, use for tests that reside in tests/core_tests:
-#include "fife_unit_test.h"
+#include "fife_unit_test.h"             // <2>
 
-//Instead of including any OpenAL headers directly, use:
-#include "audio/fife_openal.h"
+#include "audio/fife_openal.h"          // <3>
 
-//Instead of including the C99 stdint.h header directly, use:
-#include "util/base/fife_stdint.h"
+#include "util/base/fife_stdint.h"      // <4>
 
-//Instead of including the cmath header directly, use:
-#include "util/math/fife_math.h </pre>
-```
+#include "util/math/fife_math.h         // <5>
+----
+<1> Instead of including any OpenGL headers directly
+<2> Instead of including the boost unit test header <boost/test/unit_test.hpp> directly, use for tests that reside in tests/core_tests.
+<3> Instead of including any OpenAL headers directly
+<4> Instead of including the C99 stdint.h header directly
+<5> Instead of including the cmath header directly
 
 ==== Multiple Inheritance
 
@@ -413,12 +413,13 @@ enum EnumType {
 
 The following are not mandatory but it would be nice if everyone used them consistently.
 
-  * **@see** - Use this to cross-reference another class/method/variable
-  * **@author** - If you are the original author or major contributor of a class/method you might as well take credit for it. Multiple author lines are supported!
-  * **@since** - If you are adding to the API you should mark which version of FIFE it will appear in first.
-  * **@deprecated** - Use this keyword if a function/class is now deprecated and marked for removal.
-  * **@throw** - When a method throws an exception you should document it using this keyword.
-  * **@pre** - This describes some pre-existing condition that the following code relies on.
+[horizontal]
+@see::          Use this to cross-reference another class/method/variable
+@author::       If you are the original author or major contributor of a class/method you might as well take credit for it. Multiple author lines are supported!
+@since::        If you are adding to the API you should mark which version of FIFE it will appear in first.
+@deprecated::   Use this keyword if a function/class is now deprecated and marked for removal.
+@throw::        When a method throws an exception you should document it using this keyword.
+@pre::          This describes some pre-existing condition that the following code relies on.
 
 ```
 /** Pretty nice class.**
@@ -441,9 +442,10 @@ class SomeNiceClass {};
 Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
 Doxygen will parse your comments looking for these keywords, and making a report, so people can make a special effort where needed.
 
-  * **@todo** - Means there's more to do here, don't forget. Can include known issues and bug or issue numbers if needed.
-  * **@bug** - This indicates that there is a known bug with the code. Be descriptive! Include bug or issue numbers!
-  * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
+[horizontal]
+@todo::      Means there's more to do here, don't forget. Can include known issues and bug or issue numbers if needed.
+@bug::       This indicates that there is a known bug with the code. Be descriptive! Include bug or issue numbers!
+@warning::   Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
 
 ===== Including examples in your comments
 

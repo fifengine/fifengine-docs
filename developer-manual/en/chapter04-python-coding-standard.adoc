@@ -70,14 +70,15 @@ prefix it with two underscores to invoke python's name mangling
 ===== Imports
 * Only one import per line
 
-```py
+[source,python]
+----
 # Yes:
   import os
   import sys
 
 # No:
   import os, sys
-```
+----
 
 * Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
 * Imports should be grouped in the following order, separated by a blank line:
@@ -96,13 +97,14 @@ Avoid using boolean parameters and if you need them, supply as keywords argument
 If you use them and you can supply the as positional arguments - don't. 
 The rationale here is that the meaning of boolean arguments is very difficult to see for the reader otherwise:
 
-```py
+[source,python]
+----
   # Bad - What does the arg mean? Don't layout?
   self.adaptLayout(False)
   
   # Good - At least the reader has an idea what the arguments means.
   self.adaptLayout(recurse=False)
-```
+----
 
 ===== Multiple Inheritance
 
@@ -140,7 +142,8 @@ That is **the** place to document the interaction and purpose of the module.
 You should link to most relevant classes and functions for the module. 
 Try to explicitly state bugs, shortcomings and the dark and fuzzy areas of the code which need improvement.
 
-```py
+[source,python]
+----
   """
   Foo Module
   ==========
@@ -165,7 +168,7 @@ Try to explicitly state bugs, shortcomings and the dark and fuzzy areas of the c
        for foo_instance in foo.findSomething(name):
           doSomething( foo_instance )
   """
-```
+----
 
 ==== Commenting Methods
 
@@ -174,7 +177,8 @@ Here's an example of how to document using epydoc style.
 If possible link to other relevant functions, 
 provide a use case and give information on the expected results of the function.
 
-```py
+[source,python]
+----
  def findSomething(self, param):
     """ Find all instances of foo, which match param
     
@@ -186,20 +190,21 @@ provide a use case and give information on the expected results of the function.
        for x in fooList:
            print x.name # This will print 'some'
     """
-```
+----
 
 Comments inside the body of a method should be kept to a minimum in simple functions again. 
 But in large functions, especially those that encapsulate key algorithms, 
 relatively detailed descriptions of how the code is operating will make it much more maintainable.
 
-```py
+[source,python]
+----
  # converts from screen space to world space
  x += xoffset
  y += yoffset
  
  # checks to see if an image is already loaded.
  loaded = image.getImageData() is not None
-```
+----
 
 ==== Commenting Variables
 
@@ -210,7 +215,8 @@ but rather a way to make clear the use of each member variable.
 
 The documentation should be in the `__init__` function.
 
-```py
+[source,python]
+----
  def __init__(self):
     # Initialise the window size with sane defaults.
     self.window_width = self.DEFAULT_SIZE[0]
@@ -219,7 +225,7 @@ The documentation should be in the `__init__` function.
     # The command object handles all our commands.
     # We proxy in the doXYZ() methods.
     self.command = CommandObject(self)
-```
+----
 
 Parameters are all commented in the method description comment block so additional comments are unnecessary.
 
@@ -228,20 +234,17 @@ Descriptions of local variables shouldn't be necessary as long as descriptive na
 ==== Gotchas
 
 Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
-Consider a robot will parse your comments looking for keywords, stripping them out, 
-and making a report so people can make a special effort where needed.
 
-* Gotcha Keywords
-  * **TODO: topic**
-    * Means there's more to do here, don't forget.
-  * **FIXME: topic**
-    * Means there's a known bug here, explain it and optionally give a trac id
+[horizontal]
+TODO::      Means there's more to do here, don't forget.
+FIXME::     Means there's a known bug here, explain it and optionally give a trac id
 
 ==== License
 
 ===== FIFE Python header
 
-```py
+[source,python]
+----
 # -*- coding: utf-8 -*-
 
 # ####################################################################
@@ -264,7 +267,7 @@ and making a report so people can make a special effort where needed.
 #  Free Software Foundation, Inc.,
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
-```
+----
 
 ==== References
 

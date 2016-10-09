@@ -522,4 +522,4 @@ For simple examples you can use **@code** and **@endcode**.
 
 ==== References
 
-  * [C++ Coding Standards](http://www.possibility.com/Cpp/CppCodingStandard.html)
+  * http://www.possibility.com/Cpp/CppCodingStandard.html[C++ Coding Standards]

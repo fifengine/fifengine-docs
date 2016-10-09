@@ -12,7 +12,7 @@ You find the astylerc configuration file in the fifengine repository.
 [source, bash]
 ----
 # Check style        
-astyle --recursive --options=.astylerc "Marlin/*.h" "Marlin/*.cpp"
+astyle --recursive --options=.astylerc "engine/core/*.h" "engine/core/*.cpp"
 ----
 
 ==== Formatting Python code with Pylint

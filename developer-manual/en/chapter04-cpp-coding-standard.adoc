@@ -409,16 +409,7 @@ enum EnumType {
     int EVal2  /**< enum value 2 */
 };
 ```
-===== Doxygen Gotchas
-
-Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
-Consider a robot will parse your comments looking for keywords, stripping them out, and making a report so people can make a special effort where needed.
-
-  * **@todo** - Means there's more to do here, don't forget. Can include known issues and trac ticket numbers if needed.
-  * **@bug** - This indicates that there is a known bug with the code. Be very descriptive here. Also include a trac ticket!
-  * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
-
-===== Other Doxygen Comments/Keywords
+===== Doxygen Tags
 
 The following are not mandatory but it would be nice if everyone used them consistently.
 
@@ -444,6 +435,15 @@ The following are not mandatory but it would be nice if everyone used them consi
  */
 class SomeNiceClass {};
 ```
+
+==== Doxygen Tags: Gotchas
+
+Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
+Doxygen will parse your comments looking for these keywords, and making a report, so people can make a special effort where needed.
+
+  * **@todo** - Means there's more to do here, don't forget. Can include known issues and bug or issue numbers if needed.
+  * **@bug** - This indicates that there is a known bug with the code. Be descriptive! Include bug or issue numbers!
+  * **@warning** - Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!
 
 ===== Including examples in your comments
 

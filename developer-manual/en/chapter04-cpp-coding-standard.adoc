@@ -19,14 +19,15 @@ should be avoided! When using abbreviations in your variable or class names
 always capitalize the first letter of the abbreviation and lower-case for the
 rest.
 
-```
+[source,cpp]
+----
 class ColorRgb8; 
 class Dat1; 
 class Vfs; 
 class GlImage; 
 class SdlImage; 
 class GuiChanManager;
-```
+----
 
 ==== Classes
 
@@ -46,10 +47,11 @@ class GuiChanManager;
 
 Also known as "upper camel case". See the http://en.wikipedia.org/wiki/CamelCase[Camel Case] article at wikipedia.
 
-```
+[source,cpp]
+----
 class MapView; 
 class IResourceManager;
-```
+----
 
 ===== Attribute/Member names
 
@@ -57,11 +59,12 @@ class IResourceManager;
   * Should not contain any more underscores
   * First word is lower case, the rest start with an upper case letter
 
-```
+[source,cpp]
+----
 RenderBackend* m_renderBackend; 
 uint16_t       m_frameLimit; 
 std::string    m_windowTitle;
-```
+----
 
 This is also known as "lower camel case". See the http://en.wikipedia.org/wiki/CamelCase[Camel Case] document at wikipedia.
 
@@ -74,28 +77,35 @@ This is also known as "lower camel case". See the http://en.wikipedia.org/wiki/C
   * Use default parameters instead of inlined overloaded functions if you don't have a reason not to do so.
 
 so don't write: 
-```
+
+[source,cpp]
+----
 inline void doSomething() {  // Wrong
     doSomething(0); 
 }
 void doSomething () {
     ....
 }
-```
+----
+
 write:
-```
+
+[source,cpp]
+----
 void doSomething(int32_t x = 0) { // Correct
      .... 
 }
-```
+----
+
 ==== Function/Method names
 
   * Use the same rules as for class names except the first letter should be lower case! 
 
-```
+[source,cpp]
+----
 uint8_t getBitsPerPixel() const; 
 bool isFullScreen() const;
-```
+----
 
 ==== Variables and parameters
 
@@ -110,36 +120,40 @@ bool isFullScreen() const;
   * Don't abuse the singleton objects so that they become global variable repositories. If you can't access a variable easily from where you are you probably shouldn't be accessing it from there. This is a rule of thumb, **not** to be enforced strictly.
   * Declare 1 variable on each line. 
 
-```
+[source,cpp]
+----
 int32_t x, y, z; // Wrong
 
 int32_t x;  // Correct
 int32_t y; 
 int32_t z;
-```
+----
 
   * Align variable declarations as shown. This makes the code more readable. 
 
-```
+[source,cpp]
+----
 int32_t     someVar1; 
 DWORD       someVar2; 
 std::string idSting;
-```
+----
 
   * **Always initialize variables**, and when initializing groups of variables align the code as shown. 
 
-```
+[source,cpp]
+----
 someVar1 = 0; 
 someVar2 = 0; 
 idString = "";
-```
+----
 
   * When declaring pointers or references, **the * or & is placed beside the type**, not the variable name 
 
-```
+[source,cpp]
+----
 int32_t* intPointer; 
 int32_t& intReference;
-```
+----
 
   * **Use native types** wherever possible. It is not necessary to "optimize" a loop counter by making it a uint8_t. Ideally, the use of such types would be restricted to three types of places:
     1. dealing with saving or loading the data (e.g. serialization/de-serialization routines)
@@ -153,7 +167,8 @@ int32_t& intReference;
   * Variables and parameters should not contain underscores.
   * Include units in Names. If a variable represents time, weight, or some other unit then include the unit in the name so developers can more easily spot problems.
 
-```
+[source,cpp]
+----
 //Example variable and parameter names 
 IEngineChangeListener changeListener;
 std::string           characterId;
@@ -161,7 +176,7 @@ std::string           characterId;
 //Including units in the name 
 uint32_t timeoutMsecs; 
 uint32_t myWeightLbs;
-```
+----
 
 ==== Types
 
@@ -199,13 +214,14 @@ Magic numbers are numbers that are compiled into the source code and if they are
   * Instead of magic numbers use a real name that means something.
   * Use constants or enums to give meaning to the number.
 
-```
+[source,cpp]
+----
 const int WE_GOOFED = 19;
 
 enum { 
     THEY_DIDNT_PAY= 16 
 };
-```
+----
 
 ==== Coding Style
 
@@ -217,7 +233,8 @@ enum {
 
   * All braces use the following format. 
 
-```  
+[source,cpp]
+---- 
 if (x == y) {
     ...
 } else if (x > y) { 
@@ -237,16 +254,17 @@ for (;;) {
 rtype functionName() {
     ...
 }
-```
+----
 
   * Even for trivial if statements always use the 
 brace syntax. 
 
-```
+[source,cpp]
+----
 if (x == true) {
     return;
 } 
-```
+----
 
 This is clearer, less likely to cause future errors and has no effect on speed.
 
@@ -259,7 +277,8 @@ This is clearer, less likely to cause future errors and has no effect on speed.
   * Code after `private:`, `public:`, `protected:` and `case foo:` is indented.
   * Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.
 
-```
+[source,cpp]
+----
 namespace FIFE { 
     class SomeClass { 
     public: 
@@ -269,7 +288,7 @@ namespace FIFE {
         int32_t m_someval; 
     }; 
 } //FIFE
-```
+----
 
 ==== Includes
 
@@ -338,19 +357,21 @@ The level of commenting outlined here may seem excessive, but it will make the c
 
 All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable. 
 
-```
+[source,cpp]
+----
 /** Short function description**
  *
  * @param p1 Short desc
  * @return Short description of return val
  */
 rtype Function(ptype p1);
-```
+----
 
 All methods' parameters and return types must be described. This is so that the doxygen generates documentation can be of real use. functions who's use isn't obvious require longer descriptions, which should include a more detailed description of its task as well as a sample of its use. Make the
 example as illustrative as possible. 
 
-```
+[source,cpp]
+----
 /** Short function description
  *
  * Detailed description
@@ -363,11 +384,12 @@ example as illustrative as possible.
  * @return Description of return value.
  */
 rtype complicatedFunction(ptype1 p1, ptype2 p2);
-```
+----
 
 Comments inside the body of a method should be kept to a minimum in simple functions again. But in large functions, especially those that encapsulate key algorithms, relatively detailed descriptions of how the code is opperating will make it much more maintainable. These should be kept to one of two line comments using the // syntax.
 
-```
+[source,cpp]
+----
 // converts from screen space to world space
 x += xoffset; 
 y += yoffset;
@@ -375,13 +397,14 @@ y += yoffset;
 // checks to see if an image is already loaded.
 bool loaded;
 loaded = image->getImageData() != 0;
-```
+----
 
 ===== Commenting Variables
 
 Member variables should all be commented. This is not a substitute for good variable names, but rather a way to make clear the use of each member variable.
 
-```
+[source,cpp]
+----
 //! Window width in pixels. 
 int m_windowWidth;
 
@@ -390,7 +413,7 @@ int m_windowHeight;
 
 //! SDL_Surface which represents the renderable area of the screen.
 SDL_Surface* m_screen;
-```
+----
 
 Parameters are all commented in the method description comment block so additional comments are unnecessary.
 
@@ -400,7 +423,8 @@ Descriptions of local variables shouldn't be necessary as long as descriptive na
 
 When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory. 
 
-```
+[source,cpp]
+----
 /** An enum type. **
  * The documentation block cannot be put after the enum! 
  */
@@ -408,7 +432,8 @@ enum EnumType {
     int EVal1, /**< enum value 1 */ 
     int EVal2  /**< enum value 2 */
 };
-```
+----
+
 ===== Doxygen Tags
 
 The following are not mandatory but it would be nice if everyone used them consistently.
@@ -421,7 +446,8 @@ The following are not mandatory but it would be nice if everyone used them consi
 @throw::        When a method throws an exception you should document it using this keyword.
 @pre::          This describes some pre-existing condition that the following code relies on.
 
-```
+[source,cpp]
+----
 /** Pretty nice class.**
  * This class is used to demonstrate a number of section commands.
  * 
@@ -435,7 +461,7 @@ The following are not mandatory but it would be nice if everyone used them consi
  * @warning Improper use can crash your application
  */
 class SomeNiceClass {};
-```
+----
 
 ==== Doxygen Tags: Gotchas
 
@@ -451,7 +477,8 @@ Doxygen will parse your comments looking for these keywords, and making a report
 
 For simple examples you can use **@code** and **@endcode**. 
 
-```
+[source,cpp]
+----
 /** This is an awesome class.**
  * It's made of pure awesomeness and should be used sparingly
  * as to not waste the awesomeness.
@@ -461,7 +488,7 @@ For simple examples you can use **@code** and **@endcode**.
  * ac.doSomethingAwesome();
  * @endcode
  */
-```
+----
 
 ==== License
 
@@ -469,7 +496,8 @@ For simple examples you can use **@code** and **@endcode**.
   * If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.
   * You can use this example as a template in this case:
 
-```
+[source,cpp]
+----
 /***************************************************************************
  *   Copyright (C) 2005-2013 by the FIFE team                              *
  *   http://www.fifengine.net                                              *
@@ -490,7 +518,7 @@ For simple examples you can use **@code** and **@endcode**.
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA          *
  ***************************************************************************/
-```
+----
 
 ==== References
 

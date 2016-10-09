@@ -5,9 +5,15 @@
 We use Astyle for coding style checks and automatical formatting of {cpp} source code.
 You find the astylerc configuration file in the fifengine repository.
 
-=====Installation of Astyle
+===== Installation of Astyle
 
 ===== Usage
+
+[source, bash]
+----
+# Check style        
+astyle --recursive --options=.astylerc "Marlin/*.h" "Marlin/*.cpp"
+----
 
 ==== Formatting Python code with Pylint
 
@@ -18,7 +24,16 @@ You find the astylerc configuration file in the fifengine repository.
 
 [source, bash]
 ----
+# Install pylint (installs pylint.exe in %PYTHON%\Scripts)
 python -m pip install pylint
 ----
 
+Test run: 
+
+`%PYTHON%\Scripts\pylint --version` 
+
 ===== Usage
+
+To check all Python files in the folder `./engine/python/fife/` run:
+
+`- pylint --rcfile=.pylintrc ./engine/python/fife/`

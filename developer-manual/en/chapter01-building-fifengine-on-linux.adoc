@@ -96,6 +96,14 @@ Finally, we can compile Fifengine.
 To build Fife, you'll of course need the Fife source code. 
 You can download a Fife source code package or fetch the latest source using git.
 
-Please switch into the `<fife>` source directory. 
+Please switch into the `<fife>` source directory.
 
-Then type: `mkdir _build; cd _build; cmake ..`.
+To build fife with python2 support only do:
+
+Then type: `mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr..`.
+
+To build fife with python2 support and with c/c++ lib and header files do:
+
+Then type: `mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr..`.
+
+after that do make && sudo make install

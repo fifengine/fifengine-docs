@@ -5,7 +5,7 @@
 We use http://astyle.sourceforge.net/[ArtisticStye] (`astyle`) for coding style checks and automatical formatting of {cpp} source code.
 You find the https://github.com/fifengine/fifengine/blob/master/.astylerc[.astylerc] configuration file in the fifengine repository.
 
-===== Installation of astyle
+**Installation of astyle**
 
 Linux:
 
@@ -18,7 +18,7 @@ Windows:
 
 https://sourceforge.net/projects/astyle/files/astyle/
 
-===== Usage
+**Usage**
 
 [source, bash]
 ----
@@ -31,7 +31,7 @@ astyle --recursive --options=.astylerc "engine/core/*.h" "engine/core/*.cpp"
 We use the `pylint` for coding style checks and automatical formatting of Python source code.
 You find the https://github.com/fifengine/fifengine/blob/master/.pylintrc[.pylintrc] configuration file in the fifengine repository.
 
-===== Installation of pylint
+**Installation of pylint**
 
 [source, bash]
 ----
@@ -43,7 +43,7 @@ Test run:
 
 `%PYTHON%\Scripts\pylint --version` 
 
-===== Usage
+**Usage**
 
 To check all Python files in the folder `./engine/python/fife/` run:
 

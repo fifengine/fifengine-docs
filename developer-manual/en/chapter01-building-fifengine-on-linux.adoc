@@ -15,7 +15,6 @@ The are several good IDEs available, including:
 * http://www.kdevelop.org/[KDevelop]
 ** https://userbase.kde.org/KDevelop/Install#How_to_install_KDevelop[How to install KDevelop?]
 * https://code.visualstudio.com/download[Microsoft "Visual Studio Code" Editor]
-** https://code.visualstudio.com/download[Download "Visual Studio Code"]
 
 Now, that you have an IDE installed, you need to setup the required build tools.
 This includes an compiler of your choice, the build system CMake, the interface generator Swig and Python.

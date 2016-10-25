@@ -97,12 +97,23 @@ You can download a Fife source code package or fetch the latest source using git
 
 Please switch into the `<fife>` source directory.
 
-To build fife with python2 support only do:
+To build fife with Python support only do:
 
-Then type: `mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr..`.
+[source,bash]
+----
+mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr..
+----
 
-To build fife with python2 support and with c/c++ lib and header files do:
+To build fife with Python support and with c/c++ lib and header files do:
 
-Then type: `mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr..`.
+[source,bash]
+----
+mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr..
+----
 
-after that do make && sudo make install
+after that you can build the project using make and then install it:
+
+[source,bash]
+----
+make && sudo make install
+----

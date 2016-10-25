@@ -56,9 +56,14 @@ New contributors are always welcome!
 
 // include book chapters
 
+:!sectnums:
+
+[preface]
+include::getting-started.adoc[]
+
 :sectnums:
 
-include::chapter01_getting-started.adoc[]
+include::chapter01_compiling-fife.adoc[]
 
 include::chapter02_engine-overview.adoc[]
 

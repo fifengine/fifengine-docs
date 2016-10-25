@@ -1,14 +1,11 @@
-== Getting Started
+== Compiling Fifengine
 
-Fife is a cross platform game creation framework written in C++.
-Compiling Fifengine is a complicated task. 
-You'll need time to set up your development environment, 
-install all the build-tools, install or build all required dependencies 
-for finally being able to build fifengine itself.
-
+Compiling Fifengine is a complicated and time consuming task.
 This chapter explains how to setup a compilation environment for Fife.
-We'll find detailed setup steps for the operating systems Linux, Windows and Mac.
+
+You'll find detailed setup steps for the operating systems Linux, Windows and Mac.
 The individual subchapters have the same structure:
+
 Firstly, we'll setup an IDE, then the compiler toolchain and additionally needed build-tools.
 Secondly, we'll discuss how to get all the dependencies, either by building them from source or by using pre-build binaries.
 Thirdly, we'll show how to build fifengine itself.

@@ -5,7 +5,9 @@ You'll find various media items in this section, including screenshots and video
 
 === Screenshots
 
-TODO
+There is a media page that can be found here: http://www.fifengine.net/media.html
+
+Also check out some screenshots on our archived wiki here: http://archivewiki.fifengine.net/Screenshots
 
 === Videos
 

@@ -63,6 +63,8 @@ include::preface.adoc[]
 
 include::games-using-fifengine.adoc[]
 
+include::media.adoc[]
+
 :sectnums:
 
 include::chapter01_getting-started.adoc[]

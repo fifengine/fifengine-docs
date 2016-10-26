@@ -1,0 +1,12 @@
+[games-using-fifengine]
+== Media
+
+You'll find various media items in this section, including screenshots and videos.
+
+=== Screenshots
+
+TODO
+
+=== Videos
+
+video::hSfbP4Fuzjo[youtube]

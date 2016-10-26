@@ -73,17 +73,17 @@ Let's configure the dependencies project and then build all dependencies:
 
 [source,bash]
 ----
-- cmake dependencies -G "Visual Studio 14" -B../fifengine-dependencies/build
-- cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release 
+cmake dependencies -G "Visual Studio 14" -B../fifengine-dependencies/build
+cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release 
 ----
 
 You'll now find the dependencies the `fifengine-dependencies` folder:
 
 [source,bash]
 ----
-- dir ..\fifengine-dependencies
-- dir ..\fifengine-dependencies\downloads
-- dir ..\fifengine-dependencies\includes /s
+ir ..\fifengine-dependencies
+dir ..\fifengine-dependencies\downloads
+dir ..\fifengine-dependencies\includes /s
 ----
 
 NOTE: We are working on building the dependencies on the fly using the MinGW toolchain.

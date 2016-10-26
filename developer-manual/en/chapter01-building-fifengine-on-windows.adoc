@@ -81,7 +81,7 @@ You'll now find the dependencies the `fifengine-dependencies` folder:
 
 [source,bash]
 ----
-ir ..\fifengine-dependencies
+dir ..\fifengine-dependencies
 dir ..\fifengine-dependencies\downloads
 dir ..\fifengine-dependencies\includes /s
 ----

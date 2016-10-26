@@ -61,6 +61,8 @@ New contributors are always welcome!
 [preface]
 include::preface.adoc[]
 
+include::games-using-fifengine.adoc[]
+
 :sectnums:
 
 include::chapter01_getting-started.adoc[]

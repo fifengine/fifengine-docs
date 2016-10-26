@@ -1,0 +1,15 @@
+[games-using-fifengine]
+== Games using Fifengine
+
+The following projects are using Fife as their engine. 
+
+We work closely with both Unknown Horizons and Zero-Projekt to continue to improve fife.
+
+[horizontal]
+Unknown Horizons::  A realtime strategy game with economy simulation. This project is in very active development.
+Zero-Projekt::      A turn-based post apocalyptic RPG. Check out some videos from Zero-Project here.
+PARPG::             A post-apocalyptic roleplaying game inspired by Fallout, Planescape: Torment & Arcanum (development ceased).
+
+Please note that this is by no means a complete list. 
+
+If you are developing a game with fife and want it posted here let us know!

@@ -81,3 +81,7 @@ env:
     - secure: "MhTp1CehTA33/EmjsjduomQfo9YTuIPA4FVTwhLfA2UtikcGblkzD8gcyeb30e0Xpieu6mZHLuCPDGBlVC/MfcPeYhTWowhf3KEB+uIlwktQBQmU04GBM98+eP2PhPrRgNbfqv7cKOMEv7jZ9THGxdZoUMJclZE1PVqhlLhy6r6RpZsdqA1EjFwO5G+elK/Ss+mvJ/rgbX71BVPSLO43fRAdoZMnH/Dv3wPr/CtmV9VoDXGwE/QzVa9O6O11A22OCKxXHMiaB1HYzT2zug+1j/ucIYoggjODoN1dk0EjAuAISmhg+VqiiF91FKjCTdUJABESgsEzffRtYYS8EWky7bkGHWrfzeWISrWZg1UA2mXRAEkVqHvySt/E2/XWWZnokyDPEg6ApnFGW8Id7mfcUCAu14iIQQE718iYAxSNk0U+gIdAbXuFMlTb8v1qNQ0cBiC5uppGo4UqDVCW/ckyhLiBpYooGaLmWA8qCMmQyiM4FnO3ZrGe+CynYBmkWefmm4aR4rQ81C3tCbJglbDR03SGuqC44JFnhRBcArV398rA2S03dC0v9dUaaf/sRx0P/9P1vzSXlNmGrI+8iXEBsrRK7yOoqA8qbBioVgw/3ttw+RniQBvSW7kMh5q5YwkJzPf5rbs/VU0Pl88FOIOZMDu1R2tKzx25YeTKwkySFnA="
 git:
   depth: 10
+
+notifications:
+  irc: "irc.freenode.org#fife"
+  email: false

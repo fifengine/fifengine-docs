@@ -21,4 +21,6 @@ include::chapter01-building-fifengine-on-windows.adoc[]
 
 include::chapter01-building-fifengine-on-mac.adoc[]
 
+include::chapter01-cmake-configuration-options.adoc[]
+
 include::chapter01-running-the-demos.adoc[]

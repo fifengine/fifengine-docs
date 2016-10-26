@@ -11,4 +11,11 @@ Also check out some screenshots on our archived wiki here: http://archivewiki.fi
 
 ==== Videos
 
-video::hSfbP4Fuzjo[youtube]
+.Unknown Horizons
+video::KS0c_V3GvtI[youtube,853,480]
+
+.Zero Project
+video::bWK0-1Vf3ZM[youtube,853,480]
+
+.Jagged Alliance 2 - Asset Demo
+video::hSfbP4Fuzjo[youtube,853,480]

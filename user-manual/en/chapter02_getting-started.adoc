@@ -1,0 +1,3 @@
+== Getting started
+
+include::chapter02-installation.adoc[]

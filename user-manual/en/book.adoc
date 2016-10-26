@@ -56,18 +56,11 @@ New contributors are always welcome!
 
 // include book chapters
 
-:!sectnums:
-
-[preface]
-include::preface.adoc[]
-
-include::games-using-fifengine.adoc[]
-
-include::media.adoc[]
-
 :sectnums:
 
-include::chapter01_getting-started.adoc[]
+include::chapter01_what-is-fifengine.adoc[]
+
+include::chapter02_getting-started.adoc[]
 
 :!sectnums:
 

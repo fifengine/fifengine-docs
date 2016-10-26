@@ -54,7 +54,7 @@ NOTE: We are working on Python 3 support.
 
 ==== Dependencies
 
-Fife depends on a several external libraries.
+Fife depends on several external libraries.
 
 Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
 You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
@@ -77,12 +77,10 @@ Let's configure the dependencies project and then build all dependencies:
 - cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release 
 ----
 
-You'll now find the dependencies the `fifengine-dependencies` folder.
-Let's take a look:
+You'll now find the dependencies the `fifengine-dependencies` folder:
 
 [source,bash]
 ----
-# show dependency folders
 - dir ..\fifengine-dependencies
 - dir ..\fifengine-dependencies\downloads
 - dir ..\fifengine-dependencies\includes /s

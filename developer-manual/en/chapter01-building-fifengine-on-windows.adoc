@@ -54,18 +54,45 @@ NOTE: We are working on Python 3 support.
 
 ==== Dependencies
 
-Fife depends on a multitude of external libraries.
+Fife depends on a several external libraries.
 
 Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
 You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
-
-NOTE: We are currently working on the FIFE-SDK. (We provide a pre-packaged Windows development kit, the Fife-SDK.)
 
 Additionally, you find more detailed information in the dependencies chapter.
 
 ===== Building dependencies from source
 
+You can build the dependencies for Windows using MSVC.
+
+The CMake config file for the dependencies is `fifengine\dependencies\CMakeLists.txt`.
+It includes the individual scripts for fetching and building dependencies. 
+which are located in the main cmake scripts folder: `fifengine\cmake\get-*.cmake`.
+
+Let's configure the dependencies project and then build all dependencies:
+
+[source,bash]
+----
+- cmake dependencies -G "Visual Studio 14" -B../fifengine-dependencies/build
+- cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release 
+----
+
+You'll now find the dependencies the `fifengine-dependencies` folder.
+Let's take a look:
+
+[source,bash]
+----
+# show dependency folders
+- dir ..\fifengine-dependencies
+- dir ..\fifengine-dependencies\downloads
+- dir ..\fifengine-dependencies\includes /s
+----
+
+NOTE: We are working on building the dependencies on the fly using the MinGW toolchain.
+
 ===== Using packaged dependencies
+
+NOTE: We are currently working on the FIFE-SDK. (We provide a pre-packaged Windows development kit, the Fife-SDK.)
 
 ==== Building Fifengine
 

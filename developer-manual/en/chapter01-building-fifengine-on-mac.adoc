@@ -15,11 +15,19 @@ The are several good IDEs available, including:
 
 ===== Compiler
 
+TODO
+
 ===== CMake
+
+TODO
 
 ===== SWIG
 
+TODO
+
 ===== Python (2.7+)
+
+TODO
 
 ==== Dependencies
 
@@ -34,7 +42,11 @@ Additionally, you find more detailed information in the dependencies chapter.
 
 ===== Building dependencies from source
 
+NOTE: We are working on building the dependencies on the fly. For now we simply use pre-build packages.
+
 ===== Using packaged dependencies
+
+TODO
 
 ==== Building Fifengine
 

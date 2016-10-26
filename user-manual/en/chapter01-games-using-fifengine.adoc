@@ -1,5 +1,5 @@
 [games-using-fifengine]
-== Games using Fifengine
+=== Games using Fifengine
 
 The following projects are using Fife as their engine. 
 

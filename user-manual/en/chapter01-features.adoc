@@ -1,5 +1,5 @@
 [features]
-== Features
+=== Features
 
 This chapter describes all the features the engine currently supports in the https://github.com/fifengine/fifengine[master branch]. 
 Features are organized into categories for easy reference. 

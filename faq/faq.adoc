@@ -1,0 +1,105 @@
+= Frequently Asked Questions
+:description:         This document is the Fifengine FAQ.
+:keywords:            isometric, game, engine
+:revdate:             {docdate}
+:version-label!:
+:toc:
+:toc-placement:       macro
+
+This page exists to answer common questions about Fifengine.
+It is a reference to answer oft-repeated questions people in the Fife community encounter. 
+It is not a complete guide to Fife, nor a tool for teaching how to use it.
+
+If there is some common or important question you feel is wrongly left
+unanswered here, feel free to help us fix it.
+
+toc::[]
+
+=== What is FIFE?
+
+FIFE is a multi-platform isometric game engine.
+
+=== What language is FIFE written in?
+
+It's written in C++ with Python scripting capabilities.
+
+=== What does FIFE stand for?
+
+**F**lexible **I**sometric **F**ree **E**ngine.
+
+Formerly: Free Isometric Fallout Engine.
+
+=== What platforms does FIFE run on?
+
+It currently runs on Linux, Mac OSX, and Windows.
+
+=== What is the current status of FIFE project?
+
+FIFE has several stable releases under its belt. 
+We are continuing to work on it to add and improve features.
+
+=== How easy is it to create a game with FIFE?
+
+Creating a full-featured game is a complicated task. 
+FIFE tries to ease the development process for you by providing a stable basis for your game project. 
+It helps to have some programming experience to get started. 
+FIFE is an engine and you have to extend the engine to suit your needs. 
+We have provided Python bindings to make the development process a little easier.
+
+=== What projects are using FIFE?
+
+[[Games using fife|Games]]
+
+== Licensing
+
+=== What license is FIFE released under?
+
+FIFE is licensed under the http://www.gnu.org/licenses/lgpl-2.1.html[GNU Lesser General Public License v2.1] or newer.
+
+=== Can I use FIFE to make a commercial product?
+
+You can create commercial games with FIFE without needing to pay us any fee.
+
+The following basic rules apply concerning the used LGPL:
+
+.If you modify the FIFE C++ core and release a binary based on it, you'll need to release your modifications under the LGPL.
+.If you modify Python scripts that ship with FIFE you'll need to release your modifications under the LGPL.
+.If you just link your custom code against the FIFE C++ core (libFIFE) but don't modify the FIFE core itself, you won't need to release your code under the LGPL.
+.If you write your own Python scripts but import functionality from FIFE Python scripts you won't need to release your custom Python scripts under the LGPL.
+.You can use proprietery libraries in combination with FIFE if you don't integrate their code directly into the FIFE C++ core or the FIFE Python scripts.
+
+== Features
+
+=== What features does FIFE support?
+
+For a full list a features please visit our [[Features]] page.
+
+=== Does FIFE support any scripting languages?
+
+Yes! We use SWIG to generate Python bindings. 
+
+See http://www.swig.org/[SWIG's] homepage for more information on SWIG. 
+
+At this time we only generate Python bindings.
+
+=== Do you have any plans on supporting other scripting languages?
+
+Not in the immediate future.
+
+=== Will the engine support network features so you can create multiplayer games based on FIFE?
+
+FIFE does NOT have any network code at the moment so it does not support multiplayer games. 
+
+We are however hoping to add networking support in the future. 
+We are looking for developers who have experience in writing network code.
+
+== Miscellaneous
+
+=== I'd like to help out and support you. How can I contribute to the development of FIFE?
+
+Great idea :-) 
+
+We suggest you start by introducing yourself on our http://forums.fifengine.net/index.php?board=8.0[forum] 
+and then head over to our http://irc.fifengine.net[IRC] channel #fife on freenode.
+
+

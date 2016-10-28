@@ -64,8 +64,6 @@ include::chapter02_getting-started.adoc[]
 
 :!sectnums:
 
-include::faq.adoc[]
-
 //include::appendix.adoc[]
 //include::bibliography.adoc[]
 //include::glossary.adoc[]

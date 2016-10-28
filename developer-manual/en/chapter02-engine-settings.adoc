@@ -38,7 +38,9 @@ So, the basic xml file to load FIFE by the client looks like this:
 ```
 ==== Additional Settings
 
-Apart from these basic settings, other settings are also possible. All these settings are given below with a brief description attached to them below:
+Apart from these basic settings, other settings are also possible. 
+
+All these settings are given below with a brief description attached to them below:
 
 ===== Window Settings
 
@@ -50,9 +52,9 @@ Apart from these basic settings, other settings are also possible. All these set
     This variable contains the path of the icon.
 **ScreenResolution**:: 
     A good number of screen resolutions are available. 
-    The default settings are: '640x480', '800x600', '1024x768', '1280x800', '1440x900'.
-**FullScreen****:: 
-    This is a boolean variable. It can get one of the two values 'True' or 'False'. 
+    The default settings are: `640x480`, `800x600`, `1024x768`, `1280x800`, `1440x900`.
+**FullScreen**:: 
+    This is a boolean variable. It can get one of the two values `True` or `False`. 
 
 ===== Graphics Settings
 
@@ -64,7 +66,7 @@ Apart from these basic settings, other settings are also possible. All these set
     Those are denoted by 0 (simple),1 (image) and 2 (animation). 
     Any value greater than 2 throws an exception later.
 **BitsPerPixel**:: 
-    This field can only have four possible values. Those are 0,16,24 and 32.
+    This field can only have four possible values: `0`,`16`,`24` and `32`.
 **SDLRemoveFakeAlpha**:: 
     This is a setting if somebody uses SDL as the renderer. It is not used anymore probably.
 **ColorKeyEnabled**:: 
@@ -72,15 +74,15 @@ Apart from these basic settings, other settings are also possible. All these set
 **ColorKey**:: 
     A string which denotes the rgb value of the color key comma seperated (r,g,b).
 **GLCompressImages**:: 
-    Enables or Disables image compression in the OpenGL renderer. Possible values are 'True' or 'False'.
+    Enables or Disables image compression in the OpenGL renderer. Possible values are `True' or `False`.
 **GLUseFramebuffer**:: 
     A boolean variable to enable or disable the use of the FBO. 
-    This is valid only if you are using the OpenGL renderer. Possible values are 'True' or 'False'.
+    This is valid only if you are using the OpenGL renderer. Possible values are `True` or `False`.
 **GLUseNPOT**:: 
     A boolean variable to enable or disable the use of non power-of-two textures. 
     This is valid only if you are using the OpenGL renderer. 
     If this is set to False the OpenGL renderer will automatically pad NPOT textures to make them POT. 
-    Possible values are 'True' or 'False'. 
+    Possible values are `True` or `False`. 
 
 ===== Sound Settings
 
@@ -95,7 +97,7 @@ Apart from these basic settings, other settings are also possible. All these set
 **MouseSensitivity**:: 
     This is a Float value in the range of -0.99 (the slowest) and 10.0 (the fastest)
 **MouseAcceleration**:: 
-    Boolean variable. True enables mouse acceleration, False disables it. 
+    Boolean variable. `True` enables mouse acceleration, `False` disables it. 
 
 ===== Font Settings
 
@@ -119,12 +121,12 @@ Things like visible modules can be adjusted through log manager.
 
 **LogModules**:: 
     LogModules sets the modules that we need to log. 
-    There are a lot of modules that can be logged. 
-    Examples are: controller,video,audio,script etc. Write the module names semicolon seperated.
+    There are a lot of modules that can be logged, e.g.: controller, video, audio, script etc. 
+    Write the module names semicolon seperated.
 **LogToPrompt**:: 
     Tells the LogManager whether LogToPrompt should be set. If it is set to 1, log should be seen in the terminal or prompt.
 **LogToFile**:: 
-    Same as LogToPrompt, but here log is written to a file. Default name of the file is 'fife.log'.
+    Same as LogToPrompt, but here log is written to a file. Default name of the file is `fife.log`.
 **LogLevelFilter**:: 
     Loglevel is used to set a treshold for output messages and related filter. 
     There are four levels: LEVEL_DEBUG = 0, LEVEL_LOG = 1, LEVEL_WARN = 2, LEVEL_ERROR = 3, LEVEL_PANIC = 4. 

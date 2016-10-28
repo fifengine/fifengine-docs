@@ -41,6 +41,7 @@ install:
   - compass compile
   - cp -pr stylesheets ../user-manual/
   - cp -pr stylesheets ../developer-manual/
+  - cp -pr stylesheets ../faq/
   - cd ..  
   # Copy Images
   - mkdir -p user-manual/images

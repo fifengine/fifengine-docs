@@ -3,18 +3,22 @@
 
 The following projects are using Fife as their engine. 
 
-We work closely with both Unknown Horizons and Zero-Projekt to continue to improve fife.
+We work closely with both Unknown Horizons to continue to improve fife.
 
 [horizontal]
 http://www.unknown-horizons.org/[Unknown Horizons]::  
     A realtime strategy game with economy simulation. This project is in very active development.
+    
 Zero-Projekt::
     A turn-based post apocalyptic RPG. Check out some videos from Zero-Project here (development ceased).
-PARPG::             
+    
+http://blog.parpg.net/[PARPG]::             
     A post-apocalyptic roleplaying game inspired by Fallout, Planescape: Torment & Arcanum (development ceased).
+    
+https://github.com/fife-rpg/fife-rpg[FIFE RPG]::
+    Rewrite of PARPG. Build with the intention to create an RPG framework, which helps create new RPG games.
+
 https://github.com/selaux/ja2-fife-demo[Jagged Alliance 2 - Fife Demo]::
     A small game demo for using the Jagged Alliance 2 assets in FIFE engine.
 
-Please note that this is by no means a complete list. 
-
-If you are developing a game with fife and want it posted here let us know!
+If you are developing a game with Fifengine and want it posted here, please let us know!

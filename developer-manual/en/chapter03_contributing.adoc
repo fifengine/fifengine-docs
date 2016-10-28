@@ -84,3 +84,7 @@ IMPORTANT: Please follow the [[C++ Coding Standards|coding-standards]] or [[Pyth
 === Finally...
 
 Thanks for helping us! We look forward to any contributions you make to help improve FIFE!  
+
+=== Working with Git
+
+include::chapter03-working-with-git.adoc[]

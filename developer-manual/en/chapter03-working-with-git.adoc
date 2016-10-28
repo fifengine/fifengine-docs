@@ -1,0 +1,181 @@
+=== Working with Git
+
+Need help with [Github](https://help.github.com)? Make sure to check the great [Github help center]!
+
+Check out some very good git documentation here (including a cheat sheet): http://git-scm.com/docs
+
+==== Basic git
+
+===== Setting up your git environment
+
+The first thing you should do when you first start running git is to set up some local variables.  Your name and email are very important as they will be part of every commit you make!
+
+```
+git config --global user.name "Your Name"
+git config --global user.email your.email@gmail.com
+```
+
+===== Clone remote repository
+
+To clone the fifengine repo with URL https://github.com/fifengine/fifengine.git in a specific directory on your machine
+
+  `user@pc: ~$  git clone https://github.com/fifengine/fifengine.git /path/to/your/projects/`
+
+A folder `fifengine/` will be created at that location.
+  
+===== Update your local repository clone
+
+Execute `git pull` in the `fifengine/` folder.
+
+==== Commit and Push
+
+Users locally **commit** their changes to their working copy.
+
+When they are happy with the outcome, they share these commits by **push**ing them to the remote server.
+
+You need to either commit every change you did to your clone or select the files you want to update with the commit. 
+
+This is, amongst others, done with `git add`.
+
+==== Examples
+
+Add the changes in the two files export.h / module.h, move the index (of a file without changes) and remove a file as well:
+
+  ```
+  git add engine/core/export.h engine/core/modules.h
+  git mv somefile.cpp newfile.cpp
+  git rm somefile.h
+  ```
+
+`git rm` also removes your local copy of that file!  You can use the flag `-- cached` to prevent this.
+
+Now you can use `git status` to check of everything fits what you want to commit.
+
+==== Commit
+
+If so, run `git commit`
+
+and `$EDITOR` opens up, asking you for a commit message.  When you save this file (and it's not empty), the commit is executed.
+
+GitHub has a https://github.com/blog/926-shiny-new-commit-styles[blog post] about commit message guidelines.
+See also http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[this very helpful resource].
+
+After that, you can push your changes to the remote repository with `git push origin foo` if you worked on the branch *foo*. 
+Normally you will use `git push origin master`.
+
+==== Undo
+
+**Edit your most recent, local commit**
+
+Just work like you would do with your regular next commit (edit files, git add and so on).  When you're done, type `git commit --am` and edit the old commit message to fit the appended additions as well.
+
+This should only be used if you are sure that nobody worked on anything in the meantime!
+
+**Move to the most recent pushed commit**
+
+  `git reset --hard HEAD~1`
+
+**Moving to any commit in general**
+
+Browse **git log** for the ID of the last commit you want to keep, removing every newer change. Then (with that ID) use
+
+  `git reset --hard VERYLONGCOMMITSHA1`
+
+Most of the time `git revert` is what you are looking for.  
+
+It does a better job in reverting pushed commits (the two commits will be kept in the project history).
+
+http://stackoverflow.com/questions/1338728/how-to-delete-a-git-commit[StackOverflow: How to delete a Git commit]
+
+==== Branches and Merging
+
+Branches are what makes git awesome! They are easy, fast and incredibly useful for distributed development.
+
+**Check which branch you are currently on, show all available branches**
+
+  `git branch`
+
+**Change to another branch**
+
+  `git checkout origin/development`
+  
+**Track a remote branch**
+
+  `git branch -t development origin/development`
+
+**Create new branch named foo **
+
+  `git checkout -b foo`
+
+**Delete the branch named foo **
+
+  `git branch -d foo`
+
+If the branch was not yet merged, use -D instead of -d.
+
+**Try to merge the branch foo into your current branch**
+
+  `git pull . foo`
+
+Note that this will create conflict markers in each file where auto-merging is not possible.
+
+You will need to resolve these conflicts manually -- there are several tools to do so, see *git mergetool*.
+
+When ready, you need to commit the resolved files. 
+
+The commit message will automatically indicate what kind of conflicts we had.
+
+## Patches and Diffs
+
+If you are familiar enough with git, you may of course also customize the options given to the following.  This is by all means only a recommendation and no rule to strictly follow.
+
+**Generate files containing the two most recent commits**
+
+After committing all your changes to a freshly-pulled repo, use
+
+  `git format-patch -M -B -2`
+
+Where -4 instead of -2 would create patch files for the last four commits.
+
+Applying such a file called *0001-user.patch* is done using
+
+  `git am 0001-user.patch`
+
+Note that the Unix tool `patch` does not need to support patch file renaming, so git am is the preferred way to apply patches.  Useful flags might be **--resolve**.
+
+**-M -B** handles renaming correctly to create smaller patch files, but this will then only be recognized by git (no unified patch anymore).
+
+==== Committing patches of other authors
+
+To correctly display who did what in our history, please use the following flags to **git commit**:
+
+  `git commit --author "Author Name <email@example.com>"`
+
+If you already committed the files and now remembered you need to fix the author, use `git commit` **--amend** and proceed as above. This will edit the newest commit instead of creating a new one.
+
+This is especially important for artists, who otherwise might not get proper credits.  Ask them under which name and address they'd like to appear, then use that name **consistently** as *Author Name*.
+
+=== Bughunting and History
+
+**Look up who introduced what in `<path>`**
+
+  `git blame <path>`
+
+  `git gui blame <path>`
+
+**Check what happened in your repo**
+
+  `git log`, `git show`, `git diff`
+
+**Find out which commit(s) cause a bug**
+
+Start with
+
+  `git bisect good <tag/SHA where everything works>` and 
+  `git bisect bad <tag/SHA where bug occurs>`
+
+Then continue to run the bisection with either entering `git bisect good`,
+if the bug does not show up or `git bisect bad` if it does. 
+Repeating that, you will be presented a suspicious commit in the end: investigate there!
+
+https://help.github.com/[Github Help Center] 

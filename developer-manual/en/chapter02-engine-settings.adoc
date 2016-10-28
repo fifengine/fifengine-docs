@@ -36,11 +36,11 @@ So, the basic xml file to load FIFE by the client looks like this:
     </Module>
 </Settings>
 ```
-=== Additional Settings
+==== Additional Settings
 
 Apart from these basic settings, other settings are also possible. All these settings are given below with a brief description attached to them below:
 
-==== Window Settings
+===== Window Settings
 
 **WindowTitle**:: 
     This is a string type variable. 
@@ -54,7 +54,7 @@ Apart from these basic settings, other settings are also possible. All these set
 **FullScreen****:: 
     This is a boolean variable. It can get one of the two values 'True' or 'False'. 
 
-==== Graphics Settings
+===== Graphics Settings
 
 **RenderBackend**:: 
     Currently, two backend renderers are available in FIFE. 
@@ -82,7 +82,7 @@ Apart from these basic settings, other settings are also possible. All these set
     If this is set to False the OpenGL renderer will automatically pad NPOT textures to make them POT. 
     Possible values are 'True' or 'False'. 
 
-### Sound Settings
+===== Sound Settings
 
 **PlaySounds**:: 
     Another boolean variable. Giving it 'True' value keeps the sound on.
@@ -90,14 +90,14 @@ Apart from these basic settings, other settings are also possible. All these set
     Initially volume is a double value. 
     It cannot contain any negative value and can never exceed the constant MAXIMUM_VOLUME which is 10.0 by the value. 
 
-### Input Settings
+===== Input Settings
 
 **MouseSensitivity**:: 
     This is a Float value in the range of -0.99 (the slowest) and 10.0 (the fastest)
 **MouseAcceleration**:: 
     Boolean variable. True enables mouse acceleration, False disables it. 
 
-### Font Settings
+===== Font Settings
 
 **Font**:: 
     This is a string containing the path to the font file.
@@ -109,7 +109,7 @@ Apart from these basic settings, other settings are also possible. All these set
 **DefaultFontSize**:: 
     We can assign a default font size here. If nothing is mentioned the default font size is 8. 
 
-### Logging settings
+===== Logging settings
 
 Log manager provides convenient apis to access engine logging functionality. 
 
@@ -131,7 +131,7 @@ Things like visible modules can be adjusted through log manager.
     For example, in case log message has LEVEL_WARN, but the filter treshold is LEVEL_ERROR, log message is not outputted. 
     Be sure to use LEVEL_PANIC, because it causes a program abort. 
 
-### Miscellaneous settings
+==== Miscellaneous settings
 
 **PychanDebug**:: 
     Boolean variable. PychanDebug enables debug output for the pychan extension.

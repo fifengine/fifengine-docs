@@ -1,0 +1,5 @@
+=== License LGPL v2.1
+
+Fifengine is licensed under the https://github.com/fifengine/fifengine/blob/master/LICENSE.md[GNU LESSER GENERAL PUBLIC LICENSE Version 2.1].
+
+See http://www.tldrlegal.com/l/LGPL2[GNU Lesser General Public License v2.1 (LGPL-2.1) Explained] for more info.

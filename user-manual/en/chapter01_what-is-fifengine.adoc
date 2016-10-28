@@ -14,3 +14,5 @@ include::chapter01-features.adoc[]
 include::chapter01-games-using-fifengine.adoc[]
 
 include::chapter01-media.adoc[]
+
+include::chapter01-license.adoc[]

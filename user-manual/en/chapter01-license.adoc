@@ -1,5 +1,21 @@
-=== License LGPL v2.1
+=== License
 
 Fifengine is licensed under the https://github.com/fifengine/fifengine/blob/master/LICENSE.md[GNU LESSER GENERAL PUBLIC LICENSE Version 2.1].
 
 See http://www.tldrlegal.com/l/LGPL2[GNU Lesser General Public License v2.1 (LGPL-2.1) Explained] for more info.
+
+==== Can I use FIFE to make a commercial product?
+
+You can create commercial games with FIFE without needing to pay us any fee. 
+
+The following basic rules apply concerning the used LGPL:
+
+.If you modify the FIFE C++ core and release a binary based on it, you’ll need to release your modifications under the LGPL.
+
+.If you modify Python scripts that ship with FIFE you’ll need to release your modifications under the LGPL.
+
+.If you just link your custom code against the FIFE C++ core (libFIFE) but don’t modify the FIFE core itself, you won’t need to release your code under the LGPL.
+
+.If you write your own Python scripts but import functionality from FIFE Python scripts you won’t need to release your custom Python scripts under the LGPL.
+
+.You can use proprietery libraries in combination with FIFE if you don’t integrate their code directly into the FIFE C++ core or the FIFE Python scripts.

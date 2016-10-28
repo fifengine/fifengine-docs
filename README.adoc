@@ -4,14 +4,14 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 
 :USR-MAN-HTML-EN:   https://fifengine.github.io/fifengine-docs/user-manual/en/[EN]
 :DEV-MAN-HTML-EN:   https://fifengine.github.io/fifengine-docs/developer-manual/en/[EN]
-:FAQ-HTML-EN:       https://fifengine.github.io/fifengine-docs/faq/en/[EN]
+:FAQ-HTML:       https://fifengine.github.io/fifengine-docs/faq/[EN]
 
 [width="100%",options="header", cols="2,^1,4"]
 |====================
 | Resource                 | Format   | Language / Link
 | User Manual              | HTML     | {USR-MAN-HTML-EN}
 | Developer Manual         | HTML     | {DEV-MAN-HTML-EN}
-| FAQ                      | HTML     | {FAQ-HTML-EN}
+| FAQ                      | HTML     | {FAQ-HTML}
 | C++ API Documentation    | HTML     | http://www.fifengine.net/doxygen
 | C++ API Logs             | HTML     | http://www.fifengine.net/doxygen/doxygen-log.txt
 | Python API Documentation | HTML     | http://www.fifengine.net/epydoc

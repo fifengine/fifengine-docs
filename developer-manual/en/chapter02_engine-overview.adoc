@@ -3,3 +3,5 @@
 === Overview Diagram
 
 include::chapter02-engine-overview-diagram.adoc[]
+
+include::chapter02-engine-settings.adoc[]

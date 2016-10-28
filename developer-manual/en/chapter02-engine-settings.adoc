@@ -1,0 +1,138 @@
+=== Engine Settings
+
+**NOTE: This information is Python specific**
+
+When a Python program wants to use FIFE engine, it has to provide some basic engine settings to FIFE. 
+
+This is done by writing the settings to a xml file and let FIFE know the file name. 
+
+FIFE loads the settings from that file. 
+
+If no file is given, FIFE searches for the "settings.xml" file in the current directory. 
+
+This section describes the different settings that can be set in settings.xml file.
+
+==== Basic settings
+
+Every program has to give some basic settings. 
+
+These are FullScreen, PlaySounds, ScreenResolution, RenderBackend and Lighting. 
+
+If any one of them is excluded, FIFE cannot load the program and will generate error: 
+
+AttributeError: 'NoneType' object has no attribute 'findChildByName' . 
+
+So, the basic xml file to load FIFE by the client looks like this:
+
+```
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+    <Module name="FIFE">
+        <Setting name="FullScreen" type="bool"> False </Setting>
+        <Setting name="PlaySounds" type="bool"> True </Setting>
+        <Setting name="RenderBackend" type="str"> OpenGL </Setting>
+        <Setting name="ScreenResolution" type="str">1024x768</Setting>
+        <Setting name="Lighting" type="int"> 0 </Setting>
+    </Module>
+</Settings>
+```
+=== Additional Settings
+
+Apart from these basic settings, other settings are also possible. All these settings are given below with a brief description attached to them below:
+
+==== Window Settings
+
+**WindowTitle**:: 
+    This is a string type variable. 
+    The value given here, will be shown as the window title.
+**WindowIcon**:: 
+    An window icon can be set. 
+    This variable contains the path of the icon.
+**ScreenResolution**:: 
+    A good number of screen resolutions are available. 
+    The default settings are: '640x480', '800x600', '1024x768', '1280x800', '1440x900'.
+**FullScreen****:: 
+    This is a boolean variable. It can get one of the two values 'True' or 'False'. 
+
+==== Graphics Settings
+
+**RenderBackend**:: 
+    Currently, two backend renderers are available in FIFE. 
+    One is OpenGL and the other is SDL.
+**Lighting**:: 
+    FIFE supports three lighting models currently. 
+    Those are denoted by 0 (simple),1 (image) and 2 (animation). 
+    Any value greater than 2 throws an exception later.
+**BitsPerPixel**:: 
+    This field can only have four possible values. Those are 0,16,24 and 32.
+**SDLRemoveFakeAlpha**:: 
+    This is a setting if somebody uses SDL as the renderer. It is not used anymore probably.
+**ColorKeyEnabled**:: 
+    It is a boolean variable for setting color key.
+**ColorKey**:: 
+    A string which denotes the rgb value of the color key comma seperated (r,g,b).
+**GLCompressImages**:: 
+    Enables or Disables image compression in the OpenGL renderer. Possible values are 'True' or 'False'.
+**GLUseFramebuffer**:: 
+    A boolean variable to enable or disable the use of the FBO. 
+    This is valid only if you are using the OpenGL renderer. Possible values are 'True' or 'False'.
+**GLUseNPOT**:: 
+    A boolean variable to enable or disable the use of non power-of-two textures. 
+    This is valid only if you are using the OpenGL renderer. 
+    If this is set to False the OpenGL renderer will automatically pad NPOT textures to make them POT. 
+    Possible values are 'True' or 'False'. 
+
+### Sound Settings
+
+**PlaySounds**:: 
+    Another boolean variable. Giving it 'True' value keeps the sound on.
+**InitialVolume**:: 
+    Initially volume is a double value. 
+    It cannot contain any negative value and can never exceed the constant MAXIMUM_VOLUME which is 10.0 by the value. 
+
+### Input Settings
+
+**MouseSensitivity**:: 
+    This is a Float value in the range of -0.99 (the slowest) and 10.0 (the fastest)
+**MouseAcceleration**:: 
+    Boolean variable. True enables mouse acceleration, False disables it. 
+
+### Font Settings
+
+**Font**:: 
+    This is a string containing the path to the font file.
+**FontGlyphs**:: 
+    FontGlyphs are the characters that are defined in image fonts. 
+    These fonts are loaded directly from an image file and not from the ttf. 
+    FontGlyphs is of string type. 
+    All of the Font Glyphs should be given here with exactly same order they are present in the image file.
+**DefaultFontSize**:: 
+    We can assign a default font size here. If nothing is mentioned the default font size is 8. 
+
+### Logging settings
+
+Log manager provides convenient apis to access engine logging functionality. 
+
+Log targets can be set individually (prompt, file). 
+
+Things like visible modules can be adjusted through log manager.
+
+**LogModules**:: 
+    LogModules sets the modules that we need to log. 
+    There are a lot of modules that can be logged. 
+    Examples are: controller,video,audio,script etc. Write the module names semicolon seperated.
+**LogToPrompt**:: 
+    Tells the LogManager whether LogToPrompt should be set. If it is set to 1, log should be seen in the terminal or prompt.
+**LogToFile**:: 
+    Same as LogToPrompt, but here log is written to a file. Default name of the file is 'fife.log'.
+**LogLevelFilter**:: 
+    Loglevel is used to set a treshold for output messages and related filter. 
+    There are four levels: LEVEL_DEBUG = 0, LEVEL_LOG = 1, LEVEL_WARN = 2, LEVEL_ERROR = 3, LEVEL_PANIC = 4. 
+    For example, in case log message has LEVEL_WARN, but the filter treshold is LEVEL_ERROR, log message is not outputted. 
+    Be sure to use LEVEL_PANIC, because it causes a program abort. 
+
+### Miscellaneous settings
+
+**PychanDebug**:: 
+    Boolean variable. PychanDebug enables debug output for the pychan extension.
+    If it is on, a lot of new debugging texts can be seen in the terminal. 

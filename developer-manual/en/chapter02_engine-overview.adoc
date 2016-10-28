@@ -1,5 +1,5 @@
-== Engine Overview
+== Engine
 
-This chapter provides an overview of the isometric game engine.
-We'll take a look at the engine and it's dependencies.
+=== Overview Diagram
 
+include::chapter02-engine-overview-diagram.adoc[]

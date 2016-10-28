@@ -1,0 +1,66 @@
+.Engine Overview
+[ditaa, target="engine-overview-diagram"]
+----
++------------------------------------+
+|                                    |  
+|   Simple DirectMedia Layer (SDL)   |
+|                                    | 
+|     http://www.libsdl.org/         |
+|                                    |
+|  is a cross-platform development   |
+|  library designed to provide low   |
+|  level access to audio, keyboard,  |
+|  mouse, joystick, and graphics     |
+|  hardware via OpenGL and Direct3D. |
+|                                    |
++------------------------------------+
+                ^
+                |
+                |
+                v
++----------------------------------------+
+|                                        |
+|              Fifechan                  |
+|                                        |
+|  https://github.com/fifengine/fifechan |
+|                                        |  
+|  is a C++ GUI library designed for     |
+|  games. It comes with a standard set   |
+|  of 'widgets' and can use several      |
+|  different objects for displaying      |
+|  graphics and capturing user input.    |
+|                                        |
++----------------------------------------+
+                ^
+                |
+                |
+                v
++----------------------------------------------------------------+
+|                                                                |
+|  FIFE                                                          |
+|                                                                |
+|  https://github.com/fifengine/fifengine                        |
+|                                                                |
+|  is a multi-platform isometric game engine                     |
+|                                                                |
++--------------------------------------------+                   |
+|                                            |                   |
+|             PyChan                         |                   |
+|                                            |                   |
+|         part of FIFE codebase              |                   |
+|                                            |                   |
+|  is a Pythonic Fifechan Wrapper            |                   |
+|                                            |                   |
++----------------------------------------------------------------+
+
+                ^                                       ^
+                |                                       |
+                |                                       |
+                v                                       v
++------------------------------------+  +----------------------------------------+
+|                                    |  |                                        |
+|            Game Client             |  |              Game Client               |
+|         written in Python          |  |            written in C++              |
+|                                    |  |                                        |
++------------------------------------+  +----------------------------------------+
+----

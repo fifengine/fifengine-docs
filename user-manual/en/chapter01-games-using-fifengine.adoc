@@ -3,7 +3,7 @@
 
 The following projects are using Fife as their engine. 
 
-We work closely with both Unknown Horizons and Zero-Projekt to continue to improve fife.
+We work closely with both Unknown Horizons to continue to improve fife.
 
 [horizontal]
 http://www.unknown-horizons.org/[Unknown Horizons]::  
@@ -21,6 +21,4 @@ https://github.com/fife-rpg/fife-rpg[FIFE RPG]::
 https://github.com/selaux/ja2-fife-demo[Jagged Alliance 2 - Fife Demo]::
     A small game demo for using the Jagged Alliance 2 assets in FIFE engine.
 
-Please note that this is by no means a complete list. 
-
-If you are developing a game with fife and want it posted here let us know!
+If you are developing a game with Fifengine and want it posted here, please let us know!

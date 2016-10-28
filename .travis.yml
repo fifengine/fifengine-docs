@@ -70,7 +70,7 @@ script:
   # ---------------------------------------
   # create faq
   # ---------------------------------------
-  - asciidoctor -a stylesheet=../stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a linkcss -a revnumber=$REVNUMBER faq/faq.adoc -o faq/index.html -v
+  - asciidoctor -a stylesheet=stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a linkcss -a revnumber=$REVNUMBER faq/faq.adoc -o faq/index.html -v
   # ---------------------------------------
   # create an index entry page for the website @ http://fifengine.github.io/docs/
   # ---------------------------------------

@@ -125,7 +125,7 @@ When ready, you need to commit the resolved files.
 
 The commit message will automatically indicate what kind of conflicts we had.
 
-## Patches and Diffs
+==== Patches and Diffs
 
 If you are familiar enough with git, you may of course also customize the options given to the following.  This is by all means only a recommendation and no rule to strictly follow.
 
@@ -155,7 +155,7 @@ If you already committed the files and now remembered you need to fix the author
 
 This is especially important for artists, who otherwise might not get proper credits.  Ask them under which name and address they'd like to appear, then use that name **consistently** as *Author Name*.
 
-=== Bughunting and History
+==== Bughunting and History
 
 **Look up who introduced what in `<path>`**
 

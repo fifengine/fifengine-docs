@@ -3,9 +3,9 @@
 ----
 +------------------------------------+
 |                                    |  
-|   Simple DirectMedia Layer (SDL)   |
+|  Simple DirectMedia Layer (SDL2)   |
 |                                    | 
-|     http://www.libsdl.org/         |
+|  http://www.libsdl.org/            |
 |                                    |
 |  is a cross-platform development   |
 |  library designed to provide low   |
@@ -20,11 +20,11 @@
                 v
 +----------------------------------------+
 |                                        |
-|              Fifechan                  |
+|  Fifechan                              |
 |                                        |
 |  https://github.com/fifengine/fifechan |
 |                                        |  
-|  is a C++ GUI library designed for     |
+|  is a {cpp} GUI library designed for   |
 |  games. It comes with a standard set   |
 |  of 'widgets' and can use several      |
 |  different objects for displaying      |
@@ -35,32 +35,31 @@
                 |
                 |
                 v
-+----------------------------------------------------------------+
-|                                                                |
-|  FIFE                                                          |
-|                                                                |
-|  https://github.com/fifengine/fifengine                        |
-|                                                                |
-|  is a multi-platform isometric game engine                     |
-|                                                                |
-+--------------------------------------------+                   |
-|                                            |                   |
-|             PyChan                         |                   |
-|                                            |                   |
-|         part of FIFE codebase              |                   |
-|                                            |                   |
-|  is a Pythonic Fifechan Wrapper            |                   |
-|                                            |                   |
-+----------------------------------------------------------------+
-
++--------------------------------------------------------------+
+|                                                              |
+|  FIFE                                                        |
+|                                                              |
+|  https://github.com/fifengine/fifengine                      |
+|                                                              |
+|  is a multi-platform isometric game engine                   |
+|                                                              |
++--------------------------------------------+                 |
+|                                            |                 |
+|               PyChan                       |                 |
+|                                            |                 |
+|         part of FIFE codebase              |                 |
+|                                            |                 |
+|  is a Pythonic Fifechan Wrapper            |                 |
+|                                            |                 |
++--------------------------------------------------------------+
                 ^                                       ^
                 |                                       |
                 |                                       |
                 v                                       v
-+------------------------------------+  +----------------------------------------+
-|                                    |  |                                        |
-|            Game Client             |  |              Game Client               |
-|         written in Python          |  |            written in C++              |
-|                                    |  |                                        |
-+------------------------------------+  +----------------------------------------+
++----------------------------------+  +------------------------------------+
+|                                  |  |                                    |
+|            Game Client           |  |             Game Client            |
+|         written in Python        |  |           written in {cpp}         |
+|                                  |  |                                    |
++----------------------------------+  +------------------------------------+
 ----

@@ -1,6 +1,7 @@
 === License
 
-Fifengine is licensed under the https://github.com/fifengine/fifengine/blob/master/LICENSE.md[GNU LESSER GENERAL PUBLIC LICENSE Version 2.1].
+The source code (*.cpp, *.h & *.py) of Fifengine is licensed under the 
+https://github.com/fifengine/fifengine/blob/master/LICENSE.md[GNU LESSER GENERAL PUBLIC LICENSE Version 2.1].
 
 See http://www.tldrlegal.com/l/LGPL2[GNU Lesser General Public License v2.1 (LGPL-2.1) Explained] for more info.
 
@@ -19,3 +20,10 @@ The following basic rules apply concerning the used LGPL:
 .If you write your own Python scripts but import functionality from FIFE Python scripts you won’t need to release your custom Python scripts under the LGPL.
 
 .You can use proprietery libraries in combination with FIFE if you don’t integrate their code directly into the FIFE C++ core or the FIFE Python scripts.
+
+**Third-Party Content Licenses**
+
+Third-party content, such as assets, images, and sounds might come from different sources.
+
+Therefore each client directory comes with a separate LICENSE file that states the 
+origin of the content, the author and the actual license it was published under.

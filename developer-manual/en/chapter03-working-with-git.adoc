@@ -1,6 +1,6 @@
 === Working with Git
 
-Need help with [Github](https://help.github.com)? Make sure to check the great [Github help center]!
+Need help with https://github.com[Github]? Make sure to check the great https://help.github.com/[Github Help Center]!
 
 Check out some very good git documentation here (including a cheat sheet): http://git-scm.com/docs
 
@@ -8,18 +8,18 @@ Check out some very good git documentation here (including a cheat sheet): http:
 
 ===== Setting up your git environment
 
-The first thing you should do when you first start running git is to set up some local variables.  Your name and email are very important as they will be part of every commit you make!
+The first thing you should do when you first start running git is to set up some local variables. 
 
-```
-git config --global user.name "Your Name"
-git config --global user.email your.email@gmail.com
-```
+Your name and email are very important as they will be part of every commit you make!
+
+    git config --global user.name "Your Name"
+    git config --global user.email your.email@gmail.com
 
 ===== Clone remote repository
 
 To clone the fifengine repo with URL https://github.com/fifengine/fifengine.git in a specific directory on your machine
 
-  `user@pc: ~$  git clone https://github.com/fifengine/fifengine.git /path/to/your/projects/`
+    git clone https://github.com/fifengine/fifengine.git /path/to/your/projects/
 
 A folder `fifengine/` will be created at that location.
   
@@ -41,11 +41,9 @@ This is, amongst others, done with `git add`.
 
 Add the changes in the two files export.h / module.h, move the index (of a file without changes) and remove a file as well:
 
-  ```
-  git add engine/core/export.h engine/core/modules.h
-  git mv somefile.cpp newfile.cpp
-  git rm somefile.h
-  ```
+    git add engine/core/export.h engine/core/modules.h
+    git mv somefile.cpp newfile.cpp
+    git rm somefile.h
 
 `git rm` also removes your local copy of that file!  You can use the flag `-- cached` to prevent this.
 
@@ -73,13 +71,13 @@ This should only be used if you are sure that nobody worked on anything in the m
 
 **Move to the most recent pushed commit**
 
-  `git reset --hard HEAD~1`
+    git reset --hard HEAD~1
 
 **Moving to any commit in general**
 
 Browse **git log** for the ID of the last commit you want to keep, removing every newer change. Then (with that ID) use
 
-  `git reset --hard VERYLONGCOMMITSHA1`
+    git reset --hard VERYLONGCOMMITSHA1
 
 Most of the time `git revert` is what you are looking for.  
 
@@ -93,29 +91,29 @@ Branches are what makes git awesome! They are easy, fast and incredibly useful f
 
 **Check which branch you are currently on, show all available branches**
 
-  `git branch`
+    git branch
 
 **Change to another branch**
 
-  `git checkout origin/development`
+    git checkout origin/development
   
 **Track a remote branch**
 
-  `git branch -t development origin/development`
+    git branch -t development origin/development
 
 **Create new branch named foo **
 
-  `git checkout -b foo`
+    git checkout -b foo
 
 **Delete the branch named foo **
 
-  `git branch -d foo`
+    git branch -d foo
 
 If the branch was not yet merged, use -D instead of -d.
 
 **Try to merge the branch foo into your current branch**
 
-  `git pull . foo`
+    git pull . foo
 
 Note that this will create conflict markers in each file where auto-merging is not possible.
 
@@ -133,15 +131,16 @@ If you are familiar enough with git, you may of course also customize the option
 
 After committing all your changes to a freshly-pulled repo, use
 
-  `git format-patch -M -B -2`
+    git format-patch -M -B -2
 
-Where -4 instead of -2 would create patch files for the last four commits.
+Where `-4` instead of `-2` would create patch files for the last four commits.
 
 Applying such a file called *0001-user.patch* is done using
 
-  `git am 0001-user.patch`
+    git am 0001-user.patch
 
-Note that the Unix tool `patch` does not need to support patch file renaming, so git am is the preferred way to apply patches.  Useful flags might be **--resolve**.
+Note that the Unix tool `patch` does not need to support patch file renaming, so git am is the preferred way to apply patches.
+Useful flags might be **--resolve**.
 
 **-M -B** handles renaming correctly to create smaller patch files, but this will then only be recognized by git (no unified patch anymore).
 
@@ -149,33 +148,36 @@ Note that the Unix tool `patch` does not need to support patch file renaming, so
 
 To correctly display who did what in our history, please use the following flags to **git commit**:
 
-  `git commit --author "Author Name <email@example.com>"`
+    git commit --author "Author Name <email@example.com>"
 
-If you already committed the files and now remembered you need to fix the author, use `git commit` **--amend** and proceed as above. This will edit the newest commit instead of creating a new one.
+If you already committed the files and now remembered you need to fix the author, use `git commit` **--amend** and proceed as above. 
+This will edit the newest commit instead of creating a new one.
 
-This is especially important for artists, who otherwise might not get proper credits.  Ask them under which name and address they'd like to appear, then use that name **consistently** as *Author Name*.
+This is especially important for artists, who otherwise might not get proper credits.
+ Ask them under which name and address they'd like to appear, then use that name **consistently** as *Author Name*.
 
 ==== Bughunting and History
 
 **Look up who introduced what in `<path>`**
 
-  `git blame <path>`
+    git blame <path>
 
-  `git gui blame <path>`
+    git gui blame <path>
 
 **Check what happened in your repo**
 
-  `git log`, `git show`, `git diff`
+Use `git log`, `git show`, or `git diff`.
 
 **Find out which commit(s) cause a bug**
 
 Start with
 
-  `git bisect good <tag/SHA where everything works>` and 
-  `git bisect bad <tag/SHA where bug occurs>`
+    git bisect good <tag/SHA where everything works>`
+
+and 
+
+    git bisect bad <tag/SHA where bug occurs>
 
 Then continue to run the bisection with either entering `git bisect good`,
 if the bug does not show up or `git bisect bad` if it does. 
 Repeating that, you will be presented a suspicious commit in the end: investigate there!
-
-https://help.github.com/[Github Help Center] 

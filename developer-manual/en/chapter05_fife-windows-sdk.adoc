@@ -7,25 +7,25 @@ build the "SDK" installers on Appveyor (and deploy them to Github Releases).
 
 This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
 
-## Appveyor
+### Appveyor
 
 todo
 
-## Before Build Tasks
+### Before Build Tasks
 
-### 1-download
-
-todo
-
-### 2-extract
+#### 1-download
 
 todo
 
-### 3-copy
+#### 2-extract
 
 todo
 
-## Building the Installer
+#### 3-copy
+
+todo
+
+### Building the Installer
 
 The installer is build using the InnoSetup Compiler (`iscc`).
 
@@ -39,10 +39,10 @@ The compiled setup executable has the following naming scheme: `{#APP_NAME}-{#AP
 
 for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
 
-## Artifact Upload
+### Artifact Upload
 
 todo (not yet implemented: deploy them to Github Releases; for now only Appveyor artifacts)
 
-## Downloads
+### Downloads
 
 The downloads are available as Appveyor artifacts: https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts

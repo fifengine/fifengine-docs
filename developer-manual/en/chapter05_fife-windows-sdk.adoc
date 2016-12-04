@@ -7,4 +7,29 @@ build the "SDK" installers on Appveyor (and deploy them to Github Releases).
 
 This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
 
-TODO :)
+## Appveyor
+
+todo
+
+## Before Build Tasks
+
+### 1-download
+
+todo
+
+### 2-extract
+
+todo
+
+### 3-copy
+
+todo
+
+## Building the Installer
+
+The installer is build using the InnoSetup Compiler (`iscc`).
+The property `APP_VERSION` is set from the APPVEYOR environment as `%APPVEYOR_BUILD_VERSION%`, so that the installer is dynamically versionized from the outside.
+
+`build-tools\innosetup\iscc /DAPP_VERSION=%APPVEYOR_BUILD_VERSION% installer\fife-sdk.iss`
+
+The target location for installer is: `fife-windows-sdk\_build`.

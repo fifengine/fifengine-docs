@@ -28,8 +28,21 @@ todo
 ## Building the Installer
 
 The installer is build using the InnoSetup Compiler (`iscc`).
+
 The property `APP_VERSION` is set from the APPVEYOR environment as `%APPVEYOR_BUILD_VERSION%`, so that the installer is dynamically versionized from the outside.
 
 `build-tools\innosetup\iscc /DAPP_VERSION=%APPVEYOR_BUILD_VERSION% installer\fife-sdk.iss`
 
 The target location for installer is: `fife-windows-sdk\_build`.
+
+The compiled setup executable has the following naming scheme: `{#APP_NAME}-{#APP_VERSION}-Setup-{#APP_COMPILER}-x86`, 
+
+for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
+
+## Artifact Upload
+
+todo (not yet implemented: deploy them to Github Releases; for now only Appveyor artifacts)
+
+## Downloads
+
+The downloads are available as Appveyor artifacts: https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts

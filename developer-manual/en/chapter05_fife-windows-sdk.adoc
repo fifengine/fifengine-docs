@@ -1,8 +1,10 @@
 ## Fife Windows SDK
 
-The Fife SDK build scripts fetch all required packages for working with fifengine, including build-tools and dependencies,
+The Fife Windows SDK is a collection of software development tools for working with Fifengine.
+
+The Fife SDK installer build scripts fetch all required packages for working with fifengine, including build-tools and dependencies,
 build the "SDK" installers on Appveyor (and deploy them to Github Releases).
 
-This chapter documents the build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
+This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
 
 TODO :)

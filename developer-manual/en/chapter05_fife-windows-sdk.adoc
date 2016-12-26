@@ -39,6 +39,12 @@ The compiled setup executable has the following naming scheme: `{#APP_NAME}-{#AP
 
 for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
 
+#### Debugging the installer
+
+- You can create a log of the installation procedure by using the `/LOG` CLI argument.
+
+    FifeSDK-0.4.0-Setup-VC14-x86.exe /LOG=c:\fifesdk.log
+
 ### Artifact Upload
 
 todo (not yet implemented: deploy them to Github Releases; for now only Appveyor artifacts)

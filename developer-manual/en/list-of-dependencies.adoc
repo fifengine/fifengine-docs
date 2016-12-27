@@ -60,6 +60,7 @@ The Atlas Creator tool depends on
 
 * Graphics/GUI libraries
 ** http://qt-project.org/[Qt]
+** http://freeglut.sourceforge.net/[FreeGlut]
 
 === Checklist for new dependencies
 

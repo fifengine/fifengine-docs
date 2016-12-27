@@ -1,0 +1,29 @@
+== Image Atlas Creator
+
+The Image Atlas Creator allows users to combine multiple images into an image atlas. 
+This reduces the number of files you need to ship with your game and speeds up rendering!
+
+The tool is written in C++ using Qt. 
+
+You find the repo here: https://github.com/fifengine/fifengine-atlas-creator
+
+=== Usage
+
+TODO
+
+==== Input
+
+The supported Image File Types are:
+- png
+- jpg
+- jpeg
+- tga
+- bmp
+
+See https://github.com/fifengine/fifengine-atlas-creator/blob/9f0649131f34114b9f2fc90e4bdc17c493f544bf/src/mainwindow.cpp#L94-L98[Source]
+
+TODO
+
+==== Output
+
+TODO

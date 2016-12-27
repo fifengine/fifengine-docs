@@ -73,6 +73,8 @@ include::chapter04_coding-standards.adoc[]
 
 include::chapter05_fife-windows-sdk.adoc[]
 
+include::chapter06_image-atlas-creator.adoc[]
+
 :!sectnums:
 
 //include::appendix.adoc[]

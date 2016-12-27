@@ -1,0 +1,54 @@
+## Fife Windows SDK
+
+The Fife Windows SDK is a collection of software development tools for working with Fifengine.
+
+The Fife SDK installer build scripts fetch all required packages for working with fifengine, including build-tools and dependencies,
+build the "SDK" installers on Appveyor (and deploy them to Github Releases).
+
+This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
+
+### Appveyor
+
+todo
+
+### Before Build Tasks
+
+#### 1-download
+
+todo
+
+#### 2-extract
+
+todo
+
+#### 3-copy
+
+todo
+
+### Building the Installer
+
+The installer is build using the InnoSetup Compiler (`iscc`).
+
+The property `APP_VERSION` is set from the APPVEYOR environment as `%APPVEYOR_BUILD_VERSION%`, so that the installer is dynamically versionized from the outside.
+
+`build-tools\innosetup\iscc /DAPP_VERSION=%APPVEYOR_BUILD_VERSION% installer\fife-sdk.iss`
+
+The target location for installer is: `fife-windows-sdk\_build`.
+
+The compiled setup executable has the following naming scheme: `{#APP_NAME}-{#APP_VERSION}-Setup-{#APP_COMPILER}-x86`, 
+
+for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
+
+#### Debugging the installer
+
+- You can create a log of the installation procedure by using the `/LOG` CLI argument.
+
+    FifeSDK-0.4.0-Setup-VC14-x86.exe /LOG=c:\fifesdk.log
+
+### Artifact Upload
+
+todo (not yet implemented: deploy them to Github Releases; for now only Appveyor artifacts)
+
+### Downloads
+
+The downloads are available as Appveyor artifacts: https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts

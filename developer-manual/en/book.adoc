@@ -71,6 +71,8 @@ include::chapter03_contributing.adoc[]
 
 include::chapter04_coding-standards.adoc[]
 
+include::chapter05_fife-windows-sdk.adoc[]
+
 :!sectnums:
 
 //include::appendix.adoc[]

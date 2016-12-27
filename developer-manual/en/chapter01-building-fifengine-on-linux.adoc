@@ -23,6 +23,8 @@ This includes an compiler of your choice, the build system CMake, the interface 
 
 You can compile fife with `gcc` or `clang`.
 
+NOTE: We don't ship a C/C++ compiler in our Windows SDK. Instructions on how to set up a compiler and build system for C++ development on Windows can be found [here](https://userbase.kde.org/KDevelop4/Manual/WindowsSetup).
+
 ===== CMake
 
 Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.

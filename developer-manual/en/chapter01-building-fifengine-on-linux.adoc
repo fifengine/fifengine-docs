@@ -131,11 +131,25 @@ To build fife with Python support only do:
 mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 ----
 
+To build it with Python support only do (with Clang instand of GCC Compiler):
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ ..
+----
+
 To build fife with Python support and with c/c++ lib and header files do:
 
 [source,bash]
 ----
 mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+----
+
+To build fife with Python support and with c/c++ lib and header files do (with Clang instand of GCC Compiler):
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ ..
 ----
 
 after that you can build the project using make and then install it:

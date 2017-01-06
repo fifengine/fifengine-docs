@@ -107,6 +107,13 @@ git clone https://github.com/fifengine/fifechan.git && cd fifechan
 mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 ----
 
+Building with Clang instand of GCC Compiler:
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ ..
+----
+
 [source,bash]
 ----
 make && sudo make install

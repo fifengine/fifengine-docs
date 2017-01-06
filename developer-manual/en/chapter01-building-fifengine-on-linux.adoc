@@ -92,6 +92,26 @@ pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zl
 
 **NOTE** that you will also need to install http://fifengine.github.com/fifechan/[fifechan] from source, until it's available as a package for your distro. Fifechan is in the following distros: Fedora
 
+==== Building Fifechan
+
+To build Fife, you'll of course need the Fifechan source code. 
+You can download a Fifechan source code package or fetch the latest source using git.
+
+[source,bash]
+----
+git clone https://github.com/fifengine/fifechan.git && cd fifechan
+----
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+----
+
+[source,bash]
+----
+make && sudo make install
+----
+
 ==== Building Fifengine
 
 Finally, we can compile Fifengine.
@@ -99,7 +119,10 @@ Finally, we can compile Fifengine.
 To build Fife, you'll of course need the Fife source code. 
 You can download a Fife source code package or fetch the latest source using git.
 
-Please switch into the `<fife>` source directory.
+[source,bash]
+----
+git clone https://github.com/fifengine/fifengine.git && cd fifengine
+----
 
 To build fife with Python support only do:
 

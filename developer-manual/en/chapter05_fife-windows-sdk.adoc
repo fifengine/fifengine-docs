@@ -2,14 +2,14 @@
 
 The Fife Windows SDK is a collection of software development tools for working with Fifengine.
 
-The Fife SDK installer build scripts fetch all required packages for working with fifengine, including build-tools and dependencies,
-build the "SDK" installers on Appveyor (and deploy them to Github Releases).
+The Fife SDK installer build scripts fetch all required packages for working with fifengine, 
+including build-tools and dependencies, prepares them for packaging and finally builds the "SDK" installer on Appveyor.
 
 This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
 
 ### Repository Overview
 
-Let's start with an overview of the file and folders in the `fife-windows-sdk` repository:
+Let's start with an overview of the files and folders in the `fife-windows-sdk` repository:
 
 ```
 ├──build-scripts/
@@ -70,7 +70,7 @@ for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
 
 ### Artifact Upload
 
-todo (not yet implemented: deploy them to Github Releases; for now only Appveyor artifacts)
+The installer executable is automatically published on Appveyor.
 
 ### Downloads
 

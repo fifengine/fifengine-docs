@@ -23,11 +23,15 @@ You need `msvc` or `gcc` or `mingw-gcc`.
 
 In case you installed MS Visual Studio, then the MSVC compiler is already installed.
 
+[IMPORTANT] 
+.gcc and mingw-gcc toolchain support is not ready, yet
+====
 In case you want to build using `gcc`, we suggest using one of the following toolchains:
 
 * http://tdm-gcc.tdragon.net/[tdragon's TDM-GCC MinGW]
 ** This compiler and toolchain is also included in our Fife-SDK for MinGW.
 * http://mingw-w64.org/[MinGW-W64]
+====
 
 ===== CMake
 

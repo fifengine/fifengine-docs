@@ -7,6 +7,29 @@ build the "SDK" installers on Appveyor (and deploy them to Github Releases).
 
 This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.
 
+### Repository Overview
+
+Let's start with an overview of the file and folders in the `fife-windows-sdk` repository:
+
+```
+├──build-scripts/
+│   ├── 1-download.bat
+│   ├── 2-extract.bat
+│   ├── 3-copy.bat
+├──build-tools/
+│   ├── 7zip/
+│   ├── aria2/
+│   ├── innosetup/
+├──download-lists/
+│   ├── fifengine.txt
+│   ├── fifengine-build-tools.txt
+├──installer/
+├── appveyor.yml
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+```
+
 ### Appveyor
 
 todo

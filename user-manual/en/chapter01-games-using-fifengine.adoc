@@ -12,8 +12,9 @@ http://www.unknown-horizons.org/[Unknown Horizons]::
 Zero-Projekt::
     A turn-based post apocalyptic RPG. Check out some videos from Zero-Project here (development ceased).
     
-http://blog.parpg.net/[PARPG]::             
+https://github.com/parpg/parpg[PARPG]::             
     A post-apocalyptic roleplaying game inspired by Fallout, Planescape: Torment & Arcanum (development ceased).
+    http://blog.parpg.net/[PAPRG Blog]
     
 https://github.com/fife-rpg/fife-rpg[FIFE RPG]::
     Rewrite of PARPG. Build with the intention to create an RPG framework, which helps create new RPG games.

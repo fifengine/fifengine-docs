@@ -12,18 +12,27 @@ This chapter documents these build scripts and tasks, including fetching and ext
 Let's start with an overview of the files and folders in the `fife-windows-sdk` repository:
 
 ```
-├──build-scripts/
+├──build-scripts
 │   ├── 1-download.bat
 │   ├── 2-extract.bat
 │   ├── 3-copy.bat
-├──build-tools/
-│   ├── 7zip/
-│   ├── aria2/
-│   ├── innosetup/
-├──download-lists/
+│   ├── 3-stripdown.bat
+├──build-tools
+│   ├── 7zip
+│   ├── aria2
+│   ├── innosetup
+├──download-lists
 │   ├── fifengine.txt
 │   ├── fifengine-build-tools.txt
-├──installer/
+├──installer
+│   ├── images
+│   │   ├── fife.ico
+│   │   ├── WizardImage.bmp
+│   │   ├── WizardImage.xcf
+│   │   ├── WizardSmallImage.bmp
+│   │   ├── WizardSmallImage.xcf
+│   ├── includes
+│       ├── envpath.iss
 ├── appveyor.yml
 ├── CHANGELOG.md
 ├── LICENSE
@@ -45,6 +54,10 @@ todo
 todo
 
 #### 3-copy
+
+todo
+
+#### 4-stripdown
 
 todo
 

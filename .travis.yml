@@ -61,12 +61,12 @@ script:
   # create user-manual
   # ---------------------------------------
   - asciidoctor -a stylesheet=../stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a toc=left -a linkcss -a toclevels=3 -a revnumber=$REVNUMBER user-manual/en/book.adoc -o user-manual/en/index.html -v
-  #- asciidoctor -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$REVNUMBER user-manual/en/book.adoc -o user-manual/en/book.pdf -v
+  - asciidoctor -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$REVNUMBER user-manual/en/book.adoc -o user-manual/en/book.pdf -v
   # ---------------------------------------
   # create developer-manual
   # ---------------------------------------
   - asciidoctor -r asciidoctor-diagram -a stylesheet=../stylesheets/foundation.css -a icons=font -a source-highlighter=highlightjs -a toc=left -a linkcss -a toclevels=3 -a revnumber=$REVNUMBER developer-manual/en/book.adoc -o developer-manual/en/index.html -v
-  #- asciidoctor -r asciidoctor-diagram -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$REVNUMBER developer-manual/en/book.adoc -o developer-manual/en/book.pdf -v
+  - asciidoctor -r asciidoctor-diagram -r asciidoctor-pdf -b pdf -a pdf-stylesdir=pdf -a pdf-style=wpnxm -a pdf-fontsdir=pdf/fonts -a revnumber=$REVNUMBER developer-manual/en/book.adoc -o developer-manual/en/book.pdf -v
   # ---------------------------------------
   # create faq
   # ---------------------------------------

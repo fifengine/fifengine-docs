@@ -14,13 +14,30 @@ font:
       normal: NotoSans-Regular.ttf
       italic: NotoSans-Regular.ttf
       bold: NotoSans-Regular.ttf
-      bold_italic: NotoSans-Regular.ttf
+      bold_italic: NotoSans-Regular.ttf   
+    FreeSerif:
+      normal: FreeSerif.ttf
+      bold: FreeSerifBold.ttf
+      italic: FreeSerifItalic.ttf
+      bold_italic: FreeSerifBoldItalic.ttf
     DejaVuSans:
       normal: DejaVuSans.ttf
       italic: DejaVuSans.ttf
       bold: DejaVuSans.ttf
       bold_italic: DejaVuSans.ttf
-  fallbacks: [DejaVuSans]
+    Mplus Fallback:
+      normal: mplus-1p-regular.ttf
+      bold: mplus-1p-regular.ttf
+      italic: mplus-1p-regular.ttf
+      bold_italic: mplus-1p-regular.ttf
+    Emoji Fallback:
+      normal: OpenSansEmoji.ttf
+      bold: OpenSansEmoji.ttf
+      italic: OpenSansEmoji.ttf
+      bold_italic: OpenSansEmoji.ttf
+  fallbacks:
+    - Mplus Fallback
+    - Emoji Fallback  
 
 title_page:
   align: right

@@ -40,6 +40,10 @@ ifdef::asciidoctor[]
 :highlightjs-theme:   monokai_sublime
 endif::asciidoctor[]
 
+ifdef::backend-pdf[]
+:autofit-option:
+endif::backend-pdf[]
+
 // set references
 :license:            https://github.com/fifengine/fifengine/blob/master/LICENSE.md
 :issue-ref:          https://github.com/fifengine/fifengine/issues

@@ -55,19 +55,23 @@ base:
   font_size: 12
   line_height_length: 17
   line_height: $base_line_height_length / $base_font_size
-vertical_rhythm: $base_line_height_length
+vertical_spacing: $base_line_height_length
 heading:
   font_family: Roboto-Condensed
   font_color: #880000
   font_size: 17
   font_style: bold
   line_height: 1.2
-  margin_bottom: $vertical_rhythm
+  margin_bottom: $vertical_spacing
 link:
   font_color: #002FA7
 outline_list:
   indent: $base_font_size * 1.5
 
+table:
+  font_size: 9.5
+  head:
+    font_size: 10
 
 header:
   height: 0.75in

@@ -58,12 +58,23 @@ NOTE: We are working on Python 3 support.
 
 ==== Dependencies
 
-Fife depends on several external libraries.
+Fifengine depends on several external libraries.
+
+This is the https://fifengine.github.io/fifengine-docs/developer-manual/en/#_fifengine_dependencies[detailed list].
 
 Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
 You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.
 
-Additionally, you find more detailed information in the dependencies chapter.
+===== Using packaged dependencies
+
+The pre-build binaries are produced during the build of fifengine on our CI services Travis and Appveyor.
+
+Windows builds are found for each build https://ci.appveyor.com/project/LinuxDonald/fifengine
+
+These builds are also included in our pre-packaged Windows development kit, 
+the https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts[Fife-SDK].
+
+Please point CMake to the dependencies folder.
 
 ===== Building dependencies from source
 
@@ -91,10 +102,6 @@ dir ..\fifengine-dependencies\includes /s
 ----
 
 NOTE: We are working on building the dependencies on the fly using the MinGW toolchain.
-
-===== Using packaged dependencies
-
-NOTE: We are currently working on the FIFE-SDK. (We provide a pre-packaged Windows development kit, the Fife-SDK.)
 
 ==== Building Fifengine
 

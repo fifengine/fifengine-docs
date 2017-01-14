@@ -1,6 +1,27 @@
 === CMake configuration options
 
-We provide several configuration flags, which allow configuring the fifengine build.
+There are three groups of configuration options:
+
+- **CMake's own config options**: The `CMAKE_*` flags allow to declare useful build variables, including locations, environment variables, compiler information and compiler flags. 
+You find more details in the https://cmake.org/Wiki/CMake_Useful_Variables[CMake Wiki - Useful Variables].
+
+- **Fifengines's config options**:We provide several configuration flags, which allow configuring the fifengine build.
+They control which subsystems/components of fifengine to build.
+You find the overview in the https://github.com/fifengine/fifengine/blob/48aee046979afe740f8b15323c777c595a8e7ab7/CMakeLists.txt#L25[CMakeLists file].
+
+- **Config options for finding dependencies**: Finally, we have `*_INCLUDEDIR` + `*_LIBRARY_DIR` flags. 
+These are used to set the paths to the headers and lib folder for dependencies.
+
+[NOTE]
+====
+We are guiding CMake to find the dependencies automatically.
+The default location for dependencies is a folder `fifengine-dependencies` next to the `fifengine` source folder.
+The FifeSDK installs the dependencies by default into this location.
+
+If the dependencies are placed into a folder of your choice, you need to give the paths to each 
+dependencies to CMake. Either by declaring them on the CLI by using the `*_INCLUDEDIR` + `*_LIBRARY_DIR` flags
+or by using the CMake-Gui and selecting the folders.
+====
 
 [horizontal]
 
@@ -8,15 +29,15 @@ We provide several configuration flags, which allow configuring the fifengine bu
 
 `-G %GENERATOR%`:: You need to specifiy the requested GENERATOR IDE. This is either `"Visual Studio 14"` or `"Mingw makefiles"`. Others values are possible. See CMake generators for more.
 
-`-DCMAKE_PREFIX_PATH="C:\fifesdk\fifengine-includes\include"`:: where the includes are
+`-DCMAKE_PREFIX_PATH="C:\fifesdk\fifengine-dependencies\include"`:: where the includes are
 
 `-DCMAKE_BUILD_TYPE=%CONFIGURATION%`:: Release or Debug
 
 `-DCMAKE_INSTALL_PREFIX="C:\fifesdk\fife-install"`:: the installation folder, after build
 
-`-DBOOST_INCLUDEDIR="C:\fifesdk\fifengine-includes\include\boost"`:: helper to find boost
+`-DBOOST_INCLUDEDIR="C:\fifesdk\fifengine-dependencies\include\boost"`:: helper to find boost
 
-`-DBOOST_LIBRARYDIR="C:\fifesdk\fifengine-includes\lib\boost"`:: helper to find boost
+`-DBOOST_LIBRARYDIR="C:\fifesdk\fifengine-dependencies\lib\boost"`:: helper to find boost
 
 `-DPYTHON_INCLUDE_DIR="C:\fifesdk\python\include"`:: helper to find Python
 
@@ -26,9 +47,9 @@ We provide several configuration flags, which allow configuring the fifengine bu
 
 `-DSWIG_EXECUTABLE=C:\fifesdk\swig\swig.exe`:: helper to find Swig executable
 
-`-DSDL2_INCLUDE_DIR="C:\fifesdk\fifengine-includes\include\SDL2"`:: helper to find SDL2 headers
+`-DSDL2_INCLUDE_DIR="C:\fifesdk\fifengine-dependencies\include\SDL2"`:: helper to find SDL2 headers
 
-`-DSDL2_LIBRARY_DIR="C:\fifesdk\fifengine-includes\lib\x86"`:: helper to find SDL2 library
+`-DSDL2_LIBRARY_DIR="C:\fifesdk\fifengine-dependencies\lib\x86"`:: helper to find SDL2 library
 
 `-Dbuild-library=ON`:: This build flags enables building the shared library (ON). When disabled (OFF), then only the Python extension is build.
 

@@ -8,23 +8,27 @@ We provide several configuration flags, which allow configuring the fifengine bu
 
 `-G %GENERATOR%`:: You need to specifiy the requested GENERATOR IDE. This is either `"Visual Studio 14"` or `"Mingw makefiles"`. Others values are possible. See CMake generators for more.
 
-`-DCMAKE_PREFIX_PATH="c:/project/fifengine-dependencies/includes"`:: where the includes are
+`-DCMAKE_PREFIX_PATH="C:\fifesdk\fifengine-includes\include"`:: where the includes are
 
 `-DCMAKE_BUILD_TYPE=%CONFIGURATION%`:: Release or Debug
 
-`-DCMAKE_INSTALL_PREFIX="c:/project/fife-install"`:: the installation folder
+`-DCMAKE_INSTALL_PREFIX="C:\fifesdk\fife-install"`:: the installation folder, after build
 
-`-DBOOST_INCLUDEDIR="c:/project\fifengine-dependencies\includes\include\boost"`:: helpers to find boost
+`-DBOOST_INCLUDEDIR="C:\fifesdk\fifengine-includes\include\boost"`:: helper to find boost
 
-`-DBOOST_LIBRARYDIR="c:/project\fifengine-dependencies\includes\lib\boost"`:: helpers to find boost
+`-DBOOST_LIBRARYDIR="C:\fifesdk\fifengine-includes\lib\boost"`:: helper to find boost
 
-`-DPYTHON_INCLUDE_DIR="C:/Python27/include"`:: helpers to find Python
+`-DPYTHON_INCLUDE_DIR="C:\fifesdk\python\include"`:: helper to find Python
 
-`-DPYTHON_LIBRARY="C:/Python27/libs/python27.lib"`:: helpers to find Python
+`-DPYTHON_LIBRARY="C:\fifesdk\python\libs\python27.lib"`:: helper to find Python
 
-`-DSWIG_DIR=<path-to>swig`:: helpers to find Swig
+`-DSWIG_DIR=C:\fifesdk\swig`:: helper to find Swig folder
 
-`-DSWIG_EXECUTABLE=<path-to>\swig\swig.exe`:: helpers to find Swig
+`-DSWIG_EXECUTABLE=C:\fifesdk\swig\swig.exe`:: helper to find Swig executable
+
+`-DSDL2_INCLUDE_DIR="C:\fifesdk\fifengine-includes\include\SDL2"`:: helper to find SDL2 headers
+
+`-DSDL2_LIBRARY_DIR="C:\fifesdk\fifengine-includes\lib\x86"`:: helper to find SDL2 library
 
 `-Dbuild-library=ON`:: This build flags enables building the shared library (ON). When disabled (OFF), then only the Python extension is build.
 

@@ -67,14 +67,16 @@ You have the choice of building the dependencies from source or fetching pre-bui
 
 ===== Using packaged dependencies
 
-The pre-build binaries are produced during the build of fifengine on our CI services Travis and Appveyor.
+The pre-build binaries are build on-the-fly, when building Fifengine on Appveyor.
+You find MSVC 14 builds here: https://ci.appveyor.com/project/LinuxDonald/fifengine
 
-Windows builds are found for each build https://ci.appveyor.com/project/LinuxDonald/fifengine
+NOTE: We are working on building the dependencies on the fly using the MinGW toolchain.
 
 These builds are also included in our pre-packaged Windows development kit, 
 the https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts[Fife-SDK].
 
-Please point CMake to the dependencies folder.
+The default install location is `fifengine-dependencies` next to your `fifengine` source folder.
+When you're using an alternative location, please set the library and include dirs for the dependencies accordingly.
 
 ===== Building dependencies from source
 
@@ -82,7 +84,7 @@ You can build the dependencies for Windows using MSVC.
 
 The CMake config file for the dependencies is `fifengine\dependencies\CMakeLists.txt`.
 It includes the individual scripts for fetching and building dependencies. 
-which are located in the main cmake scripts folder: `fifengine\cmake\get-*.cmake`.
+They are located in the main CMake scripts folder: `fifengine\cmake\get-*.cmake`.
 
 Let's configure the dependencies project and then build all dependencies:
 
@@ -100,8 +102,6 @@ dir ..\fifengine-dependencies
 dir ..\fifengine-dependencies\downloads
 dir ..\fifengine-dependencies\includes /s
 ----
-
-NOTE: We are working on building the dependencies on the fly using the MinGW toolchain.
 
 ==== Building Fifengine
 

@@ -1,6 +1,6 @@
 == Dependencies
 
-=== Fifengine
+=== Fifengine Dependencies
 
 The following dependencies are needed to build FIFE from source:
 
@@ -36,7 +36,7 @@ The following dependencies are needed to build FIFE from source:
 * Linux specific
 ** Xcursor
 
-=== FifeChan
+=== FifeChan Dependencies
 
 FifeChan is a C++ GUI library. It has several optional dependencies.
 The following dependencies are needed to build FifeChan from source:
@@ -54,9 +54,9 @@ The following dependencies are needed to build FifeChan from source:
   ** Optional SDL Contrib Dependencies (Set `ENABLE_SDL_CONTRIB` to `ON` if you need them)
   *** http://www.libsdl.org[SDL2_ttf]
 
-=== Atlas Creator 
+=== Atlas Creator Dependencies
 
-The Atlas Creator tool depends on 
+The Atlas Creator depends on 
 
 * Graphics/GUI libraries
 ** http://qt-project.org/[Qt]

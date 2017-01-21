@@ -131,6 +131,14 @@ You can download a Fife source code package or fetch the latest source using git
 git clone https://github.com/fifengine/fifengine.git && cd fifengine
 ----
 
+If you have only an old version of cmake (2.8) then please do this:
+
+[source,bash]
+----
+mkdir ../_build; cd ../_build/; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ../fifengine/
+instand of mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+----
+
 To build fife with Python support only do:
 
 [source,bash]

@@ -41,7 +41,7 @@ Let's start with an overview of the files and folders in the `fife-windows-sdk` 
 
 ### Appveyor
 
-We are using Appveyor to continously build an publish the installer.
+We are using Appveyor to continuously build and publish the installer.
 The file `appveyor.yml` is Appveyor's configuration file.
 Important are the sections `before_build`, `build_script`, `artifact`, `deploy`.
 

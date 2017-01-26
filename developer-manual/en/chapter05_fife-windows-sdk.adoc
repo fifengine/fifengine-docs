@@ -41,9 +41,19 @@ Let's start with an overview of the files and folders in the `fife-windows-sdk` 
 
 ### Appveyor
 
-todo
+We are using Appveyor to continously build an publish the installer.
+The file `appveyor.yml` is Appveyor's configuration file.
+Important are the sections `before_build`, `build_script`, `artifact`, `deploy`.
 
-### Before Build Tasks
+### Before Build Tasks (before_build)
+
+Before we can build the installer, we need to download and extract 
+the software components, which we later want to include in the installer.
+After the extraction, we copy and move some files and folders around.
+Then we delete several unnecessary files and folders in a stripdown run.
+
+At the end of the `before_build` step, we have a proper folder structure
+with all the components we want to ship, ready for inclusion into the installer.
 
 #### 1-download
 
@@ -61,11 +71,12 @@ todo
 
 todo
 
-### Building the Installer
+### Building the Installer (build_script)
 
 The installer is build using the InnoSetup Compiler (`iscc`).
 
-The property `APP_VERSION` is set from the APPVEYOR environment as `%APPVEYOR_BUILD_VERSION%`, so that the installer is dynamically versionized from the outside.
+The property `APP_VERSION` is set from the APPVEYOR environment as `%APPVEYOR_BUILD_VERSION%`, 
+so that the installer is dynamically versionized from the outside.
 
 `build-tools\innosetup\iscc /DAPP_VERSION=%APPVEYOR_BUILD_VERSION% installer\fife-sdk.iss`
 
@@ -81,10 +92,14 @@ for example: `_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"`
 
     FifeSDK-0.4.0-Setup-VC14-x86.exe /LOG=c:\fifesdk.log
 
-### Artifact Upload
+### Artifact Upload (artifact)
 
-The installer executable is automatically published on Appveyor.
+When the installer was successfully build, it is automatically published on Appveyor's artifact storage.
 
-### Downloads
+https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts[Download from Appveyor's artifact storage]
 
-The downloads are available as Appveyor artifacts: https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts
+### Downloads (deploy)
+
+When a new release version of the installer is tagged, then the installer is automatically published on Github Releases.
+
+https://github.com/fifengine/fife-windows-sdk/releases[Download from Github Releases]

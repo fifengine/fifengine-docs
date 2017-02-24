@@ -9,7 +9,6 @@ The following dependencies are needed to build FIFE from source:
 ** http://www.libsdl.org/projects/SDL_ttf/[SDL_ttf] >= 2.0
   - depends on https://www.freetype.org/[FreeType] >= 2.x
 ** http://www.libsdl.org/projects/SDL_image/[SDL_image]
-*** NOTE: there have been issues using SDL_image version 1.2.9. Please use latest version! See issue {issue-ref}/410[#410]
 ** http://www.boost.org[Boost] >= 1.33.1
 
 * Sound libraries

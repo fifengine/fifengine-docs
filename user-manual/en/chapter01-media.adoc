@@ -14,6 +14,9 @@ Also check out some screenshots on our archived wiki here: http://archivewiki.fi
 .Unknown Horizons
 video::KS0c_V3GvtI[youtube,853,480]
 
+.Steamfolk Tales
+video::juBFYBhZ0jI[youtube,853,480]
+
 .Zero Project
 video::bWK0-1Vf3ZM[youtube,853,480]
 
@@ -23,3 +26,4 @@ video::hSfbP4Fuzjo[youtube,853,480]
 ==== Channels
 
 - https://www.youtube.com/user/UnknownHorizonsGame[Unknown Horizons - Youtube Channel]
+- https://www.youtube.com/playlist?list=PL6A0F5A41FE17FF02[Niektóry - Playlist: Game Development]

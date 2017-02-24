@@ -71,7 +71,8 @@ Support for following font formats:
 
 .Graphics
   ** General
-    *** Support for all formats implemented by http://www.libsdl.org/projects/SDL_image/[SDL_image]
+    *** Support for all formats implemented by http://www.libsdl.org/projects/SDL_image/[SDL_image]: 
+      - BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV
     *** Color key support
     *** Take ingame screenshots via hotkey
     *** Pooling of image resources, resulting enhanced performance and reduced memory consumption

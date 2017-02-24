@@ -6,6 +6,20 @@ and emits a build system for that project of your choice using one of CMake's "g
 This allows CMake to support many different platforms and build tools. 
 You can run `cmake --help` to see the list of supported "generators" on your platform.
 
+=== CMake Build Types
+
+Several build types are supported.
+
+- Release
+- Debug
+- RelWithDebInfo
+- MinSizeRel
+
+For the single configuration generators (e.g. "Unix Makefile" and "Visual Studio 12 2013"") you set the build type when invoking cmake by passing `-DCMAKE_BUILD_TYPE=<build_type>` where `<build_type>` is one of the build types specified above.
+
+For multi-configuration generators (e.g. Visual Studio) you don't set the build type when invoking CMake 
+and instead set the build type within Visual Studio itself (by using the dropdown in the top navigation bar).
+
 === CMake configuration options
 
 There are three groups of configuration options:

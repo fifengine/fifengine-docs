@@ -34,6 +34,9 @@ You find the overview in the https://github.com/fifengine/fifengine/blob/48aee04
 - **Config options for finding dependencies**: Finally, we have `*_INCLUDEDIR` + `*_LIBRARY_DIR` flags. 
 These are used to set the paths to the headers and lib folder for dependencies.
 
+On the command line options can be passed to cmake using the `-D` option. 
+In `ccmake` and `cmake-gui` these can be set in the user interface.
+
 [NOTE]
 ====
 We are guiding CMake to find the dependencies automatically.

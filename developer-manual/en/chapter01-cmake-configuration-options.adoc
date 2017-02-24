@@ -1,3 +1,11 @@
+=== CMake
+
+CMake is a "meta build system" that reads a description of the project written in the CMakeLists.txt files 
+and emits a build system for that project of your choice using one of CMake's "generators". 
+
+This allows CMake to support many different platforms and build tools. 
+You can run `cmake --help` to see the list of supported "generators" on your platform.
+
 === CMake configuration options
 
 There are three groups of configuration options:

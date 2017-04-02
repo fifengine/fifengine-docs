@@ -46,7 +46,7 @@ NOTE: We are working on building the dependencies on the fly. For now we simply 
 
 ===== Using packaged dependencies
 
-TODO
+brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml glew libvorbis
 
 ==== Building Fifengine
 

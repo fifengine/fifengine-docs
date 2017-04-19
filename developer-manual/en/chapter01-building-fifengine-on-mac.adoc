@@ -19,15 +19,19 @@ TODO
 
 ===== CMake
 
-TODO
+Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.
+
+https://cmake.org/download/
 
 ===== SWIG
 
-TODO
+Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.
 
-===== Python (2.7+)
+http://www.swig.org/
 
-TODO
+===== Python
+
+To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+
 
 ==== Dependencies
 
@@ -46,8 +50,62 @@ NOTE: We are working on building the dependencies on the fly. For now we simply 
 
 ===== Using packaged dependencies
 
-brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml glew libvorbis
+brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml glew libvorbis (for python 3 support: python3)
+
+==== Building Fifechan
+
+To build Fife, you'll of course need the Fifechan source code.
+You can download a Fifechan source code package or fetch the latest source using git.
+
+[source,bash]
+----
+git clone https://github.com/fifengine/fifechan.git && cd fifechan
+----
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+----
+
+[source,bash]
+----
+make && sudo make install
+----
 
 ==== Building Fifengine
 
 Finally, we can compile Fifengine.
+
+To build Fife, you'll of course need the Fife source code.
+You can download a Fife source code package or fetch the latest source using git.
+
+[source,bash]
+----
+git clone https://github.com/fifengine/fifengine.git && cd fifengine
+----
+
+To build fife with Python support only do:
+
+[source,bash]
+----
+With "-DPYTHON_EXECUTABLE=" you can change the Python Version what you want to use. If it is not the System defualt Python Version.
+----
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake ../fifengine
+----
+
+To build fife with Python support and with c/c++ lib and header files do:
+
+[source,bash]
+----
+mkdir _build; cd _build; cmake -Dbuild-library=ON ../fifengine
+----
+
+after that you can build the project using make and then install it:
+
+[source,bash]
+----
+make && sudo make install
+----

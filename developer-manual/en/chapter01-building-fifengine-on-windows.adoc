@@ -45,11 +45,9 @@ Fife uses Swig as interface generator. Fife itself is written in C++, for being 
 
 http://www.swig.org/
 
-===== Python (2.7+)
+===== Python
 
-To build the Python extension you need Python. Fife works with Python 2.7+. 
-
-NOTE: We are working on Python 3 support.
+To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+
 
 * http://python.org/[Python]
 ** https://www.python.org/downloads/windows/[Python Downloads for Windows]

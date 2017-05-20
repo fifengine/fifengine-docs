@@ -1,0 +1,4038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="description" content="This document is the Fifengine Developer Manual.">
+<meta name="keywords" content="fifengine, fife, isometric game engine">
+<title>Fifengine - Developer Manual</title>
+<link rel="stylesheet" href="./../stylesheets/foundation.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Fifengine - Developer Manual</h1>
+<div class="details">
+<span id="revnumber">version 1.0-dev-924f97d,</span>
+<span id="revdate">2017-05-20</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_getting_started">Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#_what_s_in_the_manual">What&#8217;s in the Manual</a></li>
+</ul>
+</li>
+<li><a href="#_compiling_fifengine">1. Compiling Fifengine</a>
+<ul class="sectlevel2">
+<li><a href="#_building_fifengine_on_linux">1.1. Building Fifengine on Linux</a>
+<ul class="sectlevel3">
+<li><a href="#_build_environment">1.1.1. Build Environment</a></li>
+<li><a href="#_dependencies">1.1.2. Dependencies</a></li>
+<li><a href="#_building_fifechan">1.1.3. Building Fifechan</a></li>
+<li><a href="#_building_fifengine">1.1.4. Building Fifengine</a></li>
+</ul>
+</li>
+<li><a href="#_building_fifengine_on_windows">1.2. Building Fifengine on Windows</a>
+<ul class="sectlevel3">
+<li><a href="#_build_environment_2">1.2.1. Build Environment</a></li>
+<li><a href="#_dependencies_2">1.2.2. Dependencies</a></li>
+<li><a href="#_building_fifengine_2">1.2.3. Building Fifengine</a></li>
+</ul>
+</li>
+<li><a href="#_building_fifengine_on_mac">1.3. Building Fifengine on Mac</a>
+<ul class="sectlevel3">
+<li><a href="#_build_environment_3">1.3.1. Build Environment</a></li>
+<li><a href="#_dependencies_3">1.3.2. Dependencies</a></li>
+<li><a href="#_building_fifechan_2">1.3.3. Building Fifechan</a></li>
+<li><a href="#_building_fifengine_3">1.3.4. Building Fifengine</a></li>
+</ul>
+</li>
+<li><a href="#_cmake_4">1.4. CMake</a></li>
+<li><a href="#_cmake_build_types">1.5. CMake Build Types</a></li>
+<li><a href="#_cmake_configuration_options">1.6. CMake configuration options</a></li>
+<li><a href="#_running_the_demos">1.7. Running the demos</a></li>
+</ul>
+</li>
+<li><a href="#_engine">2. Engine</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_diagram">2.1. Overview Diagram</a></li>
+<li><a href="#_engine_settings">2.2. Engine Settings</a>
+<ul class="sectlevel3">
+<li><a href="#_basic_settings">2.2.1. Basic settings</a></li>
+<li><a href="#_additional_settings">2.2.2. Additional Settings</a></li>
+<li><a href="#_miscellaneous_settings">2.2.3. Miscellaneous settings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_contributing">3. Contributing</a>
+<ul class="sectlevel2">
+<li><a href="#_help_wanted">3.1. Help wanted&#8230;&#8203;</a></li>
+<li><a href="#_workflow">3.2. Workflow</a></li>
+<li><a href="#_gotchas">3.3. Gotchas</a></li>
+<li><a href="#_finally">3.4. Finally&#8230;&#8203;</a></li>
+<li><a href="#_working_with_git">3.5. Working with Git</a>
+<ul class="sectlevel3">
+<li><a href="#_basic_git">3.5.1. Basic git</a></li>
+<li><a href="#_commit_and_push">3.5.2. Commit and Push</a></li>
+<li><a href="#_examples">3.5.3. Examples</a></li>
+<li><a href="#_commit">3.5.4. Commit</a></li>
+<li><a href="#_undo">3.5.5. Undo</a></li>
+<li><a href="#_branches_and_merging">3.5.6. Branches and Merging</a></li>
+<li><a href="#_patches_and_diffs">3.5.7. Patches and Diffs</a></li>
+<li><a href="#_committing_patches_of_other_authors">3.5.8. Committing patches of other authors</a></li>
+<li><a href="#_bughunting_and_history">3.5.9. Bughunting and History</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_coding_standards">4. Coding standards</a>
+<ul class="sectlevel2">
+<li><a href="#_c_coding_standards">4.1. C++ Coding Standards</a>
+<ul class="sectlevel3">
+<li><a href="#_files">4.1.1. Files</a></li>
+<li><a href="#_conventions">4.1.2. Conventions</a></li>
+<li><a href="#_classes">4.1.3. Classes</a></li>
+<li><a href="#_functions_methods">4.1.4. Functions/Methods</a></li>
+<li><a href="#_function_method_names">4.1.5. Function/Method names</a></li>
+<li><a href="#_variables_and_parameters">4.1.6. Variables and parameters</a></li>
+<li><a href="#_types">4.1.7. Types</a></li>
+<li><a href="#_coding_style">4.1.8. Coding Style</a></li>
+<li><a href="#_includes">4.1.9. Includes</a></li>
+<li><a href="#_multiple_inheritance">4.1.10. Multiple Inheritance</a></li>
+<li><a href="#_friend_declarations">4.1.11. Friend declarations</a></li>
+<li><a href="#_error_handling">4.1.12. Error Handling</a></li>
+<li><a href="#_sample_source_files">4.1.13. Sample Source Files</a></li>
+<li><a href="#_commenting">4.1.14. Commenting</a></li>
+<li><a href="#_doxygen_tags_gotchas">4.1.15. Doxygen Tags: Gotchas</a></li>
+<li><a href="#_license">4.1.16. License</a></li>
+<li><a href="#_references">4.1.17. References</a></li>
+</ul>
+</li>
+<li><a href="#_python_coding_standards">4.2. Python Coding Standards</a>
+<ul class="sectlevel3">
+<li><a href="#_files_2">4.2.1. Files</a></li>
+<li><a href="#_naming_conventions">4.2.2. Naming Conventions</a></li>
+<li><a href="#_coding_style_2">4.2.3. Coding Style</a></li>
+<li><a href="#_commenting_2">4.2.4. Commenting</a></li>
+<li><a href="#_commenting_methods_2">4.2.5. Commenting Methods</a></li>
+<li><a href="#_commenting_variables_2">4.2.6. Commenting Variables</a></li>
+<li><a href="#_gotchas_2">4.2.7. Gotchas</a></li>
+<li><a href="#_license_2">4.2.8. License</a></li>
+<li><a href="#_references_2">4.2.9. References</a></li>
+</ul>
+</li>
+<li><a href="#_coding_standard_checkers">4.3. Coding Standard Checkers</a>
+<ul class="sectlevel3">
+<li><a href="#_formatting_c_code_with_astyle">4.3.1. Formatting C++ code with Astyle</a></li>
+<li><a href="#_formatting_python_code_with_pylint">4.3.2. Formatting Python code with Pylint</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_fife_windows_sdk">5. Fife Windows SDK</a>
+<ul class="sectlevel2">
+<li><a href="#_repository_overview">5.1. Repository Overview</a></li>
+<li><a href="#_appveyor">5.2. Appveyor</a></li>
+<li><a href="#_before_build_tasks_before_build">5.3. Before Build Tasks (before_build)</a>
+<ul class="sectlevel3">
+<li><a href="#_1_download">5.3.1. 1-download</a></li>
+<li><a href="#_2_extract">5.3.2. 2-extract</a></li>
+<li><a href="#_3_copy">5.3.3. 3-copy</a></li>
+<li><a href="#_4_stripdown">5.3.4. 4-stripdown</a></li>
+</ul>
+</li>
+<li><a href="#_building_the_installer_build_script">5.4. Building the Installer (build_script)</a>
+<ul class="sectlevel3">
+<li><a href="#_debugging_the_installer">5.4.1. Debugging the installer</a></li>
+</ul>
+</li>
+<li><a href="#_artifact_upload_artifact">5.5. Artifact Upload (artifact)</a></li>
+<li><a href="#_downloads_deploy">5.6. Downloads (deploy)</a></li>
+</ul>
+</li>
+<li><a href="#_image_atlas_creator">6. Image Atlas Creator</a>
+<ul class="sectlevel2">
+<li><a href="#_usage">6.1. Usage</a>
+<ul class="sectlevel3">
+<li><a href="#_input">6.1.1. Input</a></li>
+<li><a href="#_output">6.1.2. Output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_dependencies_4">Dependencies</a>
+<ul class="sectlevel2">
+<li><a href="#_fifengine_dependencies">Fifengine Dependencies</a></li>
+<li><a href="#_fifechan_dependencies">FifeChan Dependencies</a></li>
+<li><a href="#_atlas_creator_dependencies">Atlas Creator Dependencies</a></li>
+<li><a href="#_checklist_for_new_dependencies">Checklist for new dependencies</a></li>
+</ul>
+</li>
+<li><a href="#_glossary">Glossary</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">This document is under active development and discussion!</div>
+<div class="paragraph">
+<p>If you find errors or omissions in this document, please don&#8217;t hesitate to <a href="https://github.com/fifengine/fifengine-docs/issues">submit an issue or open a pull request</a> with a fix.
+We also encourage you to ask questions and discuss any aspects of the project on <a href="http://webchat.freenode.net/?channels=%23fife">IRC</a>.
+New contributors are always welcome!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a><a class="link" href="#_getting_started">Getting Started</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Flexible Isometric Free Engine (FIFE) is a multi-platform isometric game engine written in C.
+It comes with Python bindings allowing users to create games using Python as well as C.
+The engine is extendable and enables you to add any feature you can imagine to your project.
+It’s a very flexible game creation framework and not tied to any genre, but geared towards an RTS or RPG using an isometric or top-down view style.</p>
+</div>
+<div class="paragraph">
+<p>The developer manual offers programmers documentation and examples useful in working with fifengine.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_s_in_the_manual"><a class="anchor" href="#_what_s_in_the_manual"></a><a class="link" href="#_what_s_in_the_manual">What&#8217;s in the Manual</a></h3>
+<div class="paragraph">
+<p>This manual will cover all aspects of custom development with fifengine:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the compilation of fife</p>
+</li>
+<li>
+<p>the engine</p>
+</li>
+<li>
+<p>the Programming Style Guide explains the programming style and coding standards used</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compiling_fifengine"><a class="anchor" href="#_compiling_fifengine"></a><a class="link" href="#_compiling_fifengine">1. Compiling Fifengine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compiling Fifengine is a complicated and time consuming task.
+This chapter explains how to setup a compilation environment for Fife.</p>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll find detailed setup steps for fifengine on the operating systems Linux, Windows and Mac.</p>
+</div>
+<div class="paragraph">
+<p>The individual subchapters have the same structure:</p>
+</div>
+<div class="paragraph">
+<p>Firstly, we&#8217;ll setup an IDE, then the compiler toolchain and additionally needed build-tools.</p>
+</div>
+<div class="paragraph">
+<p>Secondly, we&#8217;ll discuss how to get all the dependencies, either by building them from source or by using pre-build binaries.</p>
+</div>
+<div class="paragraph">
+<p>Thirdly, we&#8217;ll show how to build fifengine itself.</p>
+</div>
+<div class="paragraph">
+<p>Without further ado, let&#8217;s get started.</p>
+</div>
+<div class="sect2">
+<h3 id="_building_fifengine_on_linux"><a class="anchor" href="#_building_fifengine_on_linux"></a><a class="link" href="#_building_fifengine_on_linux">1.1. Building Fifengine on Linux</a></h3>
+<div class="paragraph">
+<p>This guide will help you build fife on various flavors of linux.</p>
+</div>
+<div class="sect3">
+<h4 id="_build_environment"><a class="anchor" href="#_build_environment"></a><a class="link" href="#_build_environment">1.1.1. Build Environment</a></h4>
+<div class="paragraph">
+<p>Firstly, we need to setup an IDE and several build tools.</p>
+</div>
+<div class="sect4">
+<h5 id="_ide"><a class="anchor" href="#_ide"></a><a class="link" href="#_ide">1.1.1.1. IDE</a></h5>
+<div class="paragraph">
+<p>The are several good IDEs available, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://codeblocks.org">CodeBlocks</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.codeblocks.org/downloads/26#linux">Downloading CodeBlocks for Linux</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="http://www.kdevelop.org/">KDevelop</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://userbase.kde.org/KDevelop/Install#How_to_install_KDevelop">How to install KDevelop?</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://code.visualstudio.com/download">Microsoft "Visual Studio Code" Editor</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now, that you have an IDE installed, you need to setup the required build tools.
+This includes an compiler of your choice, the build system CMake, the interface generator Swig and Python.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_compiler"><a class="anchor" href="#_compiler"></a><a class="link" href="#_compiler">1.1.1.2. Compiler</a></h5>
+<div class="paragraph">
+<p>You can compile fife with <code>gcc</code> or <code>clang</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We don&#8217;t ship a C/C compiler in our Windows SDK. Instructions on how to set up a compiler and build system for C development on Windows can be found [here](<a href="https://userbase.kde.org/KDevelop4/Manual/WindowsSetup" class="bare">https://userbase.kde.org/KDevelop4/Manual/WindowsSetup</a>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cmake"><a class="anchor" href="#_cmake"></a><a class="link" href="#_cmake">1.1.1.3. CMake</a></h5>
+<div class="paragraph">
+<p>Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://cmake.org/download/" class="bare">https://cmake.org/download/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_swig"><a class="anchor" href="#_swig"></a><a class="link" href="#_swig">1.1.1.4. SWIG</a></h5>
+<div class="paragraph">
+<p>Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.swig.org/" class="bare">http://www.swig.org/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_python"><a class="anchor" href="#_python"></a><a class="link" href="#_python">1.1.1.5. Python</a></h5>
+<div class="paragraph">
+<p>To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies"><a class="anchor" href="#_dependencies"></a><a class="link" href="#_dependencies">1.1.2. Dependencies</a></h4>
+<div class="paragraph">
+<p>Fife depends on a multitude of external libraries.</p>
+</div>
+<div class="paragraph">
+<p>Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
+You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.</p>
+</div>
+<div class="paragraph">
+<p>We do not provide a pre-packaged software development kit for Linux.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, you find more detailed information in the dependencies chapter.</p>
+</div>
+<div class="sect4">
+<h5 id="_building_dependencies_from_source"><a class="anchor" href="#_building_dependencies_from_source"></a><a class="link" href="#_building_dependencies_from_source">1.1.2.1. Building dependencies from source</a></h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We are working on building the dependencies on the fly. For now we simply use pre-build packages.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_using_packaged_dependencies"><a class="anchor" href="#_using_packaged_dependencies"></a><a class="link" href="#_using_packaged_dependencies">1.1.2.2. Using packaged dependencies</a></h5>
+<div class="sect5">
+<h6 id="_debian_based_systems"><a class="anchor" href="#_debian_based_systems"></a><a class="link" href="#_debian_based_systems">Debian based systems</a></h6>
+<div class="paragraph">
+<p>On debian based systems you can grab all dependencies by installing the following packages:</p>
+</div>
+<div class="paragraph">
+<p>Python 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">apt-get install -y build-essential libalsa-ocaml-dev libsdl2-dev libboost-dev libsdl2-ttf-dev libsdl2-image-dev libvorbis-dev libalut-dev python2.7 python-dev libboost-regex-dev libboost-filesystem-dev libboost-test-dev swig zlib1g-dev libopenal-dev git python-yaml libxcursor1 libxcursor-dev cmake cmake-data libtinyxml-dev libpng-dev libglew-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">apt-get install -y build-essential libalsa-ocaml-dev libsdl2-dev libboost-dev libsdl2-ttf-dev libsdl2-image-dev libvorbis-dev libalut-dev python3 python3-dev libboost-regex-dev libboost-filesystem-dev libboost-test-dev swig zlib1g-dev libopenal-dev git python3-yaml libxcursor1 libxcursor-dev cmake cmake-data libtinyxml-dev libpng-dev libglew-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_gentoo_based_systems"><a class="anchor" href="#_gentoo_based_systems"></a><a class="link" href="#_gentoo_based_systems">Gentoo based systems</a></h6>
+<div class="paragraph">
+<p>Python 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">emerge --ask --verbose --noreplace libvorbis libogg media-libs/openal boost libsdl2 sdl2-image sdl2-ttf git pyyaml dev-lang/swig dev-libs/tinyxml dev-util/cmake media-libs/glew dev-lang/python2.7</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">emerge --ask --verbose --noreplace libvorbis libogg media-libs/openal boost libsdl2 sdl2-image sdl2-ttf git pyyaml dev-lang/swig dev-libs/tinyxml dev-util/cmake media-libs/glew dev-lang/python3 dev-python/future</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_fedora_based_systems"><a class="anchor" href="#_fedora_based_systems"></a><a class="link" href="#_fedora_based_systems">Fedora based systems</a></h6>
+<div class="paragraph">
+<p>Python 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">dnf install git python2 gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2_ttf SDL2_ttf-devel SDL2_image SDL2_image-devel boost boost-devel libvorbis libvorbis-devel libogg libogg-devel openal-soft openal-soft-devel zlib zlib-devel mesa-libGL mesa-libGL-devel mesa-libGLU mesa-libGLU-devel swig libXcursor libXcursor-devel alsa-lib alsa-lib-devel python-alsa PyYAML allegro5 cmake tinyxml-devel libpng libpng-devel fifechan fifechan-devel fifechan-opengl fifechan-opengl-devel fifechan-sdl fifechan-sdl-devel glew glew-devel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">dnf install git python3 gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2_ttf SDL2_ttf-devel SDL2_image SDL2_image-devel boost boost-devel libvorbis libvorbis-devel libogg libogg-devel openal-soft openal-soft-devel zlib zlib-devel mesa-libGL mesa-libGL-devel mesa-libGLU mesa-libGLU-devel swig libXcursor libXcursor-devel alsa-lib alsa-lib-devel python-alsa python3-PyYAML allegro5 cmake tinyxml-devel libpng libpng-devel fifechan fifechan-devel fifechan-opengl fifechan-opengl-devel fifechan-sdl fifechan-sdl-devel glew glew-devel</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_arch_linux_based_systems"><a class="anchor" href="#_arch_linux_based_systems"></a><a class="link" href="#_arch_linux_based_systems">Arch Linux based systems</a></h6>
+<div class="paragraph">
+<p>Python 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zlib libgl libpng tinyxml python2-pillow cmake glew</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python zlib libgl libpng tinyxml python-pillow python-future cmake glew</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>NOTE</strong> that you will also need to install <a href="http://fifengine.github.com/fifechan/">fifechan</a> from source, until it&#8217;s available as a package for your distro. Fifechan is in the following distros: Fedora</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_fifechan"><a class="anchor" href="#_building_fifechan"></a><a class="link" href="#_building_fifechan">1.1.3. Building Fifechan</a></h4>
+<div class="paragraph">
+<p>To build Fife, you&#8217;ll of course need the Fifechan source code.
+You can download a Fifechan source code package or fetch the latest source using git.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/fifengine/fifechan.git &amp;&amp; cd fifechan</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Building with Clang instand of GCC Compiler:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">make &amp;&amp; sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_fifengine"><a class="anchor" href="#_building_fifengine"></a><a class="link" href="#_building_fifengine">1.1.4. Building Fifengine</a></h4>
+<div class="paragraph">
+<p>Finally, we can compile Fifengine.</p>
+</div>
+<div class="paragraph">
+<p>To build Fife, you&#8217;ll of course need the Fife source code.
+You can download a Fife source code package or fetch the latest source using git.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/fifengine/fifengine.git &amp;&amp; cd fifengine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have only an old version of cmake (2.X) then please do this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir ../_build; cd ../_build/; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ../fifengine/
+instand of: mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build fife with Python support only do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">With "-DPYTHON_EXECUTABLE=/PATH/TO/PYTHONEXECUTABLE" you can change the Python Version what you want to use. If it is not the System defualt Python Version.</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build it with Python support only do (with Clang instand of GCC Compiler):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build fife with Python support and with c/c++ lib and header files do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build fife with Python support and with c/c++ lib and header files do (with Clang instand of GCC Compiler):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -Dbuild-library=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>after that you can build the project using make and then install it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">make &amp;&amp; sudo make install</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building_fifengine_on_windows"><a class="anchor" href="#_building_fifengine_on_windows"></a><a class="link" href="#_building_fifengine_on_windows">1.2. Building Fifengine on Windows</a></h3>
+<div class="sect3">
+<h4 id="_build_environment_2"><a class="anchor" href="#_build_environment_2"></a><a class="link" href="#_build_environment_2">1.2.1. Build Environment</a></h4>
+<div class="paragraph">
+<p>Firstly, we need to setup an IDE and several build tools.</p>
+</div>
+<div class="sect4">
+<h5 id="_ide_2"><a class="anchor" href="#_ide_2"></a><a class="link" href="#_ide_2">1.2.1.1. IDE</a></h5>
+<div class="paragraph">
+<p>The are several good IDEs available, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.visualstudio.com/">Microsoft Visual Studio</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.visualstudio.com/downloads/">Download Visual Studio Community</a></p>
+</li>
+<li>
+<p><a href="https://go.microsoft.com/fwlink/?LinkId=691978&amp;clcid=0x409">Download Visual Studio Community - Webinstaller (english)</a></p>
+</li>
+<li>
+<p><a href="https://go.microsoft.com/fwlink/?LinkId=691978&amp;clcid=0x407">Download Visual Studio Community - Webinstaller (german)</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://code.visualstudio.com/download">Microsoft "Visual Studio Code" Editor</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://code.visualstudio.com/download">Download "Visual Studio Code"</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="http://codeblocks.org/">CodeBlocks</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.codeblocks.org/downloads/26#windows">Downloading CodeBlocks for Windows</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_compiler_2"><a class="anchor" href="#_compiler_2"></a><a class="link" href="#_compiler_2">1.2.1.2. Compiler</a></h5>
+<div class="paragraph">
+<p>You need <code>msvc</code> or <code>gcc</code> or <code>mingw-gcc</code>.</p>
+</div>
+<div class="paragraph">
+<p>In case you installed MS Visual Studio, then the MSVC compiler is already installed.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">gcc and mingw-gcc toolchain support is not ready, yet</div>
+<div class="paragraph">
+<p>In case you want to build using <code>gcc</code>, we suggest using one of the following toolchains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://tdm-gcc.tdragon.net/">tdragon&#8217;s TDM-GCC MinGW</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>This compiler and toolchain is also included in our Fife-SDK for MinGW.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="http://mingw-w64.org/">MinGW-W64</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cmake_2"><a class="anchor" href="#_cmake_2"></a><a class="link" href="#_cmake_2">1.2.1.3. CMake</a></h5>
+<div class="paragraph">
+<p>Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://cmake.org/download/" class="bare">https://cmake.org/download/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_swig_2"><a class="anchor" href="#_swig_2"></a><a class="link" href="#_swig_2">1.2.1.4. SWIG</a></h5>
+<div class="paragraph">
+<p>Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.swig.org/" class="bare">http://www.swig.org/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_python_2"><a class="anchor" href="#_python_2"></a><a class="link" href="#_python_2">1.2.1.5. Python</a></h5>
+<div class="paragraph">
+<p>To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://python.org/">Python</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.python.org/downloads/windows/">Python Downloads for Windows</a></p>
+</li>
+<li>
+<p><a href="https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi">Download Python 2.7.12 (msi)</a></p>
+</li>
+<li>
+<p><a href="https://www.python.org/ftp/python/3.5.2/python-3.5.2.exe">Download Python 3.5.2 (exe)</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_2"><a class="anchor" href="#_dependencies_2"></a><a class="link" href="#_dependencies_2">1.2.2. Dependencies</a></h4>
+<div class="paragraph">
+<p>Fifengine depends on several external libraries.</p>
+</div>
+<div class="paragraph">
+<p>This is the <a href="https://fifengine.github.io/fifengine-docs/developer-manual/en/#_fifengine_dependencies">detailed list</a>.</p>
+</div>
+<div class="paragraph">
+<p>Our next step is to ensure that all dependencies are installed properly, before you try to build fifengine itself.
+You have the choice of building the dependencies from source or fetching pre-build, packaged binaries.</p>
+</div>
+<div class="sect4">
+<h5 id="_using_packaged_dependencies_2"><a class="anchor" href="#_using_packaged_dependencies_2"></a><a class="link" href="#_using_packaged_dependencies_2">1.2.2.1. Using packaged dependencies</a></h5>
+<div class="paragraph">
+<p>The pre-build binaries are build on-the-fly, when building Fifengine on Appveyor.
+You find MSVC 14 builds here: <a href="https://ci.appveyor.com/project/LinuxDonald/fifengine" class="bare">https://ci.appveyor.com/project/LinuxDonald/fifengine</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We are working on building the dependencies on the fly using the MinGW toolchain.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>These builds are also included in our pre-packaged Windows development kit,
+the <a href="https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts">Fife-SDK</a>.</p>
+</div>
+<div class="paragraph">
+<p>The default install location is <code>fifengine-dependencies</code> next to your <code>fifengine</code> source folder.
+When you&#8217;re using an alternative location, please set the library and include dirs for the dependencies accordingly.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_building_dependencies_from_source_2"><a class="anchor" href="#_building_dependencies_from_source_2"></a><a class="link" href="#_building_dependencies_from_source_2">1.2.2.2. Building dependencies from source</a></h5>
+<div class="paragraph">
+<p>You can build the dependencies for Windows using MSVC.</p>
+</div>
+<div class="paragraph">
+<p>The CMake config file for the dependencies is <code>fifengine\dependencies\CMakeLists.txt</code>.
+It includes the individual scripts for fetching and building dependencies.
+They are located in the main CMake scripts folder: <code>fifengine\cmake\get-*.cmake</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s configure the dependencies project and then build all dependencies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cmake dependencies -G "Visual Studio 14" -B../fifengine-dependencies/build
+cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll now find the dependencies the <code>fifengine-dependencies</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">dir ..\fifengine-dependencies
+dir ..\fifengine-dependencies\downloads
+dir ..\fifengine-dependencies\includes /s</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_fifengine_2"><a class="anchor" href="#_building_fifengine_2"></a><a class="link" href="#_building_fifengine_2">1.2.3. Building Fifengine</a></h4>
+<div class="paragraph">
+<p>If you have Python 2 and Python 3 installed you can choose the Version with the comamnd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">With "-DPYTHON_EXECUTABLE=/PATH/TO/PYTHONEXECUTABLE" you can change the Python Version what you want to use. If it is not the System defualt Python Version.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, we can compile Fifengine.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building_fifengine_on_mac"><a class="anchor" href="#_building_fifengine_on_mac"></a><a class="link" href="#_building_fifengine_on_mac">1.3. Building Fifengine on Mac</a></h3>
+<div class="sect3">
+<h4 id="_build_environment_3"><a class="anchor" href="#_build_environment_3"></a><a class="link" href="#_build_environment_3">1.3.1. Build Environment</a></h4>
+<div class="paragraph">
+<p>Firstly, we need to setup an IDE and several build tools.</p>
+</div>
+<div class="sect4">
+<h5 id="_ide_3"><a class="anchor" href="#_ide_3"></a><a class="link" href="#_ide_3">1.3.1.1. IDE</a></h5>
+<div class="paragraph">
+<p>The are several good IDEs available, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://developer.apple.com/tools/xcode/">XCode</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.codeblocks.org/downloads/26#windows">Downloading CodeBlocks for Windows</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://code.visualstudio.com/download">Microsoft "Visual Studio Code"</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://code.visualstudio.com/download">Download "Visual Studio Code"</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_compiler_3"><a class="anchor" href="#_compiler_3"></a><a class="link" href="#_compiler_3">1.3.1.2. Compiler</a></h5>
+<div class="paragraph">
+<p>You can compile fife with <code>clang</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cmake_3"><a class="anchor" href="#_cmake_3"></a><a class="link" href="#_cmake_3">1.3.1.3. CMake</a></h5>
+<div class="paragraph">
+<p>Fife uses CMake as build system. The build system generates the build configuration for the project and set the project up for your specific IDE.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://cmake.org/download/" class="bare">https://cmake.org/download/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_swig_3"><a class="anchor" href="#_swig_3"></a><a class="link" href="#_swig_3">1.3.1.4. SWIG</a></h5>
+<div class="paragraph">
+<p>Fife uses Swig as interface generator. Fife itself is written in C++, for being able to access the API from Python, we are wrapping it using Swig.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.swig.org/" class="bare">http://www.swig.org/</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_python_3"><a class="anchor" href="#_python_3"></a><a class="link" href="#_python_3">1.3.1.5. Python</a></h5>
+<div class="paragraph">
+<p>To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_3"><a class="anchor" href="#_dependencies_3"></a><a class="link" href="#_dependencies_3">1.3.2. Dependencies</a></h4>
+<div class="paragraph">
+<p>Fife depends on a multitude of external libraries.</p>
+</div>
+<div class="paragraph">
+<p>Our next step is to ensure that all dependencies are installed properly.
+We do this by either compiling and installing them manually or by fetching and installing pre-compiled binaries.</p>
+</div>
+<div class="paragraph">
+<p>We do not provide a pre-packaged software development kit for Mac.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, you find more detailed information in the dependencies chapter.</p>
+</div>
+<div class="sect4">
+<h5 id="_building_dependencies_from_source_3"><a class="anchor" href="#_building_dependencies_from_source_3"></a><a class="link" href="#_building_dependencies_from_source_3">1.3.2.1. Building dependencies from source</a></h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We are working on building the dependencies on the fly. For now we simply use pre-build packages.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_using_packaged_dependencies_3"><a class="anchor" href="#_using_packaged_dependencies_3"></a><a class="link" href="#_using_packaged_dependencies_3">1.3.2.2. Using packaged dependencies</a></h5>
+<div class="paragraph">
+<p>brew update &amp;&amp; brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml glew libvorbis (for python 3 support: python3)</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_fifechan_2"><a class="anchor" href="#_building_fifechan_2"></a><a class="link" href="#_building_fifechan_2">1.3.3. Building Fifechan</a></h4>
+<div class="paragraph">
+<p>To build Fife, you&#8217;ll of course need the Fifechan source code.
+You can download a Fifechan source code package or fetch the latest source using git.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/fifengine/fifechan.git &amp;&amp; cd fifechan</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">make &amp;&amp; sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_fifengine_3"><a class="anchor" href="#_building_fifengine_3"></a><a class="link" href="#_building_fifengine_3">1.3.4. Building Fifengine</a></h4>
+<div class="paragraph">
+<p>Finally, we can compile Fifengine.</p>
+</div>
+<div class="paragraph">
+<p>To build Fife, you&#8217;ll of course need the Fife source code.
+You can download a Fife source code package or fetch the latest source using git.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/fifengine/fifengine.git &amp;&amp; cd fifengine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build fife with Python support only do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">With "-DPYTHON_EXECUTABLE=/PATH/TO/PYTHONEXECUTABLE" you can change the Python Version what you want to use. If it is not the System defualt Python Version.</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake ../fifengine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build fife with Python support and with c/c++ lib and header files do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mkdir _build; cd _build; cmake -Dbuild-library=ON ../fifengine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>after that you can build the project using make and then install it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">make &amp;&amp; sudo make install</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cmake_4"><a class="anchor" href="#_cmake_4"></a><a class="link" href="#_cmake_4">1.4. CMake</a></h3>
+<div class="paragraph">
+<p>CMake is a "meta build system" that reads a description of the project written in the CMakeLists.txt files
+and emits a build system for that project of your choice using one of CMake&#8217;s "generators".</p>
+</div>
+<div class="paragraph">
+<p>This allows CMake to support many different platforms and build tools.
+You can run <code>cmake --help</code> to see the list of supported "generators" on your platform.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cmake_build_types"><a class="anchor" href="#_cmake_build_types"></a><a class="link" href="#_cmake_build_types">1.5. CMake Build Types</a></h3>
+<div class="paragraph">
+<p>Several build types are supported.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release</p>
+</li>
+<li>
+<p>Debug</p>
+</li>
+<li>
+<p>RelWithDebInfo</p>
+</li>
+<li>
+<p>MinSizeRel</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the single configuration generators (e.g. "Unix Makefile" and "Visual Studio 12 2013"") you set the build type when invoking cmake by passing <code>-DCMAKE_BUILD_TYPE=&lt;build_type&gt;</code> where <code>&lt;build_type&gt;</code> is one of the build types specified above.</p>
+</div>
+<div class="paragraph">
+<p>For multi-configuration generators (e.g. Visual Studio) you don&#8217;t set the build type when invoking CMake
+and instead set the build type within Visual Studio itself (by using the dropdown in the top navigation bar).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cmake_configuration_options"><a class="anchor" href="#_cmake_configuration_options"></a><a class="link" href="#_cmake_configuration_options">1.6. CMake configuration options</a></h3>
+<div class="paragraph">
+<p>There are three groups of configuration options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CMake&#8217;s own config options</strong>: The <code>CMAKE_*</code> flags allow to declare useful build variables, including locations, environment variables, compiler information and compiler flags.
+You find more details in the <a href="https://cmake.org/Wiki/CMake_Useful_Variables">CMake Wiki - Useful Variables</a>.</p>
+</li>
+<li>
+<p><strong>Fifengines&#8217;s config options</strong>:We provide several configuration flags, which allow configuring the fifengine build.
+They control which subsystems/components of fifengine to build.
+You find the overview in the <a href="https://github.com/fifengine/fifengine/blob/48aee046979afe740f8b15323c777c595a8e7ab7/CMakeLists.txt#L25">CMakeLists file</a>.</p>
+</li>
+<li>
+<p><strong>Config options for finding dependencies</strong>: Finally, we have <code>*_INCLUDEDIR</code> + <code>*_LIBRARY_DIR</code> flags.
+These are used to set the paths to the headers and lib folder for dependencies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On the command line options can be passed to cmake using the <code>-D</code> option.
+In <code>ccmake</code> and <code>cmake-gui</code> these can be set in the user interface.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We are guiding CMake to find the dependencies automatically.
+The default location for dependencies is a folder <code>fifengine-dependencies</code> next to the <code>fifengine</code> source folder.
+The FifeSDK installs the dependencies by default into this location.</p>
+</div>
+<div class="paragraph">
+<p>If the dependencies are placed into a folder of your choice, you need to give the paths to each
+dependencies to CMake. Either by declaring them on the CLI by using the <code>*_INCLUDEDIR</code> + <code>*_LIBRARY_DIR</code> flags
+or by using the CMake-Gui and selecting the folders.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<code>cmake ..\fifengine</code>
+</td>
+<td class="hdlist2">
+<p>We are building in a seperate build folder: the <code>fifengine-build</code> folder, project source is one up, then down into fifengine. This is called out-of-source-tree building.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-G %GENERATOR%</code>
+</td>
+<td class="hdlist2">
+<p>You need to specifiy the requested GENERATOR IDE. This is either <code>"Visual Studio 14"</code> or <code>"Mingw makefiles"</code>. Others values are possible. See CMake generators for more.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DCMAKE_PREFIX_PATH="C:\fifesdk\fifengine-dependencies\include"</code>
+</td>
+<td class="hdlist2">
+<p>where the includes are</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DCMAKE_BUILD_TYPE=%CONFIGURATION%</code>
+</td>
+<td class="hdlist2">
+<p>Release or Debug</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DCMAKE_INSTALL_PREFIX="C:\fifesdk\fife-install"</code>
+</td>
+<td class="hdlist2">
+<p>the installation folder, after build</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DBOOST_INCLUDEDIR="C:\fifesdk\fifengine-dependencies\include\boost"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find boost</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DBOOST_LIBRARYDIR="C:\fifesdk\fifengine-dependencies\lib\boost"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find boost</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DPYTHON_INCLUDE_DIR="C:\fifesdk\python\include"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find Python</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DPYTHON_LIBRARY="C:\fifesdk\python\libs\python27.lib"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find Python</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DSWIG_DIR=C:\fifesdk\swig</code>
+</td>
+<td class="hdlist2">
+<p>helper to find Swig folder</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DSWIG_EXECUTABLE=C:\fifesdk\swig\swig.exe</code>
+</td>
+<td class="hdlist2">
+<p>helper to find Swig executable</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DSDL2_INCLUDE_DIR="C:\fifesdk\fifengine-dependencies\include\SDL2"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find SDL2 headers</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DSDL2_LIBRARY_DIR="C:\fifesdk\fifengine-dependencies\lib\x86"</code>
+</td>
+<td class="hdlist2">
+<p>helper to find SDL2 library</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-Dbuild-library=ON</code>
+</td>
+<td class="hdlist2">
+<p>This build flags enables building the shared library (ON). When disabled (OFF), then only the Python extension is build.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>-DBUILD_SHARED_LIBS=ON</code>
+</td>
+<td class="hdlist2">
+<p>This build flag controls, whether to build a shared (ON) or static library (OFF).</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_running_the_demos"><a class="anchor" href="#_running_the_demos"></a><a class="link" href="#_running_the_demos">1.7. Running the demos</a></h3>
+<div class="paragraph">
+<p>The demos have their own git repository: <a href="https://github.com/fifengine/fifengine-demos" class="bare">https://github.com/fifengine/fifengine-demos</a></p>
+</div>
+<div class="paragraph">
+<p>Assuming that you have successfully built fife,
+you will be able to change directory to one of the fife demos located in <code>&lt;fifengine-demos&gt;</code> and type: <code>python run.py</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You might also run the demos by double-clicking the <code>run.py</code> file in your file browser. This requires python to be associated with .py files in order to work.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_engine"><a class="anchor" href="#_engine"></a><a class="link" href="#_engine">2. Engine</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_diagram"><a class="anchor" href="#_overview_diagram"></a><a class="link" href="#_overview_diagram">2.1. Overview Diagram</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/engine-overview-diagram.png" alt="Engine Overview" width="800" height="994">
+</div>
+<div class="title">Figure 1. Engine Overview</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_engine_settings"><a class="anchor" href="#_engine_settings"></a><a class="link" href="#_engine_settings">2.2. Engine Settings</a></h3>
+<div class="paragraph">
+<p><strong>NOTE: This information is Python specific</strong></p>
+</div>
+<div class="paragraph">
+<p>When a Python program wants to use FIFE engine, it has to provide some basic engine settings to FIFE.</p>
+</div>
+<div class="paragraph">
+<p>This is done by writing the settings to a xml file and let FIFE know the file name.</p>
+</div>
+<div class="paragraph">
+<p>FIFE loads the settings from that file.</p>
+</div>
+<div class="paragraph">
+<p>If no file is given, FIFE searches for the "settings.xml" file in the current directory.</p>
+</div>
+<div class="paragraph">
+<p>This section describes the different settings that can be set in settings.xml file.</p>
+</div>
+<div class="sect3">
+<h4 id="_basic_settings"><a class="anchor" href="#_basic_settings"></a><a class="link" href="#_basic_settings">2.2.1. Basic settings</a></h4>
+<div class="paragraph">
+<p>Every program has to give some basic settings.</p>
+</div>
+<div class="paragraph">
+<p>These are FullScreen, PlaySounds, ScreenResolution, RenderBackend and Lighting.</p>
+</div>
+<div class="paragraph">
+<p>If any one of them is excluded, FIFE cannot load the program and will generate error:</p>
+</div>
+<div class="paragraph">
+<p>AttributeError: 'NoneType' object has no attribute 'findChildByName' .</p>
+</div>
+<div class="paragraph">
+<p>So, the basic xml file to load FIFE by the client looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;Settings&gt;
+    &lt;Module name="FIFE"&gt;
+        &lt;Setting name="FullScreen" type="bool"&gt; False &lt;/Setting&gt;
+        &lt;Setting name="PlaySounds" type="bool"&gt; True &lt;/Setting&gt;
+        &lt;Setting name="RenderBackend" type="str"&gt; OpenGL &lt;/Setting&gt;
+        &lt;Setting name="ScreenResolution" type="str"&gt;1024x768&lt;/Setting&gt;
+        &lt;Setting name="Lighting" type="int"&gt; 0 &lt;/Setting&gt;
+    &lt;/Module&gt;
+&lt;/Settings&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additional_settings"><a class="anchor" href="#_additional_settings"></a><a class="link" href="#_additional_settings">2.2.2. Additional Settings</a></h4>
+<div class="paragraph">
+<p>Apart from these basic settings, other settings are also possible.</p>
+</div>
+<div class="paragraph">
+<p>All these settings are given below with a brief description attached to them below:</p>
+</div>
+<div class="sect4">
+<h5 id="_window_settings"><a class="anchor" href="#_window_settings"></a><a class="link" href="#_window_settings">2.2.2.1. Window Settings</a></h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>WindowTitle</strong></dt>
+<dd>
+<p>This is a string type variable.
+The value given here, will be shown as the window title.</p>
+</dd>
+<dt class="hdlist1"><strong>WindowIcon</strong></dt>
+<dd>
+<p>An window icon can be set.
+This variable contains the path of the icon.</p>
+</dd>
+<dt class="hdlist1"><strong>ScreenResolution</strong></dt>
+<dd>
+<p>A good number of screen resolutions are available.
+The default settings are: <code>640x480</code>, <code>800x600</code>, <code>1024x768</code>, <code>1280x800</code>, <code>1440x900</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>FullScreen</strong></dt>
+<dd>
+<p>This is a boolean variable. It can get one of the two values <code>True</code> or <code>False</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_graphics_settings"><a class="anchor" href="#_graphics_settings"></a><a class="link" href="#_graphics_settings">2.2.2.2. Graphics Settings</a></h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>RenderBackend</strong></dt>
+<dd>
+<p>Currently, two backend renderers are available in FIFE.
+One is OpenGL and the other is SDL.</p>
+</dd>
+<dt class="hdlist1"><strong>Lighting</strong></dt>
+<dd>
+<p>FIFE supports three lighting models currently.
+Those are denoted by 0 (simple),1 (image) and 2 (animation).
+Any value greater than 2 throws an exception later.</p>
+</dd>
+<dt class="hdlist1"><strong>BitsPerPixel</strong></dt>
+<dd>
+<p>This field can only have four possible values: <code>0</code>,<code>16</code>,<code>24</code> and <code>32</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>SDLRemoveFakeAlpha</strong></dt>
+<dd>
+<p>This is a setting if somebody uses SDL as the renderer. It is not used anymore probably.</p>
+</dd>
+<dt class="hdlist1"><strong>ColorKeyEnabled</strong></dt>
+<dd>
+<p>It is a boolean variable for setting color key.</p>
+</dd>
+<dt class="hdlist1"><strong>ColorKey</strong></dt>
+<dd>
+<p>A string which denotes the rgb value of the color key comma seperated (r,g,b).</p>
+</dd>
+<dt class="hdlist1"><strong>GLCompressImages</strong></dt>
+<dd>
+<p>Enables or Disables image compression in the OpenGL renderer. Possible values are <code>True' or `False</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>GLUseFramebuffer</strong></dt>
+<dd>
+<p>A boolean variable to enable or disable the use of the FBO.
+This is valid only if you are using the OpenGL renderer. Possible values are <code>True</code> or <code>False</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>GLUseNPOT</strong></dt>
+<dd>
+<p>A boolean variable to enable or disable the use of non power-of-two textures.
+This is valid only if you are using the OpenGL renderer.
+If this is set to False the OpenGL renderer will automatically pad NPOT textures to make them POT.
+Possible values are <code>True</code> or <code>False</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_sound_settings"><a class="anchor" href="#_sound_settings"></a><a class="link" href="#_sound_settings">2.2.2.3. Sound Settings</a></h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>PlaySounds</strong></dt>
+<dd>
+<p>Another boolean variable. Giving it 'True' value keeps the sound on.</p>
+</dd>
+<dt class="hdlist1"><strong>InitialVolume</strong></dt>
+<dd>
+<p>Initially volume is a double value.
+It cannot contain any negative value and can never exceed the constant MAXIMUM_VOLUME which is 10.0 by the value.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_input_settings"><a class="anchor" href="#_input_settings"></a><a class="link" href="#_input_settings">2.2.2.4. Input Settings</a></h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>MouseSensitivity</strong></dt>
+<dd>
+<p>This is a Float value in the range of -0.99 (the slowest) and 10.0 (the fastest)</p>
+</dd>
+<dt class="hdlist1"><strong>MouseAcceleration</strong></dt>
+<dd>
+<p>Boolean variable. <code>True</code> enables mouse acceleration, <code>False</code> disables it.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_font_settings"><a class="anchor" href="#_font_settings"></a><a class="link" href="#_font_settings">2.2.2.5. Font Settings</a></h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Font</strong></dt>
+<dd>
+<p>This is a string containing the path to the font file.</p>
+</dd>
+<dt class="hdlist1"><strong>FontGlyphs</strong></dt>
+<dd>
+<p>FontGlyphs are the characters that are defined in image fonts.
+These fonts are loaded directly from an image file and not from the ttf.
+FontGlyphs is of string type.
+All of the Font Glyphs should be given here with exactly same order they are present in the image file.</p>
+</dd>
+<dt class="hdlist1"><strong>DefaultFontSize</strong></dt>
+<dd>
+<p>We can assign a default font size here. If nothing is mentioned the default font size is 8.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_logging_settings"><a class="anchor" href="#_logging_settings"></a><a class="link" href="#_logging_settings">2.2.2.6. Logging settings</a></h5>
+<div class="paragraph">
+<p>Log manager provides convenient apis to access engine logging functionality.</p>
+</div>
+<div class="paragraph">
+<p>Log targets can be set individually (prompt, file).</p>
+</div>
+<div class="paragraph">
+<p>Things like visible modules can be adjusted through log manager.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>LogModules</strong></dt>
+<dd>
+<p>LogModules sets the modules that we need to log.
+There are a lot of modules that can be logged, e.g.: controller, video, audio, script etc.
+Write the module names semicolon seperated.</p>
+</dd>
+<dt class="hdlist1"><strong>LogToPrompt</strong></dt>
+<dd>
+<p>Tells the LogManager whether LogToPrompt should be set. If it is set to 1, log should be seen in the terminal or prompt.</p>
+</dd>
+<dt class="hdlist1"><strong>LogToFile</strong></dt>
+<dd>
+<p>Same as LogToPrompt, but here log is written to a file. Default name of the file is <code>fife.log</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>LogLevelFilter</strong></dt>
+<dd>
+<p>Loglevel is used to set a treshold for output messages and related filter.
+There are four levels: LEVEL_DEBUG = 0, LEVEL_LOG = 1, LEVEL_WARN = 2, LEVEL_ERROR = 3, LEVEL_PANIC = 4.
+For example, in case log message has LEVEL_WARN, but the filter treshold is LEVEL_ERROR, log message is not outputted.
+Be sure to use LEVEL_PANIC, because it causes a program abort.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_miscellaneous_settings"><a class="anchor" href="#_miscellaneous_settings"></a><a class="link" href="#_miscellaneous_settings">2.2.3. Miscellaneous settings</a></h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>PychanDebug</strong></dt>
+<dd>
+<p>Boolean variable. PychanDebug enables debug output for the pychan extension.
+If it is on, a lot of new debugging texts can be seen in the terminal.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributing"><a class="anchor" href="#_contributing"></a><a class="link" href="#_contributing">3. Contributing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Interested in fife and want to help out? Do you see something that needs improving?
+Better yet, do you have a solution to one of our <a href="https://github.com/fifengine/fifengine/issues">open issues</a>?</p>
+</div>
+<div class="paragraph">
+<p>You can support the project in all sorts of areas and we would graciously accept any contributions you have to offer!
+Please don&#8217;t hesitate, if you&#8217;ve got an awesome idea to throw into FIFE.</p>
+</div>
+<div class="paragraph">
+<p>The best part about contributing to an open source project is you get the satisfaction of improving a project,
+not to mention full recognition for your work! It might help out on that next job application!</p>
+</div>
+<div class="sect2">
+<h3 id="_help_wanted"><a class="anchor" href="#_help_wanted"></a><a class="link" href="#_help_wanted">3.1. Help wanted&#8230;&#8203;</a></h3>
+<div class="paragraph">
+<p>This is an open source project and developers are contributing on their own time.
+For this reason we are constantly looking for help.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">We are looking for:</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Engine developers - All skill levels in C++ and Python</p>
+</li>
+<li>
+<p>Web designers - Our website needs an overhaul</p>
+</li>
+<li>
+<p>Packagers - We want to improve or cross-platform build automation</p>
+</li>
+<li>
+<p>Artists - They are always welcome to contribute some art where it&#8217;s needed</p>
+</li>
+<li>
+<p>Documentors - We want to improve our manuals and API docs</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Engine developers</strong></div>
+<p>We are in great need for all skill levels of developers to help with our C++ and Python extensions.
+There is work in just about any field you could imagine, from tool development, to OpenGL eye candy,
+to ear popping sound effects, to demo game development. You name it, we need it. Are you new to
+coding but want to learn? Are you an experienced coder looking for a project to fill that void in
+your life? This is the project for you!</p>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Web designers</strong></div>
+<p>Currently our website is lacking a certain POW. It needs to be re-done in the worst way. We are
+completely open to your ideas as far as the backend goes. There is a template to start from here.
+You could either make some templates for our forums and blog or throw the whole thing out and
+surprise us with something else! It&#8217;s gotta look amazing to attract as much attention as possible!</p>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Packagers</strong></div>
+<p>There is a bunch of work that needs to be done here. Our Windows installer needs work, our
+development kit needs updating, release packaging needs to be automated, the list is endless really.
+Currently we package every release by hand and this a tedious task so any help in this department
+would be great!</p>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Artists</strong></div>
+<p>What project doesn&#8217;t need an artist or two? If you have some artistic skills and are looking for a
+project, look no further! We have several demos that would benefit from some new art (tilesets, gui
+art, icons, etc etc), not to mention our website!</p>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Documentors</strong></div>
+<p>As they say, good documentation makes a project. This is one department, where it&#8217;s difficult to
+find people to volunteer their time to help out. Any time you can spend documenting fife or helping
+with tutorials would definitely help make fife even better!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_workflow"><a class="anchor" href="#_workflow"></a><a class="link" href="#_workflow">3.2. Workflow</a></h3>
+<div class="paragraph">
+<p>Here&#8217;s the most direct way to get your work merged into the project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fork the project.</p>
+</li>
+<li>
+<p>Clone down your fork ( <code>git clone git://github.com/&lt;username&gt;/fifengine.git</code> ).</p>
+</li>
+<li>
+<p>Create a topic branch to contain your change ( <code>git checkout -b my_awesome_feature</code> ).</p>
+</li>
+<li>
+<p>Hack away.</p>
+</li>
+<li>
+<p>If necessary, rebase your commits into logical chunks, without errors.</p>
+</li>
+<li>
+<p>Push the branch up ( <code>git push origin my_awesome_feature</code> ).</p>
+</li>
+<li>
+<p>Create a pull request against fifengine/fifengine and describe what your change
+does and the why you think it should be merged.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Please follow the [[C++ Coding Standards|coding-standards]] or [[Python Coding Standards|Python-coding-standards]] when modifying code.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gotchas"><a class="anchor" href="#_gotchas"></a><a class="link" href="#_gotchas">3.3. Gotchas</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Try to keep your patch(es) based from the latest commit on fifengine/fifengine.
+The easier it is to apply your work, the less work the maintainers have to do,
+which is always a good thing.</p>
+</li>
+<li>
+<p>Please don&#8217;t tag your GitHub issue with [fix], [feature], etc. The maintainers
+actively read the issues and will label it once they come across it.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_finally"><a class="anchor" href="#_finally"></a><a class="link" href="#_finally">3.4. Finally&#8230;&#8203;</a></h3>
+<div class="paragraph">
+<p>Thanks for helping us! We look forward to any contributions you make to help improve FIFE!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_working_with_git"><a class="anchor" href="#_working_with_git"></a><a class="link" href="#_working_with_git">3.5. Working with Git</a></h3>
+<div class="paragraph">
+<p>Need help with <a href="https://github.com">Github</a>? Make sure to check the great <a href="https://help.github.com/">Github Help Center</a>!</p>
+</div>
+<div class="paragraph">
+<p>Check out some very good git documentation here (including a cheat sheet): <a href="http://git-scm.com/docs" class="bare">http://git-scm.com/docs</a></p>
+</div>
+<div class="sect3">
+<h4 id="_basic_git"><a class="anchor" href="#_basic_git"></a><a class="link" href="#_basic_git">3.5.1. Basic git</a></h4>
+<div class="sect4">
+<h5 id="_setting_up_your_git_environment"><a class="anchor" href="#_setting_up_your_git_environment"></a><a class="link" href="#_setting_up_your_git_environment">3.5.1.1. Setting up your git environment</a></h5>
+<div class="paragraph">
+<p>The first thing you should do when you first start running git is to set up some local variables.</p>
+</div>
+<div class="paragraph">
+<p>Your name and email are very important as they will be part of every commit you make!</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git config --global user.name "Your Name"
+git config --global user.email your.email@gmail.com</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_clone_remote_repository"><a class="anchor" href="#_clone_remote_repository"></a><a class="link" href="#_clone_remote_repository">3.5.1.2. Clone remote repository</a></h5>
+<div class="paragraph">
+<p>To clone the fifengine repo with URL <a href="https://github.com/fifengine/fifengine.git" class="bare">https://github.com/fifengine/fifengine.git</a> in a specific directory on your machine</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git clone https://github.com/fifengine/fifengine.git /path/to/your/projects/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A folder <code>fifengine/</code> will be created at that location.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_update_your_local_repository_clone"><a class="anchor" href="#_update_your_local_repository_clone"></a><a class="link" href="#_update_your_local_repository_clone">3.5.1.3. Update your local repository clone</a></h5>
+<div class="paragraph">
+<p>Execute <code>git pull</code> in the <code>fifengine/</code> folder.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commit_and_push"><a class="anchor" href="#_commit_and_push"></a><a class="link" href="#_commit_and_push">3.5.2. Commit and Push</a></h4>
+<div class="paragraph">
+<p>Users locally <strong>commit</strong> their changes to their working copy.</p>
+</div>
+<div class="paragraph">
+<p>When they are happy with the outcome, they share these commits by <strong>push</strong>ing them to the remote server.</p>
+</div>
+<div class="paragraph">
+<p>You need to either commit every change you did to your clone or select the files you want to update with the commit.</p>
+</div>
+<div class="paragraph">
+<p>This is, amongst others, done with <code>git add</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_examples"><a class="anchor" href="#_examples"></a><a class="link" href="#_examples">3.5.3. Examples</a></h4>
+<div class="paragraph">
+<p>Add the changes in the two files export.h / module.h, move the index (of a file without changes) and remove a file as well:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git add engine/core/export.h engine/core/modules.h
+git mv somefile.cpp newfile.cpp
+git rm somefile.h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>git rm</code> also removes your local copy of that file!  You can use the flag <code>-- cached</code> to prevent this.</p>
+</div>
+<div class="paragraph">
+<p>Now you can use <code>git status</code> to check of everything fits what you want to commit.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commit"><a class="anchor" href="#_commit"></a><a class="link" href="#_commit">3.5.4. Commit</a></h4>
+<div class="paragraph">
+<p>If so, run <code>git commit</code></p>
+</div>
+<div class="paragraph">
+<p>and <code>$EDITOR</code> opens up, asking you for a commit message.  When you save this file (and it&#8217;s not empty), the commit is executed.</p>
+</div>
+<div class="paragraph">
+<p>GitHub has a <a href="https://github.com/blog/926-shiny-new-commit-styles">blog post</a> about commit message guidelines.
+See also <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">this very helpful resource</a>.</p>
+</div>
+<div class="paragraph">
+<p>After that, you can push your changes to the remote repository with <code>git push origin foo</code> if you worked on the branch <strong>foo</strong>.
+Normally you will use <code>git push origin master</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_undo"><a class="anchor" href="#_undo"></a><a class="link" href="#_undo">3.5.5. Undo</a></h4>
+<div class="paragraph">
+<p><strong>Edit your most recent, local commit</strong></p>
+</div>
+<div class="paragraph">
+<p>Just work like you would do with your regular next commit (edit files, git add and so on).  When you&#8217;re done, type <code>git commit --am</code> and edit the old commit message to fit the appended additions as well.</p>
+</div>
+<div class="paragraph">
+<p>This should only be used if you are sure that nobody worked on anything in the meantime!</p>
+</div>
+<div class="paragraph">
+<p><strong>Move to the most recent pushed commit</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git reset --hard HEAD~1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Moving to any commit in general</strong></p>
+</div>
+<div class="paragraph">
+<p>Browse <strong>git log</strong> for the ID of the last commit you want to keep, removing every newer change. Then (with that ID) use</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git reset --hard VERYLONGCOMMITSHA1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Most of the time <code>git revert</code> is what you are looking for.</p>
+</div>
+<div class="paragraph">
+<p>It does a better job in reverting pushed commits (the two commits will be kept in the project history).</p>
+</div>
+<div class="paragraph">
+<p><a href="http://stackoverflow.com/questions/1338728/how-to-delete-a-git-commit">StackOverflow: How to delete a Git commit</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_branches_and_merging"><a class="anchor" href="#_branches_and_merging"></a><a class="link" href="#_branches_and_merging">3.5.6. Branches and Merging</a></h4>
+<div class="paragraph">
+<p>Branches are what makes git awesome! They are easy, fast and incredibly useful for distributed development.</p>
+</div>
+<div class="paragraph">
+<p><strong>Check which branch you are currently on, show all available branches</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git branch</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Change to another branch</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git checkout origin/development</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Track a remote branch</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git branch -t development origin/development</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Create new branch named foo </strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git checkout -b foo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Delete the branch named foo </strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git branch -d foo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the branch was not yet merged, use -D instead of -d.</p>
+</div>
+<div class="paragraph">
+<p><strong>Try to merge the branch foo into your current branch</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git pull . foo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this will create conflict markers in each file where auto-merging is not possible.</p>
+</div>
+<div class="paragraph">
+<p>You will need to resolve these conflicts manually&#8201;&#8212;&#8201;there are several tools to do so, see <strong>git mergetool</strong>.</p>
+</div>
+<div class="paragraph">
+<p>When ready, you need to commit the resolved files.</p>
+</div>
+<div class="paragraph">
+<p>The commit message will automatically indicate what kind of conflicts we had.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_patches_and_diffs"><a class="anchor" href="#_patches_and_diffs"></a><a class="link" href="#_patches_and_diffs">3.5.7. Patches and Diffs</a></h4>
+<div class="paragraph">
+<p>If you are familiar enough with git, you may of course also customize the options given to the following.  This is by all means only a recommendation and no rule to strictly follow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Generate files containing the two most recent commits</strong></p>
+</div>
+<div class="paragraph">
+<p>After committing all your changes to a freshly-pulled repo, use</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git format-patch -M -B -2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where <code>-4</code> instead of <code>-2</code> would create patch files for the last four commits.</p>
+</div>
+<div class="paragraph">
+<p>Applying such a file called <strong>0001-user.patch</strong> is done using</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git am 0001-user.patch</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the Unix tool <code>patch</code> does not need to support patch file renaming, so git am is the preferred way to apply patches.
+Useful flags might be <strong>--resolve</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>-M -B</strong> handles renaming correctly to create smaller patch files, but this will then only be recognized by git (no unified patch anymore).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_committing_patches_of_other_authors"><a class="anchor" href="#_committing_patches_of_other_authors"></a><a class="link" href="#_committing_patches_of_other_authors">3.5.8. Committing patches of other authors</a></h4>
+<div class="paragraph">
+<p>To correctly display who did what in our history, please use the following flags to <strong>git commit</strong>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git commit --author "Author Name &lt;email@example.com&gt;"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you already committed the files and now remembered you need to fix the author, use <code>git commit</code> <strong>--amend</strong> and proceed as above.
+This will edit the newest commit instead of creating a new one.</p>
+</div>
+<div class="paragraph">
+<p>This is especially important for artists, who otherwise might not get proper credits.
+ Ask them under which name and address they&#8217;d like to appear, then use that name <strong>consistently</strong> as <strong>Author Name</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bughunting_and_history"><a class="anchor" href="#_bughunting_and_history"></a><a class="link" href="#_bughunting_and_history">3.5.9. Bughunting and History</a></h4>
+<div class="paragraph">
+<p><strong>Look up who introduced what in <code>&lt;path&gt;</code></strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git blame &lt;path&gt;</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git gui blame &lt;path&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Check what happened in your repo</strong></p>
+</div>
+<div class="paragraph">
+<p>Use <code>git log</code>, <code>git show</code>, or <code>git diff</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Find out which commit(s) cause a bug</strong></p>
+</div>
+<div class="paragraph">
+<p>Start with</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git bisect good &lt;tag/SHA where everything works&gt;`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git bisect bad &lt;tag/SHA where bug occurs&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then continue to run the bisection with either entering <code>git bisect good</code>,
+if the bug does not show up or <code>git bisect bad</code> if it does.
+Repeating that, you will be presented a suspicious commit in the end: investigate there!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_coding_standards"><a class="anchor" href="#_coding_standards"></a><a class="link" href="#_coding_standards">4. Coding standards</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have a set of quite detailed coding standards that have been followed for some time.</p>
+</div>
+<div class="sect2">
+<h3 id="_c_coding_standards"><a class="anchor" href="#_c_coding_standards"></a><a class="link" href="#_c_coding_standards">4.1. C++ Coding Standards</a></h3>
+<div class="paragraph">
+<p>The following document describes our C++ coding standard.</p>
+</div>
+<div class="sect3">
+<h4 id="_files"><a class="anchor" href="#_files"></a><a class="link" href="#_files">4.1.1. Files</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Headers files end with <code>.h</code></p>
+</li>
+<li>
+<p>Source files end with <code>.cpp</code></p>
+</li>
+<li>
+<p>Only one class per h/cpp file. (With a exception for classes that are extremely simple and clearly belong together.)</p>
+</li>
+<li>
+<p>The files should be named after the (main)class they implement, but all in lowercase.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conventions"><a class="anchor" href="#_conventions"></a><a class="link" href="#_conventions">4.1.2. Conventions</a></h4>
+<div class="sect4">
+<h5 id="_abbreviations_and_capitol_letters"><a class="anchor" href="#_abbreviations_and_capitol_letters"></a><a class="link" href="#_abbreviations_and_capitol_letters">4.1.2.1. Abbreviations and capitol letters</a></h5>
+<div class="paragraph">
+<p>We use a mixture of upper and lower camel case (described below). There are
+some cases where you would be tempted to use to capitol letters together. This
+should be avoided! When using abbreviations in your variable or class names
+always capitalize the first letter of the abbreviation and lower-case for the
+rest.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">class ColorRgb8;
+class Dat1;
+class Vfs;
+class GlImage;
+class SdlImage;
+class GuiChanManager;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_classes"><a class="anchor" href="#_classes"></a><a class="link" href="#_classes">4.1.3. Classes</a></h4>
+<div class="sect4">
+<h5 id="_general_guidelines"><a class="anchor" href="#_general_guidelines"></a><a class="link" href="#_general_guidelines">4.1.3.1. General guidelines</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Name the class after what it is. If you can&#8217;t think of what it is that is a clue you have not thought through the design well enough.</p>
+</li>
+<li>
+<p>Compound names of over three words are a clue your design may be confusing various entities in your system. Revisit your design. Try a CRC card session to see if your objects have more responsibilities than they should.</p>
+</li>
+<li>
+<p>Avoid the temptation of bringing the name of the class a class derives from into the derived class&#8217;s name. A class should stand on its own. It doesn&#8217;t matter what it derives from.</p>
+</li>
+<li>
+<p>Suffixes are sometimes helpful. For example, if your system uses agents then naming something DownloadAgent conveys real information.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_class_names"><a class="anchor" href="#_class_names"></a><a class="link" href="#_class_names">4.1.3.2. Class names</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>First character in a name is upper case</p>
+</li>
+<li>
+<p>Use upper case letters as word separators, lower case for the rest of a word</p>
+</li>
+<li>
+<p>No underscores: <code>_</code></p>
+</li>
+<li>
+<p>Abstract classes should start with an <code>I</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also known as "upper camel case". See the <a href="http://en.wikipedia.org/wiki/CamelCase">Camel Case</a> article at wikipedia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">class MapView;
+class IResourceManager;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_attribute_member_names"><a class="anchor" href="#_attribute_member_names"></a><a class="link" href="#_attribute_member_names">4.1.3.3. Attribute/Member names</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Start with a <code>m_</code></p>
+</li>
+<li>
+<p>Should not contain any more underscores</p>
+</li>
+<li>
+<p>First word is lower case, the rest start with an upper case letter</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">RenderBackend* m_renderBackend;
+uint16_t       m_frameLimit;
+std::string    m_windowTitle;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is also known as "lower camel case". See the <a href="http://en.wikipedia.org/wiki/CamelCase">Camel Case</a> document at wikipedia.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_methods"><a class="anchor" href="#_functions_methods"></a><a class="link" href="#_functions_methods">4.1.4. Functions/Methods</a></h4>
+<div class="sect4">
+<h5 id="_general_guidelines_2"><a class="anchor" href="#_general_guidelines_2"></a><a class="link" href="#_general_guidelines_2">4.1.4.1. General guidelines</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Keep your functions simple.</p>
+</li>
+<li>
+<p>Small functions that should be inlined go to the header file but after the class.</p>
+</li>
+<li>
+<p>Use default parameters instead of inlined overloaded functions if you don&#8217;t have a reason not to do so.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>so don&#8217;t write:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">inline void doSomething() {  // Wrong
+    doSomething(0);
+}
+void doSomething () {
+    ....
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>write:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">void doSomething(int32_t x = 0) { // Correct
+     ....
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_function_method_names"><a class="anchor" href="#_function_method_names"></a><a class="link" href="#_function_method_names">4.1.5. Function/Method names</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the same rules as for class names except the first letter should be lower case!</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">uint8_t getBitsPerPixel() const;
+bool isFullScreen() const;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_variables_and_parameters"><a class="anchor" href="#_variables_and_parameters"></a><a class="link" href="#_variables_and_parameters">4.1.6. Variables and parameters</a></h4>
+<div class="sect4">
+<h5 id="_general_guidelines_3"><a class="anchor" href="#_general_guidelines_3"></a><a class="link" href="#_general_guidelines_3">4.1.6.1. General guidelines</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Don&#8217;t use global variables.</strong></p>
+</li>
+<li>
+<p>Do not put data definitions in header files.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It&#8217;s bad magic to have space consuming code silently inserted through the innocent use of header files.</p>
+</li>
+<li>
+<p>It&#8217;s not common practice to define variables in the header file so it will not occur to developers to look for this when there are problems.</p>
+</li>
+<li>
+<p>Consider defining the variable once in a .cpp file and use an extern statement to reference it.</p>
+</li>
+<li>
+<p>Consider using a singleton for access to the data.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Don&#8217;t abuse the singleton objects so that they become global variable repositories. If you can&#8217;t access a variable easily from where you are you probably shouldn&#8217;t be accessing it from there. This is a rule of thumb, <strong>not</strong> to be enforced strictly.</p>
+</li>
+<li>
+<p>Declare 1 variable on each line.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">int32_t x, y, z; // Wrong
+
+int32_t x;  // Correct
+int32_t y;
+int32_t z;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Align variable declarations as shown. This makes the code more readable.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">int32_t     someVar1;
+DWORD       someVar2;
+std::string idSting;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Always initialize variables</strong>, and when initializing groups of variables align the code as shown.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">someVar1 = 0;
+someVar2 = 0;
+idString = "";</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When declaring pointers or references, <strong>the * or &amp; is placed beside the type</strong>, not the variable name</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">int32_t* intPointer;
+int32_t&amp; intReference;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Use native types</strong> wherever possible. It is not necessary to "optimize" a loop counter by making it a uint8_t. Ideally, the use of such types would be restricted to three types of places:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>dealing with saving or loading the data (e.g. serialization/de-serialization routines)</p>
+</li>
+<li>
+<p>transmitting data over a network</p>
+</li>
+<li>
+<p>interfacing with external libraries, if those libraries absolutely insist.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_variable_and_parameter_names"><a class="anchor" href="#_variable_and_parameter_names"></a><a class="link" href="#_variable_and_parameter_names">4.1.6.2. Variable and parameter names</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Parameter and local variables have no prefix and start with a lowercase letter.</p>
+</li>
+<li>
+<p>Use capitol letters as word separators.</p>
+</li>
+<li>
+<p>Variables and parameters should not contain underscores.</p>
+</li>
+<li>
+<p>Include units in Names. If a variable represents time, weight, or some other unit then include the unit in the name so developers can more easily spot problems.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">//Example variable and parameter names
+IEngineChangeListener changeListener;
+std::string           characterId;
+
+//Including units in the name
+uint32_t timeoutMsecs;
+uint32_t myWeightLbs;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types"><a class="anchor" href="#_types"></a><a class="link" href="#_types">4.1.7. Types</a></h4>
+<div class="sect4">
+<h5 id="_integer_types"><a class="anchor" href="#_integer_types"></a><a class="link" href="#_integer_types">4.1.7.1. Integer types</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>At all times use types as defined in the <a href="http://en.wikipedia.org/wiki/C99_standard_library">C99 Standard Library</a></p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-topbot grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Specifier</th>
+<th class="tableblock halign-left valign-top">Equivalent on 64 bit platform</th>
+<th class="tableblock halign-left valign-top">Equivalent on 32 bit platform</th>
+<th class="tableblock halign-left valign-top">Signing</th>
+<th class="tableblock halign-left valign-top">Bits</th>
+<th class="tableblock halign-left valign-top">Bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int8_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">signed char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">signed char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint8_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unsigned</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int16_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint16_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unsigned</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int32_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int or long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint32_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned int or unsigned long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unsigned</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int64_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint64_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned long long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unsigned</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_type_safety"><a class="anchor" href="#_type_safety"></a><a class="link" href="#_type_safety">4.1.7.2. Type Safety</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t use a #define when an enum or <code>static const int32_t</code> is also possible.</p>
+</li>
+<li>
+<p>Do not use the C-style casts; instead use <code>static_cast</code>, <code>dynamic_cast</code> and <code>reinterpret_cast</code> (if really necessary).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_const_correctness"><a class="anchor" href="#_const_correctness"></a><a class="link" href="#_const_correctness">4.1.7.3. Const Correctness</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Be const correct. See: <a href="http://www.parashift.com/c++-faq-lite/const-correctness.html" class="bare">http://www.parashift.com/c++-faq-lite/const-correctness.html</a></p>
+</li>
+<li>
+<p>Avoid <code>const_cast</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_magic_numbers"><a class="anchor" href="#_magic_numbers"></a><a class="link" href="#_magic_numbers">4.1.7.4. Magic Numbers</a></h5>
+<div class="paragraph">
+<p>Magic numbers are numbers that are compiled into the source code and if they are not properly documented can be difficult to understand what they do.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Instead of magic numbers use a real name that means something.</p>
+</li>
+<li>
+<p>Use constants or enums to give meaning to the number.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">const int WE_GOOFED = 19;
+
+enum {
+    THEY_DIDNT_PAY= 16
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_coding_style"><a class="anchor" href="#_coding_style"></a><a class="link" href="#_coding_style">4.1.8. Coding Style</a></h4>
+<div class="sect4">
+<h5 id="_line_widths"><a class="anchor" href="#_line_widths"></a><a class="link" href="#_line_widths">4.1.8.1. Line Widths</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>A line should not exceed 78 characters. The Main argument to do this is because this allows us to easily print readable source code (yes some of us still do this). Also if you have a wide monitor you can fit multiple source files side by side!</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_braces"><a class="anchor" href="#_braces"></a><a class="link" href="#_braces">4.1.8.2. Braces</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>All braces use the following format.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">if (x == y) {
+    ...
+} else if (x &gt; y) {
+    ...
+} else {
+    ...
+}
+
+while (condition) {
+    ...
+}
+
+for (;;) {
+    ...
+}
+
+rtype functionName() {
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Even for trivial if statements always use the
+brace syntax.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">if (x == true) {
+    return;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is clearer, less likely to cause future errors and has no effect on speed.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_indentation_whitespace"><a class="anchor" href="#_indentation_whitespace"></a><a class="link" href="#_indentation_whitespace">4.1.8.3. Indentation &amp; Whitespace</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Indentation is done by 4 spaces.</p>
+</li>
+<li>
+<p>The content of a namespace is indented.</p>
+</li>
+<li>
+<p>Don&#8217;t leave whitespace at the end of lines.</p>
+</li>
+<li>
+<p><code>private:</code>, <code>public:</code>, and <code>protected:</code> are in line with the class definition.</p>
+</li>
+<li>
+<p>Code after <code>private:</code>, <code>public:</code>, <code>protected:</code> and <code>case foo:</code> is indented.</p>
+</li>
+<li>
+<p>Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">namespace FIFE {
+    class SomeClass {
+    public:
+        SomeClass();
+        virtual SomeClass();
+    protected:
+        int32_t m_someval;
+    };
+} //FIFE</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_includes"><a class="anchor" href="#_includes"></a><a class="link" href="#_includes">4.1.9. Includes</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Try to use forward declarations rather to include other headers to reduce compiletime.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_platform_specific_includes"><a class="anchor" href="#_platform_specific_includes"></a><a class="link" href="#_platform_specific_includes">4.1.9.1. Platform specific includes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>One of the issues with cross platform engine development are different include paths on different platforms. The FIFE team decided to introduce a set of helper include files to address this issue. You use these files instead of including the platform specific headers directly. Include these files after headers of the C++ std library but before any other 3rd party headers.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">#include "video/opengl/fife_opengl.h"   <i class="conum" data-value="1"></i><b>(1)</b>
+
+#include "fife_unit_test.h"             <i class="conum" data-value="2"></i><b>(2)</b>
+
+#include "audio/fife_openal.h"          <i class="conum" data-value="3"></i><b>(3)</b>
+
+#include "util/base/fife_stdint.h"      <i class="conum" data-value="4"></i><b>(4)</b>
+
+#include "util/math/fife_math.h         <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Instead of including any OpenGL headers directly</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Instead of including the boost unit test header &lt;boost/test/unit_test.hpp&gt; directly, use for tests that reside in tests/core_tests.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Instead of including any OpenAL headers directly</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Instead of including the C99 stdint.h header directly</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Instead of including the cmath header directly</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_multiple_inheritance"><a class="anchor" href="#_multiple_inheritance"></a><a class="link" href="#_multiple_inheritance">4.1.10. Multiple Inheritance</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>In case you feel tempted to use multiple inheritance, read this first: <a href="http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4" class="bare">http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4</a> (the whole article is a good read).</p>
+</li>
+<li>
+<p>In most of the cases, you can avoid multiple inheritance altogether with proper design. If you still feel urge to use it, try to use pure interfaces (no method implementations in addition to empty destructor). Prefix these classes with 'I'-letter (e.g. <code>ITriggerController</code>)</p>
+</li>
+<li>
+<p>If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_friend_declarations"><a class="anchor" href="#_friend_declarations"></a><a class="link" href="#_friend_declarations">4.1.11. Friend declarations</a></h4>
+<div class="paragraph">
+<p>In general, don&#8217;t use friend declarations. Friends tend to get overused, since at first sight they provide quick and easy solution for problem at hand. In many cases however, they violate encapsulation and decrease modularity. There are cases where friends might be beneficial, but consult other developers before making the decision.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_error_handling"><a class="anchor" href="#_error_handling"></a><a class="link" href="#_error_handling">4.1.12. Error Handling</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use exceptions when something exceptional has happened and cannot be recovered from. Prefer to make an entry in the FIFE log and somehow recover. See the [[Developer guidelines|developer-guidelines]] page for more info on exceptions.</p>
+</li>
+<li>
+<p>Constructors should <strong>always</strong> throw an exception on error conditions.</p>
+</li>
+<li>
+<p>Destructors should <strong>never</strong> throw an exception.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sample_source_files"><a class="anchor" href="#_sample_source_files"></a><a class="link" href="#_sample_source_files">4.1.13. Sample Source Files</a></h4>
+<div class="paragraph">
+<p>Template source files can be found from svn:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>header: [sampleheader.h](<a href="https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/sampleheader.h" class="bare">https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/sampleheader.h</a>)</p>
+</li>
+<li>
+<p>implementation: [samplecpp.cpp](<a href="https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/samplecpp.cpp" class="bare">https://github.com/fifengine/fifengine/blob/master/doc/templatefiles/samplecpp.cpp</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commenting"><a class="anchor" href="#_commenting"></a><a class="link" href="#_commenting">4.1.14. Commenting</a></h4>
+<div class="paragraph">
+<p>The level of commenting outlined here may seem excessive, but it will make the code much easier to understand when a new coder has to work with the system, something that will inevitably be happening in an Open Source project like FIFE. So please, don&#8217;t become lax with the commenting.</p>
+</div>
+<div class="sect4">
+<h5 id="_headers"><a class="anchor" href="#_headers"></a><a class="link" href="#_headers">4.1.14.1. Headers</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Use doxygen-style comments in C++ headers: [Doxygen Manual](<a href="http://www.stack.nl/~dimitri/doxygen/manual.html" class="bare">http://www.stack.nl/~dimitri/doxygen/manual.html</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_implementation"><a class="anchor" href="#_implementation"></a><a class="link" href="#_implementation">4.1.14.2. Implementation</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Try to write code someone else understands without any comment.</p>
+</li>
+<li>
+<p>If you need to do something uncommon, or some special trick, comment.</p>
+</li>
+<li>
+<p>Don&#8217;t comment on something obvious.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_commenting_methods"><a class="anchor" href="#_commenting_methods"></a><a class="link" href="#_commenting_methods">4.1.14.3. Commenting Methods</a></h5>
+<div class="paragraph">
+<p>All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/** Short function description**
+ *
+ * @param p1 Short desc
+ * @return Short description of return val
+ */
+rtype Function(ptype p1);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All methods' parameters and return types must be described. This is so that the doxygen generates documentation can be of real use. functions who&#8217;s use isn&#8217;t obvious require longer descriptions, which should include a more detailed description of its task as well as a sample of its use. Make the
+example as illustrative as possible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/** Short function description
+ *
+ * Detailed description
+ * @code
+ * rtype rVal = complicatedFunction(param1, param2);
+ * @endcode
+ *
+ * @param p1 Description of parameter
+ * @param p2 Description of parameter
+ * @return Description of return value.
+ */
+rtype complicatedFunction(ptype1 p1, ptype2 p2);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Comments inside the body of a method should be kept to a minimum in simple functions again. But in large functions, especially those that encapsulate key algorithms, relatively detailed descriptions of how the code is opperating will make it much more maintainable. These should be kept to one of two line comments using the // syntax.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">// converts from screen space to world space
+x += xoffset;
+y += yoffset;
+
+// checks to see if an image is already loaded.
+bool loaded;
+loaded = image-&gt;getImageData() != 0;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_commenting_variables"><a class="anchor" href="#_commenting_variables"></a><a class="link" href="#_commenting_variables">4.1.14.4. Commenting Variables</a></h5>
+<div class="paragraph">
+<p>Member variables should all be commented. This is not a substitute for good variable names, but rather a way to make clear the use of each member variable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">//! Window width in pixels.
+int m_windowWidth;
+
+//! Window height in pixels.
+int m_windowHeight;
+
+//! SDL_Surface which represents the renderable area of the screen.
+SDL_Surface* m_screen;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parameters are all commented in the method description comment block so additional comments are unnecessary.</p>
+</div>
+<div class="paragraph">
+<p>Descriptions of local variables shouldn&#8217;t be necessary as long as descriptive names are used.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_commenting_enums"><a class="anchor" href="#_commenting_enums"></a><a class="link" href="#_commenting_enums">4.1.14.5. Commenting Enums</a></h5>
+<div class="paragraph">
+<p>When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/** An enum type. **
+ * The documentation block cannot be put after the enum!
+ */
+enum EnumType {
+    int EVal1, /**&lt; enum value 1 */
+    int EVal2  /**&lt; enum value 2 */
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_doxygen_tags"><a class="anchor" href="#_doxygen_tags"></a><a class="link" href="#_doxygen_tags">4.1.14.6. Doxygen Tags</a></h5>
+<div class="paragraph">
+<p>The following are not mandatory but it would be nice if everyone used them consistently.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+@see
+</td>
+<td class="hdlist2">
+<p>Use this to cross-reference another class/method/variable</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@author
+</td>
+<td class="hdlist2">
+<p>If you are the original author or major contributor of a class/method you might as well take credit for it. Multiple author lines are supported!</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@since
+</td>
+<td class="hdlist2">
+<p>If you are adding to the API you should mark which version of FIFE it will appear in first.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@deprecated
+</td>
+<td class="hdlist2">
+<p>Use this keyword if a function/class is now deprecated and marked for removal.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@throw
+</td>
+<td class="hdlist2">
+<p>When a method throws an exception you should document it using this keyword.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@pre
+</td>
+<td class="hdlist2">
+<p>This describes some pre-existing condition that the following code relies on.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/** Pretty nice class.**
+ * This class is used to demonstrate a number of section commands.
+ *
+ * @author John Doe
+ * @author Jan Doe
+ * @since 0.3.4
+ * @deprecated Do not use in v0.3.5+. Replaced by EvenNicerClass.
+ * @see EvenNicerClass
+ * @pre First initialize the system.
+ * @bug Not all memory is freed when deleting an object of this class.
+ * @warning Improper use can crash your application
+ */
+class SomeNiceClass {};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_doxygen_tags_gotchas"><a class="anchor" href="#_doxygen_tags_gotchas"></a><a class="link" href="#_doxygen_tags_gotchas">4.1.15. Doxygen Tags: Gotchas</a></h4>
+<div class="paragraph">
+<p>Along with other comments, use gotcha keywords to mark unfinished tasks in the code.
+Doxygen will parse your comments looking for these keywords, and making a report, so people can make a special effort where needed.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+@todo
+</td>
+<td class="hdlist2">
+<p>Means there&#8217;s more to do here, don&#8217;t forget. Can include known issues and bug or issue numbers if needed.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@bug
+</td>
+<td class="hdlist2">
+<p>This indicates that there is a known bug with the code. Be descriptive! Include bug or issue numbers!</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+@warning
+</td>
+<td class="hdlist2">
+<p>Use this when you need to bring special attention to whatever you are documenting. Perhaps there is a usage restriction or assumption that the user should know about!</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_including_examples_in_your_comments"><a class="anchor" href="#_including_examples_in_your_comments"></a><a class="link" href="#_including_examples_in_your_comments">4.1.15.1. Including examples in your comments</a></h5>
+<div class="paragraph">
+<p>For simple examples you can use <strong>@code</strong> and <strong>@endcode</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/** This is an awesome class.**
+ * It's made of pure awesomeness and should be used sparingly
+ * as to not waste the awesomeness.
+ *
+ * @code
+ * AwesomeClass ac;
+ * ac.doSomethingAwesome();
+ * @endcode
+ */</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_license"><a class="anchor" href="#_license"></a><a class="link" href="#_license">4.1.16. License</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>If you directly copy and paste code from another project the original copyright header needs to stay in place! Don&#8217;t add a FIFE header to the file in this case.</p>
+</li>
+<li>
+<p>If you used portions of code from other projects and integrated it into project files, add the FIFE header at the top of the file but add an additional remark after it that states the origin of the copied code parts.</p>
+</li>
+<li>
+<p>You can use this example as a template in this case:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp" data-lang="cpp">/***************************************************************************
+ *   Copyright (C) 2005-2013 by the FIFE team                              *
+ *   http://www.fifengine.net                                              *
+ *   This file is part of FIFE.                                            *
+ *                                                                         *
+ *   FIFE is free software; you can redistribute it and/or                 *
+ *   modify it under the terms of the GNU Lesser General Public            *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2.1 of the License, or (at your option) any later version.    *
+ *                                                                         *
+ *   This library is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
+ *   Lesser General Public License for more details.                       *
+ *                                                                         *
+ *   You should have received a copy of the GNU Lesser General Public      *
+ *   License along with this library; if not, write to the                 *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA          *
+ ***************************************************************************/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_references"><a class="anchor" href="#_references"></a><a class="link" href="#_references">4.1.17. References</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.possibility.com/Cpp/CppCodingStandard.html">C++ Coding Standards</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_python_coding_standards"><a class="anchor" href="#_python_coding_standards"></a><a class="link" href="#_python_coding_standards">4.2. Python Coding Standards</a></h3>
+<div class="paragraph">
+<p>We use a slightly modified version of the official
+[Style Guide for Python code](<a href="http://www.python.org/dev/peps/pep-0008/" class="bare">http://www.python.org/dev/peps/pep-0008/</a>) as a basis for our coding standards.
+This article describes our modifications and additions and also contains a summary of the coding standards.
+Reading the official style guide is highly recommended before moving on, as this article merely complements it.</p>
+</div>
+<div class="sect3">
+<h4 id="_files_2"><a class="anchor" href="#_files_2"></a><a class="link" href="#_files_2">4.2.1. Files</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Python files end with .py</p>
+</li>
+<li>
+<p>Only one class per py file. (With a exception for classes that are extremely simple and clearly belong together.)</p>
+</li>
+<li>
+<p>The files should be named after the (main)class they implement, but all in lowercase.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Executable python files</div>
+<div class="paragraph">
+<p>Python files which are meant to be executed directly, should have a shebang on the very first line.
+If your python file is not made for direct execution, it should not have neither a shebang.</p>
+</div>
+<div class="paragraph">
+<p>The shebang we use is: <code>#!/usr/bin/env python</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_naming_conventions"><a class="anchor" href="#_naming_conventions"></a><a class="link" href="#_naming_conventions">4.2.2. Naming Conventions</a></h4>
+<div class="sect4">
+<h5 id="_general"><a class="anchor" href="#_general"></a><a class="link" href="#_general">4.2.2.1. General</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Internal or non-public variables, functions or classes are prefixed with an underscore</p>
+</li>
+<li>
+<p>If you <strong>really</strong> do not want subclasses or other parts of python to use a member or method,
+prefix it with two underscores to invoke python&#8217;s name mangling</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_package_and_module_names"><a class="anchor" href="#_package_and_module_names"></a><a class="link" href="#_package_and_module_names">4.2.2.2. Package and module names</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Module names are named after the class it contains, but all lowercase</p>
+</li>
+<li>
+<p>Package names are also lowercase. Do not use underscores: <code>_</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_class_names_2"><a class="anchor" href="#_class_names_2"></a><a class="link" href="#_class_names_2">4.2.2.3. Class names</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Class names use CamelCase. Example: <code>TestFactory</code>, <strong>not</strong> <code>test_factory</code>, <code>testFactory</code>, <code>Test_Factory</code>, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_and_method_names"><a class="anchor" href="#_function_and_method_names"></a><a class="link" href="#_function_and_method_names">4.2.2.4. Function and method names</a></h5>
+<div class="paragraph">
+<p><strong>This differ from python style guide</strong>
+* Function names start with a small letter. (Example: <code>def getRoofVisible()</code>)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_and_method_arguments"><a class="anchor" href="#_function_and_method_arguments"></a><a class="link" href="#_function_and_method_arguments">4.2.2.5. Function and method arguments</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Always use <code>self</code> for the first argument to instance methods. (Example: <code>def setVisible(self, visible):</code>)</p>
+</li>
+<li>
+<p>Always use <code>cls</code> for the first argument to <a href="http://docs.python.org/library/functions.html#classmethod">class methods</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>TODO: Write an example</strong></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_variables_and_constants"><a class="anchor" href="#_variables_and_constants"></a><a class="link" href="#_variables_and_constants">4.2.2.6. Variables and constants</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Class members start with a prefix _ and are all lowercase (Example: <code>_roofshift_x</code> )</p>
+</li>
+<li>
+<p>Parameter variables have no prefix and are also all lowercase. (Example: <code>myparamvar</code>)</p>
+</li>
+<li>
+<p>Local variables have no prefix and are all lowercase. (Example: <code>mylocalvar</code>)</p>
+</li>
+<li>
+<p>Constants are all uppercase with underscore separating the words. Example: <code>MAX_LINES</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_coding_style_2"><a class="anchor" href="#_coding_style_2"></a><a class="link" href="#_coding_style_2">4.2.3. Coding Style</a></h4>
+<div class="sect4">
+<h5 id="_indentation_whitespace_2"><a class="anchor" href="#_indentation_whitespace_2"></a><a class="link" href="#_indentation_whitespace_2">4.2.3.1. Indentation &amp; Whitespace</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Indentation is done by a real tab. <strong>This differs from python style guide!</strong></p>
+</li>
+<li>
+<p>Use 4 spaces per indentation level.</p>
+</li>
+<li>
+<p><strong>Never mix tabs and spaces!</strong></p>
+</li>
+<li>
+<p>Don&#8217;t leave whitespace at the end of lines.</p>
+</li>
+<li>
+<p>Emacs people: Emacs may use a mixture of spaces and tabs to indent. Make sure this feature is disabled.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_blank_lines"><a class="anchor" href="#_blank_lines"></a><a class="link" href="#_blank_lines">4.2.3.2. Blank lines</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Separate top-level functions and class definitions with two blank lines.</p>
+</li>
+<li>
+<p>Method definitions inside a class are separated by a single blank line.</p>
+</li>
+<li>
+<p>Extra blank lines may be used (sparingly) to separate groups of related functions.</p>
+</li>
+<li>
+<p>Use blank lines in functions, sparingly, to indicate logical sections.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_imports"><a class="anchor" href="#_imports"></a><a class="link" href="#_imports">4.2.3.3. Imports</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Only one import per line</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python"># Yes:
+  import os
+  import sys
+
+# No:
+  import os, sys</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.</p>
+</li>
+<li>
+<p>Imports should be grouped in the following order, separated by a blank line:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>standard library imports</p>
+</li>
+<li>
+<p>related third party imports</p>
+</li>
+<li>
+<p>local application/library specific imports</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Always use the absolute package path for all imports.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_functions"><a class="anchor" href="#_functions"></a><a class="link" href="#_functions">4.2.3.4. Functions</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Keep your functions simple.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_arguments"><a class="anchor" href="#_arguments"></a><a class="link" href="#_arguments">4.2.3.5. Arguments</a></h5>
+<div class="paragraph">
+<p>Avoid using boolean parameters and if you need them, supply as keywords arguments.
+If you use them and you can supply the as positional arguments - don&#8217;t.
+The rationale here is that the meaning of boolean arguments is very difficult to see for the reader otherwise:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python">  # Bad - What does the arg mean? Don't layout?
+  self.adaptLayout(False)
+
+  # Good - At least the reader has an idea what the arguments means.
+  self.adaptLayout(recurse=False)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_multiple_inheritance_2"><a class="anchor" href="#_multiple_inheritance_2"></a><a class="link" href="#_multiple_inheritance_2">4.2.3.6. Multiple Inheritance</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>In case you feel tempted to use multiple inheritance,
+read this first: <a href="http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4" class="bare">http://www.parashift.com/c++-faq-lite/multiple-inheritance.html#faq-25.4</a> (even the whole article is a good read).</p>
+</li>
+<li>
+<p>In most of the cases, you can avoid multiple inheritance altogether with proper design.
+If you still feel urge to use it, try to use pure interfaces (no method implementations in addition to empty destructor).
+Prefix these classes with <code>I</code>-letter (e.g. <code>ITriggerController</code>)</p>
+</li>
+<li>
+<p>If you still feel that implementation multi-inheritance is the way to go, discuss this first with other developers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commenting_2"><a class="anchor" href="#_commenting_2"></a><a class="link" href="#_commenting_2">4.2.4. Commenting</a></h4>
+<div class="paragraph">
+<p><strong>TODO: Add class documentation.</strong></p>
+</div>
+<div class="paragraph">
+<p>The level of commenting outlined here may seem excessive,
+but it will make the code much easier to understand when a new coder has to work with the system,
+something that will inevitably be happening in an Open Source project like FIFE.
+So please, don&#8217;t become lax with the commenting.</p>
+</div>
+<div class="paragraph">
+<p>This is even more important as we only provide the engine.
+Remember each comment might fix a misunderstanding and thus problem for the game devs using FIFE.</p>
+</div>
+<div class="paragraph">
+<p>Write the public documentation and comments from the point of a user.</p>
+</div>
+<div class="sect4">
+<h5 id="_implementation_2"><a class="anchor" href="#_implementation_2"></a><a class="link" href="#_implementation_2">4.2.4.1. Implementation</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Try to write code someone else understands without any comment.</p>
+</li>
+<li>
+<p>If you need to do something uncommon, or some special trick, comment.</p>
+</li>
+<li>
+<p>Don&#8217;t comment on something obvious.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_commenting_files"><a class="anchor" href="#_commenting_files"></a><a class="link" href="#_commenting_files">4.2.4.2. Commenting Files</a></h5>
+<div class="paragraph">
+<p>All files should have a documentation string.
+That is <strong>the</strong> place to document the interaction and purpose of the module.
+You should link to most relevant classes and functions for the module.
+Try to explicitly state bugs, shortcomings and the dark and fuzzy areas of the code which need improvement.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python">  """
+  Foo Module
+  ==========
+
+  ...
+
+  Performance Issues
+  ------------------
+
+  If you encounter performance issues with the Foo class. Remember
+  That the @L{FooSet.findSomething} method needs to iterate over all
+  foo instances. Do not use it in an inner loop. Instead use @L{getQueryDict}.
+
+  Good::
+    d = foo.getQueryDict()
+    for name in names:
+       for foo_instance in d.get(name,[]):
+          doSomething( foo_instance )
+
+  Bad::
+    for name in names:
+       for foo_instance in foo.findSomething(name):
+          doSomething( foo_instance )
+  """</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commenting_methods_2"><a class="anchor" href="#_commenting_methods_2"></a><a class="link" href="#_commenting_methods_2">4.2.5. Commenting Methods</a></h4>
+<div class="paragraph">
+<p>All methods should be documented, no matter how trivial.
+Here&#8217;s an example of how to document using epydoc style.
+If possible link to other relevant functions,
+provide a use case and give information on the expected results of the function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python"> def findSomething(self, param):
+    """ Find all instances of foo, which match param
+
+    Matching is performed by string comparison @C{foo.name == param}.
+    See @L{querySomething} for more complex queries.
+
+    Example::
+       fooList = stuff.findSomething("some")
+       for x in fooList:
+           print x.name # This will print 'some'
+    """</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Comments inside the body of a method should be kept to a minimum in simple functions again.
+But in large functions, especially those that encapsulate key algorithms,
+relatively detailed descriptions of how the code is operating will make it much more maintainable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python"> # converts from screen space to world space
+ x += xoffset
+ y += yoffset
+
+ # checks to see if an image is already loaded.
+ loaded = image.getImageData() is not None</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commenting_variables_2"><a class="anchor" href="#_commenting_variables_2"></a><a class="link" href="#_commenting_variables_2">4.2.6. Commenting Variables</a></h4>
+<div class="paragraph">
+<p>Member variables should all be commented. Either individual variables,
+or blocks of variables with a similar function, as long as all member variables
+are in some way described. This is not a substitute for good variable names,
+but rather a way to make clear the use of each member variable.</p>
+</div>
+<div class="paragraph">
+<p>The documentation should be in the <code><em>init</em></code> function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python"> def __init__(self):
+    # Initialise the window size with sane defaults.
+    self.window_width = self.DEFAULT_SIZE[0]
+    self.window_height = self.DEFAULT_SIZE[1]
+
+    # The command object handles all our commands.
+    # We proxy in the doXYZ() methods.
+    self.command = CommandObject(self)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parameters are all commented in the method description comment block so additional comments are unnecessary.</p>
+</div>
+<div class="paragraph">
+<p>Descriptions of local variables shouldn&#8217;t be necessary as long as descriptive names are used.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gotchas_2"><a class="anchor" href="#_gotchas_2"></a><a class="link" href="#_gotchas_2">4.2.7. Gotchas</a></h4>
+<div class="paragraph">
+<p>Along with other comments, use gotcha keywords to mark unfinished tasks in the code.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+TODO
+</td>
+<td class="hdlist2">
+<p>Means there&#8217;s more to do here, don&#8217;t forget.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+FIXME
+</td>
+<td class="hdlist2">
+<p>Means there&#8217;s a known bug here, explain it and optionally give a trac id</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_license_2"><a class="anchor" href="#_license_2"></a><a class="link" href="#_license_2">4.2.8. License</a></h4>
+<div class="sect4">
+<h5 id="_fife_python_header"><a class="anchor" href="#_fife_python_header"></a><a class="link" href="#_fife_python_header">4.2.8.1. FIFE Python header</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python" data-lang="python"># -*- coding: utf-8 -*-
+
+# ####################################################################
+#  Copyright (C) 2005-2013 by the FIFE team
+#  http://www.fifengine.net
+#  This file is part of FIFE.
+#
+#  FIFE is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Lesser General Public
+#  License as published by the Free Software Foundation; either
+#  version 2.1 of the License, or (at your option) any later version.
+#
+#  This library is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public
+#  License along with this library; if not, write to the
+#  Free Software Foundation, Inc.,
+#  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# ####################################################################</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_references_2"><a class="anchor" href="#_references_2"></a><a class="link" href="#_references_2">4.2.9. References</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.python.org/dev/peps/pep-0008/">PEP 8&#8201;&#8212;&#8201;Style Guide for Python Code</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coding_standard_checkers"><a class="anchor" href="#_coding_standard_checkers"></a><a class="link" href="#_coding_standard_checkers">4.3. Coding Standard Checkers</a></h3>
+<div class="sect3">
+<h4 id="_formatting_c_code_with_astyle"><a class="anchor" href="#_formatting_c_code_with_astyle"></a><a class="link" href="#_formatting_c_code_with_astyle">4.3.1. Formatting C++ code with Astyle</a></h4>
+<div class="paragraph">
+<p>We use <a href="http://astyle.sourceforge.net/">ArtisticStye</a> (<code>astyle</code>) for coding style checks and automatical formatting of C++ source code.
+You find the <a href="https://github.com/fifengine/fifengine/blob/master/.astylerc">.astylerc</a> configuration file in the fifengine repository.</p>
+</div>
+<div class="paragraph">
+<p><strong>Installation of astyle</strong></p>
+</div>
+<div class="paragraph">
+<p>Linux:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">apt-get install astyle</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Windows:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://sourceforge.net/projects/astyle/files/astyle/" class="bare">https://sourceforge.net/projects/astyle/files/astyle/</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash"># Check style
+astyle --recursive --options=.astylerc "engine/core/*.h" "engine/core/*.cpp"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formatting_python_code_with_pylint"><a class="anchor" href="#_formatting_python_code_with_pylint"></a><a class="link" href="#_formatting_python_code_with_pylint">4.3.2. Formatting Python code with Pylint</a></h4>
+<div class="paragraph">
+<p>We use the <code>pylint</code> for coding style checks and automatical formatting of Python source code.
+You find the <a href="https://github.com/fifengine/fifengine/blob/master/.pylintrc">.pylintrc</a> configuration file in the fifengine repository.</p>
+</div>
+<div class="paragraph">
+<p><strong>Installation of pylint</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash"># Install pylint (installs pylint.exe in %PYTHON%\Scripts)
+python -m pip install pylint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test run:</p>
+</div>
+<div class="paragraph">
+<p><code>%PYTHON%\Scripts\pylint --version</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong></p>
+</div>
+<div class="paragraph">
+<p>To check all Python files in the folder <code>./engine/python/fife/</code> run:</p>
+</div>
+<div class="paragraph">
+<p><code>- pylint --rcfile=.pylintrc ./engine/python/fife/</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fife_windows_sdk"><a class="anchor" href="#_fife_windows_sdk"></a><a class="link" href="#_fife_windows_sdk">5. Fife Windows SDK</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Fife Windows SDK is a collection of software development tools for working with Fifengine.</p>
+</div>
+<div class="paragraph">
+<p>The Fife SDK installer build scripts fetch all required packages for working with fifengine,
+including build-tools and dependencies, prepares them for packaging and finally builds the "SDK" installer on Appveyor.</p>
+</div>
+<div class="paragraph">
+<p>This chapter documents these build scripts and tasks, including fetching and extracting components and compiling the InnoSetup installers.</p>
+</div>
+<div class="sect2">
+<h3 id="_repository_overview"><a class="anchor" href="#_repository_overview"></a><a class="link" href="#_repository_overview">5.1. Repository Overview</a></h3>
+<div class="paragraph">
+<p>Let&#8217;s start with an overview of the files and folders in the <code>fife-windows-sdk</code> repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>├──build-scripts
+│   ├── 1-download.bat
+│   ├── 2-extract.bat
+│   ├── 3-copy.bat
+│   ├── 3-stripdown.bat
+├──build-tools
+│   ├── 7zip
+│   ├── aria2
+│   ├── innosetup
+├──download-lists
+│   ├── fifengine.txt
+│   ├── fifengine-build-tools.txt
+├──installer
+│   ├── images
+│   │   ├── fife.ico
+│   │   ├── WizardImage.bmp
+│   │   ├── WizardImage.xcf
+│   │   ├── WizardSmallImage.bmp
+│   │   ├── WizardSmallImage.xcf
+│   ├── includes
+│       ├── envpath.iss
+├── appveyor.yml
+├── CHANGELOG.md
+├── LICENSE
+├── README.md</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_appveyor"><a class="anchor" href="#_appveyor"></a><a class="link" href="#_appveyor">5.2. Appveyor</a></h3>
+<div class="paragraph">
+<p>We are using Appveyor to continuously build and publish the installer.
+The file <code>appveyor.yml</code> is Appveyor&#8217;s configuration file.
+Important are the sections <code>before_build</code>, <code>build_script</code>, <code>artifact</code>, <code>deploy</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_before_build_tasks_before_build"><a class="anchor" href="#_before_build_tasks_before_build"></a><a class="link" href="#_before_build_tasks_before_build">5.3. Before Build Tasks (before_build)</a></h3>
+<div class="paragraph">
+<p>Before we can build the installer, we need to download and extract
+the software components, which we later want to include in the installer.
+After the extraction, we copy and move some files and folders around.
+Then we delete several unnecessary files and folders in a stripdown run.</p>
+</div>
+<div class="paragraph">
+<p>At the end of the <code>before_build</code> step, we have a proper folder structure
+with all the components we want to ship, ready for inclusion into the installer.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_download"><a class="anchor" href="#_1_download"></a><a class="link" href="#_1_download">5.3.1. 1-download</a></h4>
+<div class="paragraph">
+<p>todo</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_extract"><a class="anchor" href="#_2_extract"></a><a class="link" href="#_2_extract">5.3.2. 2-extract</a></h4>
+<div class="paragraph">
+<p>todo</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_copy"><a class="anchor" href="#_3_copy"></a><a class="link" href="#_3_copy">5.3.3. 3-copy</a></h4>
+<div class="paragraph">
+<p>todo</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_stripdown"><a class="anchor" href="#_4_stripdown"></a><a class="link" href="#_4_stripdown">5.3.4. 4-stripdown</a></h4>
+<div class="paragraph">
+<p>todo</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building_the_installer_build_script"><a class="anchor" href="#_building_the_installer_build_script"></a><a class="link" href="#_building_the_installer_build_script">5.4. Building the Installer (build_script)</a></h3>
+<div class="paragraph">
+<p>The installer is build using the InnoSetup Compiler (<code>iscc</code>).</p>
+</div>
+<div class="paragraph">
+<p>The property <code>APP_VERSION</code> is set from the APPVEYOR environment as <code>%APPVEYOR_BUILD_VERSION%</code>,
+so that the installer is dynamically versionized from the outside.</p>
+</div>
+<div class="paragraph">
+<p><code>build-tools\innosetup\iscc /DAPP_VERSION=%APPVEYOR_BUILD_VERSION% installer\fife-sdk.iss</code></p>
+</div>
+<div class="paragraph">
+<p>The target location for installer is: <code>fife-windows-sdk\_build</code>.</p>
+</div>
+<div class="paragraph">
+<p>The compiled setup executable has the following naming scheme: <code>{#APP_NAME}-{#APP_VERSION}-Setup-{#APP_COMPILER}-x86</code>,</p>
+</div>
+<div class="paragraph">
+<p>for example: <code>_build\FifeSDK-0.4.0-Setup-VC14-x86.exe"</code></p>
+</div>
+<div class="sect3">
+<h4 id="_debugging_the_installer"><a class="anchor" href="#_debugging_the_installer"></a><a class="link" href="#_debugging_the_installer">5.4.1. Debugging the installer</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>You can create a log of the installation procedure by using the <code>/LOG</code> CLI argument.</p>
+<div class="literalblock">
+<div class="content">
+<pre>FifeSDK-0.4.0-Setup-VC14-x86.exe /LOG=c:\fifesdk.log</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_artifact_upload_artifact"><a class="anchor" href="#_artifact_upload_artifact"></a><a class="link" href="#_artifact_upload_artifact">5.5. Artifact Upload (artifact)</a></h3>
+<div class="paragraph">
+<p>When the installer was successfully build, it is automatically published on Appveyor&#8217;s artifact storage.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts">Download from Appveyor&#8217;s artifact storage</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_downloads_deploy"><a class="anchor" href="#_downloads_deploy"></a><a class="link" href="#_downloads_deploy">5.6. Downloads (deploy)</a></h3>
+<div class="paragraph">
+<p>When a new release version of the installer is tagged, then the installer is automatically published on Github Releases.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/fifengine/fife-windows-sdk/releases">Download from Github Releases</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_image_atlas_creator"><a class="anchor" href="#_image_atlas_creator"></a><a class="link" href="#_image_atlas_creator">6. Image Atlas Creator</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Image Atlas Creator allows users to combine multiple images into an image atlas.
+This reduces the number of files you need to ship with your game and speeds up rendering!</p>
+</div>
+<div class="paragraph">
+<p>The tool is written in C++ using Qt.</p>
+</div>
+<div class="paragraph">
+<p>You find the repo here: <a href="https://github.com/fifengine/fifengine-atlas-creator" class="bare">https://github.com/fifengine/fifengine-atlas-creator</a></p>
+</div>
+<div class="sect2">
+<h3 id="_usage"><a class="anchor" href="#_usage"></a><a class="link" href="#_usage">6.1. Usage</a></h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="sect3">
+<h4 id="_input"><a class="anchor" href="#_input"></a><a class="link" href="#_input">6.1.1. Input</a></h4>
+<div class="paragraph">
+<p>The supported Image File Types are:
+- png
+- jpg
+- jpeg
+- tga
+- bmp</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/fifengine/fifengine-atlas-creator/blob/9f0649131f34114b9f2fc90e4bdc17c493f544bf/src/mainwindow.cpp#L94-L98">Source</a></p>
+</div>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_output"><a class="anchor" href="#_output"></a><a class="link" href="#_output">6.1.2. Output</a></h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies_4"><a class="anchor" href="#_dependencies_4"></a><a class="link" href="#_dependencies_4">Dependencies</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fifengine_dependencies"><a class="anchor" href="#_fifengine_dependencies"></a><a class="link" href="#_fifengine_dependencies">Fifengine Dependencies</a></h3>
+<div class="paragraph">
+<p>The following dependencies are needed to build FIFE from source:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Frameworks</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.libsdl.org/download-2.0.php">SDL2</a> &gt;= 2.x</p>
+</li>
+<li>
+<p><a href="http://www.libsdl.org/projects/SDL_ttf/">SDL_ttf</a> &gt;= 2.0</p>
+<div class="ulist">
+<ul>
+<li>
+<p>depends on <a href="https://www.freetype.org/">FreeType</a> &gt;= 2.x</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="http://www.libsdl.org/projects/SDL_image/">SDL_image</a></p>
+</li>
+<li>
+<p><a href="http://www.boost.org">Boost</a> &gt;= 1.33.1</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sound libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p>libvorbis</p>
+</li>
+<li>
+<p>libvorbisfile</p>
+</li>
+<li>
+<p>libogg</p>
+</li>
+<li>
+<p><a href="http://kcat.strangesoft.net/openal.html">OpenAL-Soft</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Graphics and GUI libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.opengl.org/">opengl</a> &gt;= 1.3 <strong><em>optional</em></strong> for OpenGL support</p>
+</li>
+<li>
+<p>GLEW</p>
+</li>
+<li>
+<p><a href="http://fifengine.github.com/fifechan/">fifechan</a> &gt;= 0.1.0 <strong><em>optional</em></strong></p>
+</li>
+<li>
+<p>libpng</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Python scripting-related libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.swig.org/">swig</a> &gt;= 1.3.40</p>
+</li>
+<li>
+<p><a href="http://www.python.org/">python</a> &gt;= 2.7</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Compression libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.zlib.net/">zlib</a> &gt;= 1.2</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Serialization / XML libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://sourceforge.net/projects/tinyxml/files/tinyxml/2.6.2/">TinyXML v1</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Linux specific</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Xcursor</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fifechan_dependencies"><a class="anchor" href="#_fifechan_dependencies"></a><a class="link" href="#_fifechan_dependencies">FifeChan Dependencies</a></h3>
+<div class="paragraph">
+<p>FifeChan is a C++ GUI library. It has several optional dependencies.
+The following dependencies are needed to build FifeChan from source:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Allegro support</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://alleg.sourceforge.net/">Allegro</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>OpenGL (check drivers from your graphics card vendor)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Optional OpenGL Contrib Dependencies (Set <code>ENABLE_OPENGL_CONTRIB</code> to <code>ON</code> if you need them)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://oglft.sourceforge.net/">OpenGL-FreeType</a> - optional</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>SDL support</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.libsdl.org">SDL2</a></p>
+</li>
+<li>
+<p><a href="http://www.libsdl.org">SDL2_image</a></p>
+</li>
+<li>
+<p>Optional SDL Contrib Dependencies (Set <code>ENABLE_SDL_CONTRIB</code> to <code>ON</code> if you need them)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.libsdl.org">SDL2_ttf</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_atlas_creator_dependencies"><a class="anchor" href="#_atlas_creator_dependencies"></a><a class="link" href="#_atlas_creator_dependencies">Atlas Creator Dependencies</a></h3>
+<div class="paragraph">
+<p>The Atlas Creator depends on</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graphics/GUI libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://qt-project.org/">Qt</a></p>
+</li>
+<li>
+<p><a href="http://freeglut.sourceforge.net/">FreeGlut</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checklist_for_new_dependencies"><a class="anchor" href="#_checklist_for_new_dependencies"></a><a class="link" href="#_checklist_for_new_dependencies">Checklist for new dependencies</a></h3>
+<div class="paragraph">
+<p>In case a library gets outdated and has to be replaced or
+you want to introduce a completely new 3rd party library you should ensure it meets the following guidelines:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Cross-platform support (Linux, Windows, Mac)</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Widely used by other projects and has an active community</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Available to download as a package for most platforms</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Has been in active development for a number of years</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> License is compatible with fife</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary"><a class="anchor" href="#_glossary"></a><a class="link" href="#_glossary">Glossary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The glossary helps to ease communication between developers and users of fifengine by defining a set of commonly agreed upon terms.</p>
+</div>
+<div class="dlist glossary">
+<dl>
+<dt>Agent</dt>
+<dd>
+<p>An agent is a dynamic map instance. It can move to different map locations at runtime.</p>
+</dd>
+<dt>Animation</dt>
+<dd>
+<p>Sequence of image files that are played in succession to create illusion of e.g. walking. See <a href="http://en.wikipedia.org/wiki/Animations" class="bare">http://en.wikipedia.org/wiki/Animations</a></p>
+</dd>
+<dt>Archetype</dt>
+<dd>
+<p>Archetypes hold the basic data used in maps and throughout the game. They provide the IDs and names used in the Map Format.</p>
+</dd>
+<dt>Atlas</dt>
+<dd>
+<p>Atlas or Image Atlas groups together several smaller images into a larger one for performance benefits.</p>
+</dd>
+<dt>Backend</dt>
+<dd>
+<p>Backend From Wikipedia: "In software design, the front-end is the part of a software system that interacts directly with the user, and the back-end comprises the components that process the output from the front-end. The separation of software systems into "front ends" and "back ends" is a kind of abstraction that helps to keep different parts of the system separated."</p>
+</dd>
+<dt>Camera</dt>
+<dd>
+<p>A viewport or scene. Multiple cameras can exist with different scenes being portrayed on each camera.</p>
+</dd>
+<dt>Client</dt>
+<dd>
+<p>A game or tool that uses FIFE as it&#8217;s engine.</p>
+</dd>
+<dt>Console</dt>
+<dd>
+<p>Console is an in game window that can be used to type commands for fife engine.</p>
+</dd>
+<dt>Content</dt>
+<dd>
+<p>Media (images/music/sound fx/font/etc), map files, or GUI definition files.</p>
+</dd>
+<dt>Contributor</dt>
+<dd>
+<p>Contributors are people working on FIFE on an occasional basis. Contributors have no write access to the FIFE Git repositories. Collaboration is done by forking a repository and sending patches back to the upstream repository via a Github pull request.</p>
+</dd>
+<dt>Dataset</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Developer</dt>
+<dd>
+<p>Developers are people working on FIFE on a regular basis. They have write access to the FIFE Git repositories.</p>
+</dd>
+<dt>Elevation</dt>
+<dd>
+<p>Map consists of elevations. Elevation can be thought as a floor in case you think map being a building. Each map has to have at least one elevation.</p>
+</dd>
+<dt>Event</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>FifeChan</dt>
+<dd>
+<p>FifeChan is a C GUI library (libfifechan). It's the successor of GuiChan. The pythonic binding to the C API is called PyChan.</p>
+</dd>
+<dt>Game creator</dt>
+<dd>
+<p>A single person or a whole team of individuals who create a FIFE-based game.</p>
+</dd>
+<dt>Gamma level</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Geometry</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Gid</dt>
+<dd>
+<p>Graphical ID. Used to uniquely identify any piece of graphic inside a set of related xml-file fragments.</p>
+</dd>
+<dt>Grid</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Layer</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Location</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Map</dt>
+<dd>
+<p>World presentation from FIFE perspective. See Map model.</p>
+</dd>
+<dt>Metamodel</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Model</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Object</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Offset</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Palette</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>PyChan</dt>
+<dd>
+<p>PyChan is the pythonic binding to the C++ API of the GUI library FifeChan.</p>
+</dd>
+<dt>Spritesheet animation</dt>
+<dd>
+<p>Specific type of atlas that represents only one action (animations for all defined directions). Typically, it&#8217;s one direction per row, one frame per column.</p>
+</dd>
+<dt>Tid</dt>
+<dd>
+<p>Tile ID. Same as Gid, but used only for tile related graphics.</p>
+</dd>
+<dt>Tile</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>Tileset</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>User</dt>
+<dd>
+<p>The term user is often utilized for expressing that the respective person is neither a developer nor a contributor of the development team.</p>
+</dd>
+<dt>Visual</dt>
+<dd>
+<p>TODO</p>
+</dd>
+<dt>View</dt>
+<dd>
+<p>TODO</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0-dev-924f97d<br>
+Last updated 2017-05-20 12:56:46 UTC
+</div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/monokai_sublime.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

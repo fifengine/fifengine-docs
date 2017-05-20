@@ -177,7 +177,7 @@ To build fife with Python support only do:
 
 [source,bash]
 ----
-With "-DPYTHON_EXECUTABLE=" you can change the Python Version what you want to use. If it is not the System defualt Python Version.
+With "-DPYTHON_EXECUTABLE=/PATH/TO/PYTHONEXECUTABLE" you can change the Python Version what you want to use. If it is not the System defualt Python Version.
 ----
 
 [source,bash]

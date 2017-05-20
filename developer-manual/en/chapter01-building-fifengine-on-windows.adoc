@@ -103,4 +103,11 @@ dir ..\fifengine-dependencies\includes /s
 
 ==== Building Fifengine
 
+If you have Python 2 and Python 3 installed you can choose the Version with the comamnd:
+
+[source,bash]
+----
+With "-DPYTHON_EXECUTABLE=/PATH/TO/PYTHONEXECUTABLE" you can change the Python Version what you want to use. If it is not the System defualt Python Version.
+----
+
 Finally, we can compile Fifengine.

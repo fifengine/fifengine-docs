@@ -15,7 +15,7 @@ The are several good IDEs available, including:
 
 ===== Compiler
 
-TODO
+You can compile fife with `clang`.
 
 ===== CMake
 

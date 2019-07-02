@@ -21,5 +21,11 @@ https://github.com/fife-rpg/fife-rpg[FIFE RPG]::
 
 https://github.com/selaux/ja2-fife-demo[Jagged Alliance 2 - Fife Demo]::
     A small game demo for using the Jagged Alliance 2 assets in FIFE engine.
-
+    
+https://github.com/Niektory/steamfolktales[SteamFolkTales]::
+    -
+   
+https://github.com/Niektory/fife_tactics[Fife Tactics]::
+    -
+    
 If you are developing a game with Fifengine and want it posted here, please let us know!

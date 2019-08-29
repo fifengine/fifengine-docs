@@ -1,12 +1,14 @@
 language: ruby
 
-rvm: [2.3.1]
+rvm: [2.6.0]
 
-#addons:
-  #apt:
-    #packages:
+addons:
+  apt:
+    packages:
     # fetch Ghostscript to optimize/minimize the PDF, if > 5MB
     #- ghostscript
+    # fetch libfop-java for plantuml
+    - libfop-java
 
 cache:
   apt: true

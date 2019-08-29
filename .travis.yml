@@ -9,31 +9,32 @@ addons:
     #- ghostscript
     # fetch libfop-java for plantuml
     - libfop-java
+    # install optional dependencies for asccidoctor-diagram
+    - ditaa 
+    - graphviz
 
 cache:
   apt: true
   #directories:    
     #- $HOME/.cache/pip
 
-install:
-  # install optional dependencies for asccidoctor-diagram
-  - sudo apt-get -qq update && sudo apt-get install -y ditaa graphviz
+install:  
   - travis_retry _travis/install_plantuml.sh
   # install AsciiDoctor
   - gem install asciidoctor
   # PDF generator
-  - gem install --no-rdoc --pre asciidoctor-pdf
+  - gem install --pre asciidoctor-pdf
   # syntax highlighter
-  - gem install --no-rdoc coderay pygments.rb
+  - gem install coderay pygments.rb
   # diagram support
-  - gem install --no-rdoc asciidoctor-diagram
+  - gem install asciidoctor-diagram
   # optionally install more diagram tools: blockdiag, seqdiag, actdiag and nwdiag
   #- pip install --user blockdiag actdiag seqdiag nwdiag
   #- pip install --user shaape
   - gem install slim tilt haml
   # AsciiDoctor Stylesheet Factory - Dependencies
-  - gem install --version '0.12.7' compass --no-rdoc
-  - gem install --version '4.3.2' zurb-foundation --no-rdoc
+  - gem install --version '0.12.7' compass
+  - gem install --version '4.3.2' zurb-foundation
   # AsciiDoctor Stylesheet Factory
   - wget https://github.com/asciidoctor/asciidoctor-stylesheet-factory/archive/master.zip
   - unzip master.zip

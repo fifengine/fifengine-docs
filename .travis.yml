@@ -22,18 +22,18 @@ install:
   # install AsciiDoctor
   - gem install asciidoctor
   # PDF generator
-  - gem install --no-ri --no-rdoc --pre asciidoctor-pdf
+  - gem install --no-rdoc --pre asciidoctor-pdf
   # syntax highlighter
-  - gem install --no-ri --no-rdoc coderay pygments.rb
+  - gem install --no-rdoc coderay pygments.rb
   # diagram support
-  - gem install --no-ri --no-rdoc asciidoctor-diagram
+  - gem install --no-rdoc asciidoctor-diagram
   # optionally install more diagram tools: blockdiag, seqdiag, actdiag and nwdiag
   #- pip install --user blockdiag actdiag seqdiag nwdiag
   #- pip install --user shaape
   - gem install slim tilt haml
   # AsciiDoctor Stylesheet Factory - Dependencies
-  - gem install --version '0.12.7' compass --no-ri --no-rdoc
-  - gem install --version '4.3.2' zurb-foundation --no-ri --no-rdoc
+  - gem install --version '0.12.7' compass --no-rdoc
+  - gem install --version '4.3.2' zurb-foundation --no-rdoc
   # AsciiDoctor Stylesheet Factory
   - wget https://github.com/asciidoctor/asciidoctor-stylesheet-factory/archive/master.zip
   - unzip master.zip

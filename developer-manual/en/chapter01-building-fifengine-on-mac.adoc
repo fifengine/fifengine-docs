@@ -100,7 +100,7 @@ To build fife with Python support and with c/c++ lib and header files do:
 
 [source,bash]
 ----
-mkdir _build; cd _build; cmake -Dbuild-library=ON ../fifengine
+mkdir _build; cd _build; cmake -Dbuild-library=ON ..
 ----
 
 after that you can build the project using make and then install it:

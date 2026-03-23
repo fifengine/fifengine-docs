@@ -2,6 +2,8 @@
 # .gitattributes
 #
 
+*.adoc text eol=lf
+
 #
 # this stuff is removed, when doing a git export to keep the zip file small.
 #

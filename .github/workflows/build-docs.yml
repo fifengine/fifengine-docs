@@ -1,0 +1,134 @@
+name: Build Docs
+
+on:
+  - push
+  - pull_request
+  # You can manually run this workflow.
+  - workflow_dispatch
+
+# Improve CI concurrency by automatically cancelling outdated jobs.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+
+# ---------------------------------------------------------------------------------------
+
+  build:
+
+# ---------------------------------------------------------------------------------------
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🤘 Checkout Code
+        uses: actions/checkout@v6 # https://github.com/actions/checkout
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            ditaa \
+            graphviz \
+            default-jre-headless \
+            ruby \
+            ruby-dev
+
+      - name: Install Ruby gems
+        run: |
+          gem install \
+            asciidoctor \
+            asciidoctor-diagram \
+            rouge
+
+      - name: Copy images
+        run: |
+          mkdir -p user-manual/images
+          cp -p images/* user-manual/images/
+
+      - name: Build HTML documentation
+        env:
+          REVNUMBER: ${{ github.sha }}
+        run: |
+          echo "Building user-manual..."
+          asciidoctor \
+            -a icons=font \
+            -a source-highlighter=rouge \
+            -a toc=left \
+            -a toclevels=3 \
+            -a revnumber=$REVNUMBER \
+            user-manual/en/book.adoc \
+            -o user-manual/en/index.html
+
+          echo "Building developer-manual..."
+          asciidoctor \
+            -r asciidoctor-diagram \
+            -a icons=font \
+            -a source-highlighter=rouge \
+            -a toc=left \
+            -a toclevels=3 \
+            -a revnumber=$REVNUMBER \
+            developer-manual/en/book.adoc \
+            -o developer-manual/en/index.html
+
+          echo "Building FAQ..."
+          asciidoctor \
+            -a icons=font \
+            -a source-highlighter=rouge \
+            -a revnumber=$REVNUMBER \
+            faq/faq.adoc \
+            -o faq/index.html
+
+          echo "Building index..."
+          asciidoctor README.adoc -o index.html
+
+      # - name: Build PDF documentation
+      #   env:
+      #     REVNUMBER: ${{ github.sha }}
+      #   run: |
+      #     asciidoctor -r asciidoctor-pdf -b pdf \
+      #       -a pdf-stylesdir=pdf -a pdf-style=fife \
+      #       -a pdf-fontsdir=pdf/fonts \
+      #       -a revnumber=$REVNUMBER \
+      #       user-manual/en/book.adoc -o user-manual/en/book.pdf
+      #
+      #     asciidoctor -r asciidoctor-diagram -r asciidoctor-pdf -b pdf \
+      #       -a pdf-stylesdir=pdf -a pdf-style=fife \
+      #       -a pdf-fontsdir=pdf/fonts \
+      #       -a revnumber=$REVNUMBER \
+      #       developer-manual/en/book.adoc -o developer-manual/en/book.pdf
+
+      - name: Upload documentation artifact
+        uses: actions/upload-pages-artifact@v4 # https://github.com/actions/upload-pages-artifact
+        with:
+          path: ./
+
+# ---------------------------------------------------------------------------------------
+
+  deploy:
+
+# ---------------------------------------------------------------------------------------
+
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5 # https://github.com/actions/configure-pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # https://github.com/actions/deploy-pages

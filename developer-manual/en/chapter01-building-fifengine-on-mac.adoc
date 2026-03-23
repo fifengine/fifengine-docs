@@ -31,7 +31,7 @@ http://www.swig.org/
 
 ===== Python
 
-To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+
+To build the Python extension you need Python. Fife works with Python 3.4+
 
 ==== Dependencies
 

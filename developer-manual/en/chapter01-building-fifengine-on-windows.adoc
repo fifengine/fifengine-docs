@@ -47,11 +47,10 @@ http://www.swig.org/
 
 ===== Python
 
-To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+
+To build the Python extension you need Python. Fife works with Python 3.4+
 
 * http://python.org/[Python]
 ** https://www.python.org/downloads/windows/[Python Downloads for Windows]
-** https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi[Download Python 2.7.12 (msi)]
 ** https://www.python.org/ftp/python/3.5.2/python-3.5.2.exe[Download Python 3.5.2 (exe)]
 
 ==== Dependencies
@@ -103,7 +102,7 @@ dir ..\fifengine-dependencies\includes /s
 
 ==== Building Fifengine
 
-If you have Python 2 and Python 3 installed you can choose the Version with the comamnd:
+If you have Python 3 installed you can choose the Version with the command:
 
 [source,bash]
 ----

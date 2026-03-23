@@ -66,7 +66,7 @@ or by using the CMake-Gui and selecting the folders.
 
 `-DPYTHON_INCLUDE_DIR="C:\fifesdk\python\include"`:: helper to find Python
 
-`-DPYTHON_LIBRARY="C:\fifesdk\python\libs\python27.lib"`:: helper to find Python
+`-DPYTHON_LIBRARY="C:\fifesdk\python\libs\python3.lib"`:: helper to find Python
 
 `-DSWIG_DIR=C:\fifesdk\swig`:: helper to find Swig folder
 

@@ -39,7 +39,7 @@ http://www.swig.org/
 
 ===== Python
 
-To build the Python extension you need Python. Fife works with Python 2.7 and Python 3.4+
+To build the Python extension you need Python. Fife works with Python 3.4+
 
 ==== Dependencies
 
@@ -62,13 +62,6 @@ NOTE: We are working on building the dependencies on the fly. For now we simply 
 
 On debian based systems you can grab all dependencies by installing the following packages:
 
-Python 2:
-
-[source,bash]
-----
-apt-get install -y build-essential libalsa-ocaml-dev libsdl2-dev libboost-dev libsdl2-ttf-dev libsdl2-image-dev libvorbis-dev libalut-dev python2.7 python-dev libboost-regex-dev libboost-filesystem-dev libboost-test-dev swig zlib1g-dev libopenal-dev git python-yaml libxcursor1 libxcursor-dev cmake cmake-data libtinyxml-dev libpng-dev libglew-dev
-----
-
 Python 3:
 
 [source,bash]
@@ -77,13 +70,6 @@ apt-get install -y build-essential libalsa-ocaml-dev libsdl2-dev libboost-dev li
 ----
 
 ====== Gentoo based systems
-
-Python 2:
-
-[source,bash]
-----
-emerge --ask --verbose --noreplace libvorbis libogg media-libs/openal boost libsdl2 sdl2-image sdl2-ttf git pyyaml dev-lang/swig dev-libs/tinyxml dev-util/cmake media-libs/glew dev-lang/python2.7
-----
 
 Python 3:
 
@@ -94,13 +80,6 @@ emerge --ask --verbose --noreplace libvorbis libogg media-libs/openal boost libs
 
 ====== Fedora based systems
 
-Python 2:
-
-[source,bash]
-----
-dnf install git python2 gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2_ttf SDL2_ttf-devel SDL2_image SDL2_image-devel boost boost-devel libvorbis libvorbis-devel libogg libogg-devel openal-soft openal-soft-devel zlib zlib-devel mesa-libGL mesa-libGL-devel mesa-libGLU mesa-libGLU-devel swig libXcursor libXcursor-devel alsa-lib alsa-lib-devel python-alsa PyYAML allegro5 cmake tinyxml-devel libpng libpng-devel fifechan fifechan-devel fifechan-opengl fifechan-opengl-devel fifechan-sdl fifechan-sdl-devel glew glew-devel
-----
-
 Python 3:
 
 [source,bash]
@@ -109,13 +88,6 @@ dnf install git python3 gcc gcc-c++ SDL2 SDL2-static SDL2-devel SDL2_ttf SDL2_tt
 ----
 
 ====== Arch Linux based systems
-
-Python 2:
-
-[source,bash]
-----
-pacman -S sdl2 boost sdl2_ttf sdl2_image libvorbis libogg openal swig python2 zlib libgl libpng tinyxml python2-pillow cmake glew
-----
 
 Python 3:
 

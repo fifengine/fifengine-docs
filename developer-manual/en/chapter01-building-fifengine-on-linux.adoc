@@ -100,29 +100,71 @@ pacman -S sdl2 sdl2_ttf sdl2_image libvorbis libogg openal swig python zlib libg
 
 ==== Building Fifechan
 
-To build Fife, you'll of course need the Fifechan source code. 
-You can download a Fifechan source code package or fetch the latest source using git.
+Fifechan is a C++ GUI library that is required as an optional dependency for FIFE.
+You need to build it from source before building FIFE.
+
+===== Install System Dependencies
+
+Fifechan requires the following dependencies to be installed on your system:
+
+[source,bash]
+----
+apt-get install -y \
+  build-essential \
+  cmake \
+  ninja-build \
+  freetype \
+  libsdl2-dev \
+  libsdl2-image-dev \
+  libsdl2-mixer-dev \
+  libsdl2-ttf-dev \
+  libglew-dev \
+  libxcursor-dev \
+  libx11-dev \
+  libxext-dev
+----
+
+For testing (optional):
+
+[source,bash]
+----
+apt-get install -y catch2
+----
+
+===== Clone and Build
 
 [source,bash]
 ----
 git clone https://github.com/fifengine/fifechan.git && cd fifechan
 ----
 
-[source,bash]
-----
-mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-----
-
-Building with Clang instand of GCC Compiler:
+Create a build directory and configure with CMake using a preset or manual configuration:
 
 [source,bash]
 ----
-mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
+mkdir -p _build && cd _build
+cmake --preset gcc14-x64-linux-rel
+cmake --build --preset gcc14-x64-linux-rel
 ----
+
+Or manually with CMake:
 
 [source,bash]
 ----
-make && sudo make install
+mkdir -p _build && cd _build
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .
+sudo cmake --install .
+----
+
+===== Build with Clang
+
+[source,bash]
+----
+mkdir -p _build && cd _build
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
+cmake --build .
+sudo cmake --install .
 ----
 
 ==== Building Fifengine

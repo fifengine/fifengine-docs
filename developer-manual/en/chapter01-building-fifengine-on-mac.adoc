@@ -54,10 +54,49 @@ brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft t
 
 ==== Building Fifechan
 
-To build Fife, you'll of course need the Fifechan source code.
-You can download a Fifechan source code package or fetch the latest source using git.
+Fifechan is a C++ GUI library that is required as an optional dependency for FIFE.
+You need to build it from source before building FIFE.
+
+===== Install System Dependencies
+
+Install dependencies using Homebrew:
 
 [source,bash]
+----
+brew install cmake ninja freetype sdl2 sdl2_image sdl2_mixer sdl2_ttf glew
+----
+
+For testing (optional):
+
+[source,bash]
+----
+brew install catch2
+----
+
+===== Clone and Build
+
+[source,bash]
+----
+git clone https://github.com/fifengine/fifechan.git && cd fifechan
+----
+
+Create a build directory and configure with CMake using a preset or manual configuration:
+
+[source,bash]
+----
+mkdir -p _build && cd _build
+cmake --preset clang16-x64-osx-rel
+cmake --build --preset clang16-x64-osx-rel
+----
+
+Or manually with CMake:
+
+[source,bash]
+----
+mkdir -p _build && cd _build
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .
+sudo cmake --install .
 ----
 git clone https://github.com/fifengine/fifechan.git && cd fifechan
 ----

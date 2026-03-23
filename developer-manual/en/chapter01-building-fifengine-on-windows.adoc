@@ -19,7 +19,7 @@ The are several good IDEs available, including:
 
 ===== Compiler
 
-You need `msvc` or `gcc`. 
+You need `msvc` or `gcc`.
 
 In case you installed MS Visual Studio, then the MSVC compiler is already installed.
 
@@ -57,7 +57,7 @@ You have the choice of building the dependencies from source or fetching pre-bui
 The pre-build binaries are build on-the-fly, when building Fifengine on Appveyor.
 You find MSVC 14 builds here: https://ci.appveyor.com/project/LinuxDonald/fifengine
 
-These builds are also included in our pre-packaged Windows development kit, 
+These builds are also included in our pre-packaged Windows development kit,
 the https://ci.appveyor.com/project/LinuxDonald/fife-windows-sdk/branch/master/artifacts[Fife-SDK].
 
 The default install location is `fifengine-dependencies` next to your `fifengine` source folder.
@@ -68,7 +68,7 @@ When you're using an alternative location, please set the library and include di
 You can build the dependencies for Windows using MSVC.
 
 The CMake config file for the dependencies is `fifengine\dependencies\CMakeLists.txt`.
-It includes the individual scripts for fetching and building dependencies. 
+It includes the individual scripts for fetching and building dependencies.
 They are located in the main CMake scripts folder: `fifengine\cmake\get-*.cmake`.
 
 Let's configure the dependencies project and then build all dependencies:
@@ -76,7 +76,7 @@ Let's configure the dependencies project and then build all dependencies:
 [source,bash]
 ----
 cmake dependencies -G "Visual Studio 14" -B../fifengine-dependencies/build
-cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release 
+cmake --build ../fifengine-dependencies/build --target ALL_BUILD --config Release
 ----
 
 You'll now find the dependencies the `fifengine-dependencies` folder:
@@ -86,6 +86,50 @@ You'll now find the dependencies the `fifengine-dependencies` folder:
 dir ..\fifengine-dependencies
 dir ..\fifengine-dependencies\downloads
 dir ..\fifengine-dependencies\includes /s
+
+==== Building Fifechan
+
+Fifechan is a C++ GUI library that is required as an optional dependency for FIFE.
+You need to build it from source before building FIFE.
+
+===== Install Dependencies
+
+Download and install the following dependencies:
+
+* https://cmake.org/download/[CMake] - version 3.25 or higher
+* https://www.libsdl.org/download-2.0.php[SDL2] - Development libraries
+* https://www.libsdl.org/projects/SDL_image/[SDL2_image]
+* https://www.libsdl.org/projects/SDL_mixer/[SDL2_mixer]
+* https://www.libsdl.org/projects/SDL_ttf/[SDL2_ttf]
+* https://www.freetype.org/download.html[FreeType]
+* https://github.com/catchorg/Catch2/releases[catch2] (optional, for tests)
+
+===== Clone and Build
+
+Open the Developer Command Prompt for Visual Studio, then:
+
+[source,bash]
+----
+git clone https://github.com/fifengine/fifechan.git
+cd fifechan
+mkdir _build
+cd _build
+cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_INSTALL_PREFIX=C:\fifechan ..
+cmake --build . --config Release
+cmake --install . --config Release
+----
+
+For Debug builds, replace `Release` with `Debug`.
+
+===== Using CMake Presets
+
+Fifechan includes CMake presets. To use them:
+
+[source,bash]
+----
+cmake --preset vc17-x64-windows-rel
+cmake --build --preset vc17-x64-windows-rel
+cmake --install --preset vc17-x64-windows-rel
 ----
 
 ==== Building Fifengine

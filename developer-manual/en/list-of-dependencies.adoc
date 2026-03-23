@@ -40,19 +40,26 @@ The following dependencies are needed to build FIFE from source:
 FifeChan is a C++ GUI library. It has several optional dependencies.
 The following dependencies are needed to build FifeChan from source:
 
-* OpenGL (check drivers from your graphics card vendor)
-  ** Optional OpenGL Contrib Dependencies (Set `ENABLE_OPENGL_CONTRIB` to `ON` if you need them)
-  *** http://oglft.sourceforge.net/[OpenGL-FreeType] - optional
-
 * SDL support
-  ** http://www.libsdl.org[SDL2]
-  ** http://www.libsdl.org[SDL2_image]
-  ** Optional SDL Contrib Dependencies (Set `ENABLE_SDL_CONTRIB` to `ON` if you need them)
-  *** http://www.libsdl.org[SDL2_ttf]
+** http://www.libsdl.org[SDL2]
+** http://www.libsdl.org[SDL2_image]
+** http://www.libsdl.org[SDL2_mixer] **_optional_**, for FPS demo
+** Optional SDL Contrib Dependencies (Set `ENABLE_SDL_CONTRIB` to `ON` if you need them)
+*** http://www.libsdl.org[SDL2_ttf]
+
+* Font rendering
+** https://www.freetype.org/[FreeType]
+
+* OpenGL (check drivers from your graphics card vendor)
+** Optional OpenGL Contrib Dependencies (Set `ENABLE_OPENGL_CONTRIB` to `ON` if you need them)
+*** http://oglft.sourceforge.net/[OpenGL-FreeType] - optional
+
+* Testing **_optional_**, set `BUILD_TESTS` to `ON` to build tests
+** https://github.com/catchorg/Catch2[catch2] - Unit testing framework
 
 === Atlas Creator Dependencies
 
-The Atlas Creator depends on 
+The Atlas Creator depends on
 
 * Graphics/GUI libraries
 ** http://qt-project.org/[Qt]
@@ -60,7 +67,7 @@ The Atlas Creator depends on
 
 === Checklist for new dependencies
 
-In case a library gets outdated and has to be replaced or 
+In case a library gets outdated and has to be replaced or
 you want to introduce a completely new 3rd party library you should ensure it meets the following guidelines:
 
 - [ ] Cross-platform support (Linux, Windows, Mac)

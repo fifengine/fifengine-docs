@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Enable version updates for github-actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      # Check for updates to GitHub Actions once a month
+      interval: 'monthly'
+    commit-message:
+      prefix: "deps(gha): "
+    labels:
+      - "dependencies"

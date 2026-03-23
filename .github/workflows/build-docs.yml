@@ -50,8 +50,6 @@ jobs:
           echo "PATH=$HOME/.gem/ruby/3.2.0/bin:$PATH" >> $GITHUB_ENV
 
       - name: Copy images
-
-      - name: Copy images
         run: |
           mkdir -p user-manual/images
           cp -p images/* user-manual/images/

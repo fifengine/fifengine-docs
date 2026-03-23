@@ -117,7 +117,7 @@ jobs:
           echo "remove all asciidoc (.adoc) source files"
           git ls-files | grep '\.adoc$' | xargs git rm --cached || true
           echo "remove unnecessary files"
-          git rm .gitattributes
+          git rm -f .gitattributes
           echo "add & commit everything new"
           git add --all
           git commit -m "Updated Documentation. [skip ci]" || true

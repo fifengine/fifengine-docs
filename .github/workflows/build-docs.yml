@@ -35,11 +35,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             build-essential \
-            ditaa \
             graphviz \
             default-jre-headless \
             ruby \
             ruby-dev
+
+      - name: Install Ditaa
+        run: |
+          wget -q https://github.com/jodaf/ditaa/releases/download/v1.0.0/ditaa-1.0.0-standalone.jar -O /usr/local/bin/ditaa.jar
+          chmod +x /usr/local/bin/ditaa.jar
+          echo "DIAGRAM_DITAA_CLASSPATH=/usr/local/bin/ditaa.jar" >> $GITHUB_ENV
 
       - name: Install Ruby gems
         run: |

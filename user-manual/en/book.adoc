@@ -25,8 +25,6 @@ endif::backend-pdf[]
 :max-width:           48em
 
 :linkcss:
-:stylesdir:           ../stylesheets
-:stylesheet:          asciidoctor.css
 :imagesdir:           ../images
 :icons:               font
 

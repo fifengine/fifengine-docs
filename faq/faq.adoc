@@ -15,30 +15,30 @@ unanswered here, feel free to help us fix it.
 
 toc::[]
 
-=== What is FIFE?
+== What is FIFE?
 
 FIFE is a multi-platform isometric game engine.
 
-=== What language is FIFE written in?
+== What language is FIFE written in?
 
 It's written in C++ with Python scripting capabilities.
 
-=== What does FIFE stand for?
+== What does FIFE stand for?
 
 **F**lexible **I**sometric **F**ree **E**ngine.
 
 Formerly: Free Isometric Fallout Engine.
 
-=== What platforms does FIFE run on?
+== What platforms does FIFE run on?
 
 It currently runs on Linux, Mac OSX, and Windows.
 
-=== What is the current status of FIFE project?
+== What is the current status of FIFE project?
 
 FIFE has several stable releases under its belt. 
 We are continuing to work on it to add and improve features.
 
-=== How easy is it to create a game with FIFE?
+== How easy is it to create a game with FIFE?
 
 Creating a full-featured game is a complicated task. 
 FIFE tries to ease the development process for you by providing a stable basis for your game project. 
@@ -46,7 +46,7 @@ It helps to have some programming experience to get started.
 FIFE is an engine and you have to extend the engine to suit your needs. 
 We have provided Python bindings to make the development process a little easier.
 
-=== What projects are using FIFE?
+== What projects are using FIFE?
 
 [[Games using fife|Games]]
 

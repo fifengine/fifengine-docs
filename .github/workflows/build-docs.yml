@@ -109,7 +109,11 @@ jobs:
       #       -a pdf-stylesdir=pdf -a pdf-style=fife \
       #       -a pdf-fontsdir=pdf/fonts \
       #       -a revnumber=$REVNUMBER \
-      #       developer-manual/en/book.adoc -o developer-manual/en/book.pdf
+      #     developer-manual/en/book.adoc -o developer-manual/en/book.pdf
+
+      - name: Remove source files
+        run: |
+          find . -name '*.adoc' -type f -delete
 
       - name: Upload documentation artifact
         uses: actions/upload-pages-artifact@v4 # https://github.com/actions/upload-pages-artifact

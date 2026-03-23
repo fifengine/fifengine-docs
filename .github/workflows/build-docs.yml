@@ -40,12 +40,6 @@ jobs:
             ruby \
             ruby-dev
 
-      - name: Install Ditaa
-        run: |
-          wget -q https://github.com/stathissideris/ditaa/releases/download/v0.11.0/ditaa-0.11.0-standalone.jar -O /usr/local/bin/ditaa.jar
-          chmod +x /usr/local/bin/ditaa.jar
-          echo "DIAGRAM_DITAA_CLASSPATH=/usr/local/bin/ditaa.jar" >> $GITHUB_ENV
-
       - name: Install Ruby gems
         run: |
           gem install --user-install \

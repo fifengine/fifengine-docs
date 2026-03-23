@@ -50,7 +50,7 @@ NOTE: We are working on building the dependencies on the fly. For now we simply 
 
 ===== Using packaged dependencies
 
-brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml glew libvorbis (for python 3 support: python3)
+brew update && brew install swig sdl2 sdl2_image sdl2_ttf freetype openal-soft tinyxml2 glew libvorbis (for python 3 support: python3)
 
 ==== Building Fifechan
 

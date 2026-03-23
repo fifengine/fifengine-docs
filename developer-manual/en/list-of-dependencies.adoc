@@ -30,7 +30,7 @@ The following dependencies are needed to build FIFE from source:
 ** http://www.zlib.net/[zlib] >= 1.2
 
 * Serialization / XML libraries
-** https://sourceforge.net/projects/tinyxml/files/tinyxml/2.6.2/[TinyXML v1]
+** https://github.com/leethomason/tinyxml2[TinyXML2]
 
 * Linux specific
 ** Xcursor

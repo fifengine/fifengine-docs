@@ -21,11 +21,11 @@ rest.
 
 [source,cpp]
 ----
-class ColorRgb8; 
-class Dat1; 
-class Vfs; 
-class GlImage; 
-class SdlImage; 
+class ColorRgb8;
+class Dat1;
+class Vfs;
+class GlImage;
+class SdlImage;
 class GuiChanManager;
 ----
 
@@ -49,7 +49,7 @@ Also known as "upper camel case". See the http://en.wikipedia.org/wiki/CamelCase
 
 [source,cpp]
 ----
-class MapView; 
+class MapView;
 class IResourceManager;
 ----
 
@@ -61,8 +61,8 @@ class IResourceManager;
 
 [source,cpp]
 ----
-RenderBackend* m_renderBackend; 
-uint16_t       m_frameLimit; 
+RenderBackend* m_renderBackend;
+uint16_t       m_frameLimit;
 std::string    m_windowTitle;
 ----
 
@@ -76,12 +76,12 @@ This is also known as "lower camel case". See the http://en.wikipedia.org/wiki/C
   * Small functions that should be inlined go to the header file but after the class.
   * Use default parameters instead of inlined overloaded functions if you don't have a reason not to do so.
 
-so don't write: 
+so don't write:
 
 [source,cpp]
 ----
 inline void doSomething() {  // Wrong
-    doSomething(0); 
+    doSomething(0);
 }
 void doSomething () {
     ....
@@ -93,17 +93,17 @@ write:
 [source,cpp]
 ----
 void doSomething(int32_t x = 0) { // Correct
-     .... 
+     ....
 }
 ----
 
 ==== Function/Method names
 
-  * Use the same rules as for class names except the first letter should be lower case! 
+  * Use the same rules as for class names except the first letter should be lower case!
 
 [source,cpp]
 ----
-uint8_t getBitsPerPixel() const; 
+uint8_t getBitsPerPixel() const;
 bool isFullScreen() const;
 ----
 
@@ -118,40 +118,40 @@ bool isFullScreen() const;
     3. Consider defining the variable once in a .cpp file and use an extern statement to reference it.
     4. Consider using a singleton for access to the data.
   * Don't abuse the singleton objects so that they become global variable repositories. If you can't access a variable easily from where you are you probably shouldn't be accessing it from there. This is a rule of thumb, **not** to be enforced strictly.
-  * Declare 1 variable on each line. 
+  * Declare 1 variable on each line.
 
 [source,cpp]
 ----
 int32_t x, y, z; // Wrong
 
 int32_t x;  // Correct
-int32_t y; 
+int32_t y;
 int32_t z;
 ----
 
-  * Align variable declarations as shown. This makes the code more readable. 
+  * Align variable declarations as shown. This makes the code more readable.
 
 [source,cpp]
 ----
-int32_t     someVar1; 
-DWORD       someVar2; 
+int32_t     someVar1;
+DWORD       someVar2;
 std::string idSting;
 ----
 
-  * **Always initialize variables**, and when initializing groups of variables align the code as shown. 
+  * **Always initialize variables**, and when initializing groups of variables align the code as shown.
 
 [source,cpp]
 ----
-someVar1 = 0; 
-someVar2 = 0; 
+someVar1 = 0;
+someVar2 = 0;
 idString = "";
 ----
 
-  * When declaring pointers or references, **the * or & is placed beside the type**, not the variable name 
+  * When declaring pointers or references, **the * or & is placed beside the type**, not the variable name
 
 [source,cpp]
 ----
-int32_t* intPointer; 
+int32_t* intPointer;
 int32_t& intReference;
 ----
 
@@ -169,12 +169,12 @@ int32_t& intReference;
 
 [source,cpp]
 ----
-//Example variable and parameter names 
+//Example variable and parameter names
 IEngineChangeListener changeListener;
 std::string           characterId;
 
-//Including units in the name 
-uint32_t timeoutMsecs; 
+//Including units in the name
+uint32_t timeoutMsecs;
 uint32_t myWeightLbs;
 ----
 
@@ -186,15 +186,15 @@ uint32_t myWeightLbs;
 
 [options="header", frame="topbot"]
 |===
-| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing  | Bits | Bytes 
-| int8_t    | signed char                   | signed char                   | Signed   |  8   |   1   
-| uint8_t   | unsigned char                 | unsigned char                 | Unsigned |  8   |   1   
-| int16_t   | short                         | short                         | Signed   |  16  |   2   
-| uint16_t  | unsigned short                | unsigned short                | Unsigned |  16  |   2    
-| int32_t   | int                           | int or long                   | Signed   |  32  |   4   
-| uint32_t  | unsigned int                  | unsigned int or unsigned long | Unsigned |  32  |   4   
-| int64_t   | long                          | long long                     | Signed   |  64  |   8   
-| uint64_t  | unsigned long                 | unsigned long long            | Unsigned |  64  |   8   
+| Specifier | Equivalent on 64 bit platform | Equivalent on 32 bit platform | Signing  | Bits | Bytes
+| int8_t    | signed char                   | signed char                   | Signed   |  8   |   1
+| uint8_t   | unsigned char                 | unsigned char                 | Unsigned |  8   |   1
+| int16_t   | short                         | short                         | Signed   |  16  |   2
+| uint16_t  | unsigned short                | unsigned short                | Unsigned |  16  |   2
+| int32_t   | int                           | int or long                   | Signed   |  32  |   4
+| uint32_t  | unsigned int                  | unsigned int or unsigned long | Unsigned |  32  |   4
+| int64_t   | long                          | long long                     | Signed   |  64  |   8
+| uint64_t  | unsigned long                 | unsigned long long            | Unsigned |  64  |   8
 |===
 
 ===== Type Safety
@@ -218,8 +218,8 @@ Magic numbers are numbers that are compiled into the source code and if they are
 ----
 const int WE_GOOFED = 19;
 
-enum { 
-    THEY_DIDNT_PAY= 16 
+enum {
+    THEY_DIDNT_PAY= 16
 };
 ----
 
@@ -231,24 +231,24 @@ enum {
 
 ===== Braces
 
-  * All braces use the following format. 
+  * All braces use the following format.
 
 [source,cpp]
----- 
+----
 if (x == y) {
     ...
-} else if (x > y) { 
-    ... 
+} else if (x > y) {
+    ...
 } else {
-    ... 
+    ...
 }
 
-while (condition) { 
-    ... 
+while (condition) {
+    ...
 }
 
-for (;;) { 
-    ... 
+for (;;) {
+    ...
 }
 
 rtype functionName() {
@@ -256,14 +256,14 @@ rtype functionName() {
 }
 ----
 
-  * Even for trivial if statements always use the 
-brace syntax. 
+  * Even for trivial if statements always use the
+brace syntax.
 
 [source,cpp]
 ----
 if (x == true) {
     return;
-} 
+}
 ----
 
 This is clearer, less likely to cause future errors and has no effect on speed.
@@ -279,14 +279,14 @@ This is clearer, less likely to cause future errors and has no effect on speed.
 
 [source,cpp]
 ----
-namespace FIFE { 
-    class SomeClass { 
-    public: 
-        SomeClass(); 
+namespace FIFE {
+    class SomeClass {
+    public:
+        SomeClass();
         virtual SomeClass();
-    protected: 
-        int32_t m_someval; 
-    }; 
+    protected:
+        int32_t m_someval;
+    };
 } //FIFE
 ----
 
@@ -297,24 +297,21 @@ namespace FIFE {
 ===== Platform specific includes
 
   * One of the issues with cross platform engine development are different include paths on different platforms. The FIFE team decided to introduce a set of helper include files to address this issue. You use these files instead of including the platform specific headers directly. Include these files after headers of the C++ std library but before any other 3rd party headers.
-  
+
 [source,cpp]
 ----
 #include "video/opengl/fife_opengl.h"   // <1>
 
-#include "fife_unit_test.h"             // <2>
+#include "audio/fife_openal.h"          // <2>
 
-#include "audio/fife_openal.h"          // <3>
+#include "util/base/fife_stdint.h"      // <3>
 
-#include "util/base/fife_stdint.h"      // <4>
-
-#include "util/math/fife_math.h         // <5>
+#include "util/math/fife_math.h         // <4>
 ----
 <1> Instead of including any OpenGL headers directly
-<2> Instead of including the boost unit test header <boost/test/unit_test.hpp> directly, use for tests that reside in tests/core_tests.
-<3> Instead of including any OpenAL headers directly
-<4> Instead of including the C99 stdint.h header directly
-<5> Instead of including the cmath header directly
+<2> Instead of including any OpenAL headers directly
+<3> Instead of including the C99 stdint.h header directly
+<4> Instead of including the cmath header directly
 
 ==== Multiple Inheritance
 
@@ -355,7 +352,7 @@ The level of commenting outlined here may seem excessive, but it will make the c
 
 ===== Commenting Methods
 
-All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable. 
+All methods must be documented, no matter how trivial. The method description preceeds its declaration in the header file and uses standard doxygen notation. For simple accessor functions and things of similar complexity comments along the lines of the following are acceptable.
 
 [source,cpp]
 ----
@@ -368,7 +365,7 @@ rtype Function(ptype p1);
 ----
 
 All methods' parameters and return types must be described. This is so that the doxygen generates documentation can be of real use. functions who's use isn't obvious require longer descriptions, which should include a more detailed description of its task as well as a sample of its use. Make the
-example as illustrative as possible. 
+example as illustrative as possible.
 
 [source,cpp]
 ----
@@ -378,7 +375,7 @@ example as illustrative as possible.
  * @code
  * rtype rVal = complicatedFunction(param1, param2);
  * @endcode
- * 
+ *
  * @param p1 Description of parameter
  * @param p2 Description of parameter
  * @return Description of return value.
@@ -391,7 +388,7 @@ Comments inside the body of a method should be kept to a minimum in simple funct
 [source,cpp]
 ----
 // converts from screen space to world space
-x += xoffset; 
+x += xoffset;
 y += yoffset;
 
 // checks to see if an image is already loaded.
@@ -405,10 +402,10 @@ Member variables should all be commented. This is not a substitute for good vari
 
 [source,cpp]
 ----
-//! Window width in pixels. 
+//! Window width in pixels.
 int m_windowWidth;
 
-//! Window height in pixels. 
+//! Window height in pixels.
 int m_windowHeight;
 
 //! SDL_Surface which represents the renderable area of the screen.
@@ -421,15 +418,15 @@ Descriptions of local variables shouldn't be necessary as long as descriptive na
 
 ===== Commenting Enums
 
-When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory. 
+When relevant all enums should be fully commented (including values). This only applies if the value names are not self explanatory.
 
 [source,cpp]
 ----
 /** An enum type. **
- * The documentation block cannot be put after the enum! 
+ * The documentation block cannot be put after the enum!
  */
-enum EnumType { 
-    int EVal1, /**< enum value 1 */ 
+enum EnumType {
+    int EVal1, /**< enum value 1 */
     int EVal2  /**< enum value 2 */
 };
 ----
@@ -450,7 +447,7 @@ The following are not mandatory but it would be nice if everyone used them consi
 ----
 /** Pretty nice class.**
  * This class is used to demonstrate a number of section commands.
- * 
+ *
  * @author John Doe
  * @author Jan Doe
  * @since 0.3.4
@@ -475,7 +472,7 @@ Doxygen will parse your comments looking for these keywords, and making a report
 
 ===== Including examples in your comments
 
-For simple examples you can use **@code** and **@endcode**. 
+For simple examples you can use **@code** and **@endcode**.
 
 [source,cpp]
 ----

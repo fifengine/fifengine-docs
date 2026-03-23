@@ -60,10 +60,6 @@ or by using the CMake-Gui and selecting the folders.
 
 `-DCMAKE_INSTALL_PREFIX="C:\fifesdk\fife-install"`:: the installation folder, after build
 
-`-DBOOST_INCLUDEDIR="C:\fifesdk\fifengine-dependencies\include\boost"`:: helper to find boost
-
-`-DBOOST_LIBRARYDIR="C:\fifesdk\fifengine-dependencies\lib\boost"`:: helper to find boost
-
 `-DPYTHON_INCLUDE_DIR="C:\fifesdk\python\include"`:: helper to find Python
 
 `-DPYTHON_LIBRARY="C:\fifesdk\python\libs\python3.lib"`:: helper to find Python

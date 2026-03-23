@@ -20,3 +20,17 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 | Github Pages             | HTML     | https://fifengine.github.io/fifengine-docs/
 | Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifengine-docs
 |====================
+
+:FIFEGUI-DEV-MAN-HTML-EN: https://fifengine.github.io/fifechan/docs/developer-manual/en/[EN]
+
+# FifeGUI - Documentations
+
+[width="100%",options="header", cols="2,^1,4"]
+|====================
+| Resource                 | Format   | Language / Link
+| Developer Manual         | HTML     | {FIFEGUI-DEV-MAN-HTML-EN}
+| C++ API Documentation    | HTML     | https://fifengine.github.io/fifechan/api/
+| C++ API Logs             | HTML     | https://fifengine.github.io/fifechan/api/doxygen-log.txt
+| Website (Github Pages)   | HTML     | https://fifengine.github.io/fifechan/
+| Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifechan/tree/main/docs
+|====================

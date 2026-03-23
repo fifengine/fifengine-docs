@@ -43,7 +43,7 @@ jobs:
 
       - name: Install Ruby gems
         run: |
-          gem install \
+          gem install --user-install \
             asciidoctor \
             asciidoctor-diagram \
             rouge

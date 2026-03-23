@@ -121,6 +121,7 @@ jobs:
           git ls-files | grep '\.adoc$' | xargs git rm --cached || true
           echo "remove unnecessary files"
           git rm -f .gitattributes
+          git rm -rf .github/
           echo "add & commit everything new"
           git add --all
           git commit -m "Updated Documentation. [skip ci]" || true

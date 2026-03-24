@@ -1,0 +1,182 @@
+== Core Concepts
+
+This chapter provides an overview of FIFE's architecture and how the major subsystems connect.
+Understanding the core architecture helps when working with maps, rendering, input, and other engine features.
+
+=== Engine
+
+The `Engine` class is the central entry point to all engine subsystems.
+It initializes, manages, and provides access to all major components.
+
+==== Initialization
+
+Before using any engine features, the `Engine` must be initialized:
+
+[source,python]
+----
+engine = fife.Engine()
+engine.init()
+----
+
+During initialization, the engine creates and connects the following subsystems:
+
+[horizontal]
+*SoundManager*:: Handles audio playback
+*EventManager*:: Manages input and game events
+*TimeManager*:: Controls timing and frame rate
+*Model*:: Contains the game world (maps, layers, objects)
+*VFS*:: Virtual file system for loading assets
+*RenderBackend*:: Graphics rendering (SDL or OpenGL)
+*IGUIManager*:: GUI system integration
+
+==== Game Loop
+
+FIFE uses a pump-based game loop. Call `pump()` repeatedly in your main loop:
+
+[source,python]
+----
+# Initialize engine pumping
+engine.initializePumping()
+
+# Main game loop
+running = True
+while running:
+    engine.pump()  # Process one frame
+    # Update game logic here
+
+# Clean up
+engine.finalizePumping()
+engine.destroy()
+----
+
+The `pump()` method processes all pending events, updates the model, and renders the frame.
+
+==== Accessing Subsystems
+
+The `Engine` class provides getter methods for each subsystem:
+
+[source,python]
+----
+sound_manager = engine.getSoundManager()
+event_manager = engine.getEventManager()
+time_manager = engine.getTimeManager()
+model = engine.getModel()
+vfs = engine.getVFS()
+render_backend = engine.getRenderBackend()
+gui_manager = engine.getGuiManager()
+----
+
+=== Engine Settings
+
+The `EngineSettings` class controls initialization parameters before calling `engine.init()`.
+
+==== Display Settings
+
+[source,python]
+----
+settings = engine.getSettings()
+
+# Screen dimensions
+settings.setScreenWidth(1024)
+settings.setScreenHeight(768)
+
+# Display mode
+settings.setFullScreen(True)
+settings.setBitsPerPixel(32)
+settings.setVSync(True)
+settings.setRefreshRate(60)
+
+# Render backend
+settings.setRenderBackend("OpenGL")  # or "SDL"
+----
+
+==== Window Settings
+
+[source,python]
+----
+settings.setWindowTitle("My Game")
+settings.setWindowIcon("icon.png")
+----
+
+==== Audio Settings
+
+[source,python]
+----
+settings.setInitialVolume(0.8)  # 80% volume
+----
+
+==== OpenGL-Specific Settings
+
+[source,python]
+----
+# Texture filtering
+settings.setGLTextureFiltering("nearest")  # or "linear"
+
+# Texture compression
+settings.setGLCompressImages(True)
+
+# Mipmapping
+settings.setGLUseMipmapping(True)
+
+# Framebuffer effects
+settings.setGLUseFramebuffer(True)
+----
+
+=== Subsystem Overview
+
+FIFE's architecture consists of several interconnected subsystems:
+
+[horizontal]
+*Model*:: The game world containing maps, layers, and instances. See xref:chapter07[Model and Instances].
+*View*:: Rendering pipeline including cameras and renderers. See xref:chapter06[Rendering].
+*Video*:: Low-level graphics backend (SDL/OpenGL).
+*Audio*:: Sound management and playback. See xref:chapter09[Audio].
+*EventChannel*:: Input handling and event distribution. See xref:chapter08[Input and Events].
+*GUI*:: Graphical user interface integration. See xref:chapter10[GUI].
+*Pathfinder*:: Pathfinding and movement. See xref:chapter11[Pathfinding].
+*VFS*:: Virtual file system for asset loading. See xref:chapter12[Virtual Filesystem].
+
+=== Resource Managers
+
+FIFE uses resource managers to cache and manage loaded assets:
+
+[horizontal]
+*ImageManager*:: Caches loaded images
+*AnimationManager*:: Caches animations
+*SoundClipManager*:: Caches sound clips
+
+These managers implement lazy loading, so resources are loaded only when first accessed.
+
+[source,python]
+----
+image_manager = engine.getImageManager()
+animation_manager = engine.getAnimationManager()
+sound_clip_manager = engine.getSoundClipManager()
+----
+
+=== Time Management
+
+The `TimeManager` provides timing information for frame-rate independent updates:
+
+[source,python]
+----
+time_manager = engine.getTimeManager()
+dt = time_manager.getTimeDelta()  # Time since last frame in seconds
+----
+
+Use `dt` to scale movement and animation speeds for consistent behavior regardless of frame rate.
+
+=== Log Modules
+
+FIFE uses a hierarchical logging system. Each subsystem is a log module:
+
+- `LM_AUDIO` - Audio subsystem
+- `LM_MODEL` - Game model
+- `LM_VIDEO` - Video/rendering
+- `LM_VIEW` - View system
+- `LM_CAMERA` - Camera
+- `LM_PATHFINDER` - Pathfinding
+- `LM_GUI` - GUI system
+- `LM_VFS` - Virtual file system
+
+Configure logging levels to filter debug output during development.

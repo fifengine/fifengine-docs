@@ -1,0 +1,327 @@
+== Audio
+
+This chapter explains the sound engine, sound emitters, and audio playback.
+
+FIFE's audio system is built on OpenAL and supports positional 3D audio.
+
+=== Sound Manager
+
+The `SoundManager` is the central audio controller.
+It manages emitters, sound effects, and the listener position.
+
+==== Getting the Sound Manager
+
+[source,python]
+----
+sound_manager = engine.getSoundManager()
+----
+
+==== Volume Control
+
+[source,python]
+----
+# Set master volume (0.0 = silence, 1.0 = normal)
+sound_manager.setVolume(0.8)
+volume = sound_manager.getVolume()
+
+# Mute/unmute
+sound_manager.mute()
+sound_manager.unmute()
+----
+
+==== Global Playback Control
+
+[source,python]
+----
+sound_manager.play()    # Play all emitters
+sound_manager.pause()   # Pause all emitters
+sound_manager.stop()    # Stop all emitters
+sound_manager.rewind()  # Rewind all emitters
+----
+
+=== Listener Position
+
+The listener represents the player's "ears" in the 3D audio space.
+
+==== Setting Listener Position
+
+[source,python]
+----
+# Set listener position (follows the camera)
+listener_pos = fife.AudioSpaceCoordinate(10.0, 10.0, 0.0)
+sound_manager.setListenerPosition(listener_pos)
+
+# Set listener orientation
+orientation = fife.AudioSpaceCoordinate(0.0, 1.0, 0.0)
+sound_manager.setListenerOrientation(orientation)
+
+# Set listener velocity (for Doppler effect)
+velocity = fife.AudioSpaceCoordinate(0.0, 0.0, 0.0)
+sound_manager.setListenerVelocity(velocity)
+----
+
+==== Distance Model
+
+Configure how sound attenuates with distance:
+
+[source,python]
+----
+# Distance models
+sound_manager.setDistanceModel(fife.SD_DISTANCE_NONE)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_INVERSE)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_INVERSE_CLAMPED)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_LINEAR)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_LINEAR_CLAMPED)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_EXPONENT)
+sound_manager.setDistanceModel(fife.SD_DISTANCE_EXPONENT_CLAMPED)
+----
+
+==== Doppler Effect
+
+Configure the Doppler effect for moving sources:
+
+[source,python]
+----
+sound_manager.setDopplerFactor(1.0)
+----
+
+=== Sound Emitters
+
+Sound emitters are individual sound sources that can play audio clips.
+
+==== Creating Emitters
+
+[source,python]
+----
+# Create an empty emitter
+emitter = sound_manager.createEmitter()
+
+# Create emitter with a sound clip
+emitter = sound_manager.createEmitter("mysound.ogg")
+----
+
+==== Loading Sound Clips
+
+[source,python]
+----
+# Load a sound clip
+emitter.setSoundClip("sounds/mysound.ogg")
+----
+
+==== Playing Sounds
+
+[source,python]
+----
+# Play once
+emitter.play()
+
+# Play with fade in/out (time in seconds)
+emitter.play(0.5, 0.5)  # 0.5s fade in, 0.5s fade out
+
+# Play in a loop
+emitter.setLooping(True)
+emitter.play()
+
+# Stop playback
+emitter.stop()
+
+# Stop with fade out
+emitter.stop(0.5)  # 0.5s fade out
+
+# Pause/resume
+emitter.pause()
+emitter.play()
+emitter.rewind()
+----
+
+==== Volume Control
+
+[source,python]
+----
+# Set gain (0.0 = silence, 1.0 = normal)
+emitter.setGain(0.8)
+gain = emitter.getGain()
+
+# Set max/min gain limits
+emitter.setMaxGain(1.0)
+emitter.setMinGain(0.0)
+----
+
+==== Pitch Control
+
+[source,python]
+----
+emitter.setPitch(1.0)   # Normal speed
+emitter.setPitch(2.0)   # Double speed (higher pitch)
+emitter.setPitch(0.5)   # Half speed (lower pitch)
+----
+
+==== Positional Audio
+
+Place emitters in 3D space for positional audio:
+
+[source,python]
+----
+# Set position
+pos = fife.AudioSpaceCoordinate(5.0, 3.0, 0.0)
+emitter.setPosition(pos)
+
+# Set direction (for directional sounds)
+direction = fife.AudioSpaceCoordinate(1.0, 0.0, 0.0)
+emitter.setDirection(direction)
+
+# Set velocity (for Doppler effect)
+velocity = fife.AudioSpaceCoordinate(0.0, 0.0, 0.0)
+emitter.setVelocity(velocity)
+----
+
+==== Sound Cone
+
+Configure directional sound cones:
+
+[source,python]
+----
+emitter.setConeInnerAngle(90)   # Full volume within 90 degrees
+emitter.setConeOuterAngle(180)  # Reduced volume outside 90 degrees
+emitter.setConeOuterGain(0.5)   # Volume outside cone (0-1)
+----
+
+==== Distance Attenuation
+
+Configure how sound fades with distance:
+
+[source,python]
+----
+emitter.setReferenceDistance(1.0)  # Distance for half volume
+emitter.setMaxDistance(100.0)      # Maximum audible distance
+emitter.setRolloff(1.0)            # Attenuation factor
+----
+
+==== Relative Positioning
+
+Use relative positioning for ambient sounds:
+
+[source,python]
+----
+emitter.setRelativePositioning(True)  # Position relative to listener
+----
+
+==== Emitter State
+
+Check emitter status:
+
+[source,python]
+----
+state = emitter.getState()
+if state == fife.SD_PLAYING_STATE:
+    print("Playing")
+elif state == fife.SD_PAUSED_STATE:
+    print("Paused")
+elif state == fife.SD_STOPPED_STATE:
+    print("Stopped")
+
+if emitter.isFinished():
+    print("Sound finished playing")
+----
+
+==== Sound Information
+
+Get details about the loaded sound:
+
+[source,python]
+----
+is_stereo = emitter.isStereo()
+bit_depth = emitter.getBitResolution()
+sample_rate = emitter.getSampleRate()
+duration = emitter.getDuration()  # In milliseconds
+----
+
+=== Sound Groups
+
+Group emitters for batch operations:
+
+[source,python]
+----
+# Create a group
+emitter.setGroup("music")
+
+# Play/pause/stop entire group
+sound_manager.play("music")
+sound_manager.pause("music")
+sound_manager.stop("music")
+sound_manager.rewind("music")
+
+# Set volume for entire group
+sound_manager.setGain("music", 0.7)
+
+# Remove group
+sound_manager.removeGroup("music")
+----
+
+=== Sound Effects
+
+Add effects like reverb to sounds:
+
+[source,python]
+----
+# Create an effect
+effect = sound_manager.createSoundEffect(fife.SF_EAXREVERB)
+
+# Add emitter to effect
+sound_manager.addEmitterToSoundEffect(effect, emitter)
+
+# Enable effect
+sound_manager.enableSoundEffect(effect)
+
+# Later, disable effect
+sound_manager.disableSoundEffect(effect)
+----
+
+=== Attaching to Instances
+
+Attach sounds to game instances for automatic position tracking:
+
+[source,python]
+----
+# Create emitter and attach to instance
+emitter = sound_manager.createEmitter("walk.ogg")
+emitter.setLooping(True)
+emitter.play()
+
+# Update position each frame
+def update():
+    location = instance.getLocation()
+    coords = location.getExactLayerCoordinates()
+    emitter.setPosition(fife.AudioSpaceCoordinate(coords.x, coords.y, coords.z))
+----
+
+=== Cleanup
+
+Release emitters when no longer needed:
+
+[source,python]
+----
+emitter.release()  # Release the emitter
+sound_manager.deleteEmitter(emitter)  # Delete the emitter
+----
+
+=== Example: Ambient Music
+
+[source,python]
+----
+# Create background music
+music = sound_manager.createEmitter()
+music.setSoundClip("music/theme.ogg")
+music.setGain(0.6)
+music.setLooping(True)
+music.setRelativePositioning(True)
+music.play()
+
+# Create ambient sound effect
+ambient = sound_manager.createEmitter()
+ambient.setSoundClip("sounds/wind.ogg")
+ambient.setGain(0.3)
+ambient.setLooping(True)
+ambient.setRelativePositioning(True)
+ambient.play()
+----

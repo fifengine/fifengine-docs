@@ -1,0 +1,278 @@
+== Virtual Filesystem
+
+This chapter covers the virtual file system (VFS), file loading, and archive support.
+
+FIFE's VFS provides transparent access to files regardless of their location (filesystem, ZIP archives, etc.).
+
+=== Overview
+
+The Virtual File System (VFS) abstracts file access from the actual storage.
+Files can come from:
+
+* Local filesystem directories
+* ZIP archives
+* Custom sources
+
+==== Getting the VFS
+
+[source,python]
+----
+vfs = engine.getVFS()
+----
+
+=== File Operations
+
+==== Checking File Existence
+
+[source,python]
+----
+if vfs.exists("maps/mymap.xml"):
+    print("File exists")
+----
+
+==== Checking Directories
+
+[source,python]
+----
+if vfs.isDirectory("maps/"):
+    print("Is a directory")
+----
+
+==== Opening Files
+
+[source,python]
+----
+# Open a file
+raw_data = vfs.open("maps/mymap.xml")
+
+# Read from the file
+content = raw_data.read()
+
+# Close when done
+raw_data.close()
+----
+
+=== Directory Listing
+
+==== List Files
+
+[source,python]
+----
+# List all files in a directory
+files = vfs.listFiles("sprites/")
+
+# List files matching a regex pattern
+xml_files = vfs.listFiles("maps/", ".*\.xml")
+----
+
+==== List Directories
+
+[source,python]
+----
+# List subdirectories
+dirs = vfs.listDirectories("assets/")
+
+# List directories matching pattern
+dirs = vfs.listDirectories("assets/", "level_.*")
+----
+
+=== Archive Support
+
+FIFE supports reading files from ZIP archives.
+
+==== Adding ZIP Sources
+
+[source,python]
+----
+# Add a ZIP file as a source
+vfs.addNewSource("assets.zip")
+
+# Files in the archive are now accessible
+# e.g., vfs.open("assets.zip/sprites/hero.png")
+----
+
+==== Removing Sources
+
+[source,python]
+----
+vfs.removeSource("assets.zip")
+----
+
+==== Checking Sources
+
+[source,python]
+----
+if vfs.hasSource("assets.zip"):
+    print("ZIP archive is mounted")
+----
+
+=== File Source Order
+
+VFS searches sources in the order they were added.
+The filesystem provider is typically added first, meaning local files override archived files.
+
+NOTE: All filenames must be lowercase. The VFS converts them automatically and warns if uppercase is used.
+
+=== Lazy Loading
+
+FIFE implements lazy loading for resources.
+Files are loaded only when first accessed, improving startup time.
+
+==== Resource Managers
+
+Resource managers handle lazy loading for different file types:
+
+[source,python]
+----
+# Image manager - lazy loads images
+image_manager = engine.getImageManager()
+
+# Animation manager - lazy loads animations
+animation_manager = engine.getAnimationManager()
+
+# Sound clip manager - lazy loads audio
+sound_clip_manager = engine.getSoundClipManager()
+----
+
+=== Loading Maps
+
+Maps are loaded through the model using the VFS:
+
+[source,python]
+----
+# Create a map loader
+map_loader = fife.MapLoader(model, vfs, image_manager)
+
+# Load a map file
+my_map = map_loader.load("maps/mymap.xml")
+----
+
+=== Loading Objects
+
+Object definitions can be loaded from XML:
+
+[source,python]
+----
+# Object loader loads objects from XML
+object_loader = fife.ObjectLoader(model, vfs, image_manager)
+
+# Load objects
+object_loader.load("objects/trees.xml")
+----
+
+=== Loading Animations
+
+Animation definitions are loaded from XML:
+
+[source,python]
+----
+# Animation loader
+animation_loader = fife.AnimationLoader(vfs, image_manager)
+
+# Load animations from XML
+animation_loader.load("animations/hero_walk.xml")
+----
+
+=== VFS Providers
+
+FIFE supports different VFS source providers:
+
+[horizontal]
+*HostFileSystem*:: Local filesystem (added automatically)
+*ZipProvider*:: ZIP archive support
+
+=== Adding Custom Providers
+
+Custom providers can be added for alternative file sources:
+
+[source,python]
+----
+# Custom providers are added at the C++ level
+# The VFS handles provider registration internally
+----
+
+=== Best Practices
+
+==== File Path Conventions
+
+* Use forward slashes for paths: `sprites/hero.png`
+* All paths must be lowercase
+* Use relative paths from game root
+
+==== Archive Organization
+
+Organize ZIP archives by type:
+
+----
+assets/
+├── sprites.zip      # Contains sprites/
+├── maps.zip         # Contains maps/
+├── sounds.zip       # Contains sounds/
+└── fonts.zip        # Contains fonts/
+----
+
+==== Loading Order
+
+1. Initialize engine
+2. Add archive sources
+3. Load maps (which loads dependencies)
+
+==== Memory Management
+
+The VFS and resource managers handle memory automatically:
+
+* Resources are cached after first load
+* Unused resources can be released
+* Lazy loading prevents loading unnecessary files
+
+=== Example: Complete Asset Setup
+
+[source,python]
+----
+def setup_assets(engine):
+    vfs = engine.getVFS()
+    
+    # Add ZIP archives as sources
+    vfs.addNewSource("assets/sprites.zip")
+    vfs.addNewSource("assets/maps.zip")
+    vfs.addNewSource("assets/sounds.zip")
+    
+    # Load the map
+    model = engine.getModel()
+    image_manager = engine.getImageManager()
+    map_loader = fife.MapLoader(model, vfs, image_manager)
+    
+    return map_loader.load("maps/level1.xml")
+----
+
+=== Troubleshooting
+
+==== File Not Found
+
+Check:
+
+* File exists in filesystem or archive
+* Path is lowercase
+* Source is added before file is accessed
+* Correct relative path from game root
+
+==== Case Sensitivity
+
+FIFE requires lowercase paths:
+
+[source,python]
+----
+# Correct
+vfs.open("sprites/hero.png")
+
+# Will warn and convert to lowercase
+vfs.open("Sprites/Hero.png")
+----
+
+==== Source Priority
+
+If files exist in both filesystem and archive:
+
+* Local filesystem files take priority (loaded first)
+* Archive files are fallbacks
+* Check source order if unexpected files are loaded

@@ -1,0 +1,332 @@
+== Pathfinding
+
+This chapter explains pathfinding, routes, and instance movement.
+
+FIFE includes a pathfinding system that allows game entities to navigate the map automatically.
+
+=== Overview
+
+The pathfinding system consists of:
+
+[horizontal]
+*Route*:: Holds the calculated path between two locations
+*Pather*:: Algorithms that compute routes (A* based)
+
+Pathfinding integrates with the model system through the `Layer` and `Location` classes.
+
+=== Pathfinding Prerequisites
+
+For pathfinding to work, the layer must be marked as walkable:
+
+[source,python]
+----
+layer.setWalkable(True)
+----
+
+Blocking instances will prevent paths from going through them:
+
+[source,python]
+----
+instance.setBlocking(True)
+----
+
+=== Route
+
+A `Route` represents a path from a start location to a destination.
+
+==== Route Status
+
+Routes have a status indicating their current state:
+
+[horizontal]
+*ROUTE_CREATED*:: Route created but not yet calculated
+*ROUTE_SEARCHING*:: Path calculation in progress
+*ROUTE_SEARCHED*:: Search complete, ready to solve
+*ROUTE_SOLVED*:: Path found successfully
+*ROUTE_FAILED*:: No path could be found
+
+==== Creating Routes
+
+Routes are typically created when calling `instance.move()`:
+
+[source,python]
+----
+# The move method internally creates a route
+instance.move("walk", target_location, 5.0)
+----
+
+==== Route Properties
+
+[source,python]
+----
+route = instance.getRoute()
+if route:
+    status = route.getRouteStatus()
+    path_length = route.getPathLength()
+    walked = route.getWalkedLength()
+    
+    if route.getRouteStatus() == fife.ROUTE_SOLVED:
+        path = route.getPath()
+        for node in path:
+            print(node.getLayerCoordinates())
+----
+
+==== Pathing Strategy
+
+Configure how pathfinding works on a layer:
+
+[source,python]
+----
+# 4-direction movement (edges only)
+layer.setPathingStrategy(fife.CELL_EDGES_ONLY)
+
+# 8-direction movement (edges and diagonals)
+layer.setPathingStrategy(fife.CELL_EDGES_AND_DIAGONALS)
+----
+
+=== Instance Movement
+
+The `Instance.move()` method handles pathfinding automatically:
+
+==== Basic Movement
+
+[source,python]
+----
+# Move with action animation at speed 5
+instance.move("walk", target_location, 5.0)
+----
+
+The parameters are:
+
+[horizontal]
+*actionName*:: Action to play during movement (e.g., "walk")
+*target*:: Destination location
+*speed*:: Movement speed (layer units per second)
+*costId*:: Optional cost identifier for pathfinding
+
+==== Movement Speed
+
+Speed is measured in layer coordinate units per second:
+
+[source,python]
+----
+# Walk at 5 units/second
+instance.move("walk", target, 5.0)
+
+# Run at 10 units/second
+instance.move("run", target, 10.0)
+
+# Slow walk at 2 units/second
+instance.move("walk", target, 2.0)
+----
+
+==== Canceling Movement
+
+Stop an instance mid-movement:
+
+[source,python]
+----
+# Cancel movement (stops at next cell)
+instance.cancelMovement()
+
+# Cancel after a certain number of cells
+instance.cancelMovement(2)  # Stop after 2 more cells
+----
+
+=== Following
+
+Instances can follow other instances or routes:
+
+==== Following an Instance
+
+[source,python]
+----
+# Follow another instance
+instance.follow("walk", leader_instance, 5.0)
+----
+
+==== Following a Route
+
+[source,python]
+----
+# Follow a pre-calculated route
+instance.follow("walk", route, 5.0)
+----
+
+=== Multi-Cell Pathfinding
+
+For objects that occupy multiple cells:
+
+[source,python]
+----
+# Set occupied area on the route
+route.setOccupiedArea([fife.ModelCoordinate(0, 0), fife.ModelCoordinate(1, 0)])
+
+# Get occupied cells based on rotation
+cells = route.getOccupiedCells(rotation)
+----
+
+=== Cost Modifiers
+
+Pathfinding can use custom costs for different terrain or obstacles:
+
+==== Instance Costs
+
+[source,python]
+----
+# Set custom cost on instance
+instance.setCost("movement", 2.0)  # Costs 2x normal
+instance.setCost("movement", 0.5)  # Costs 0.5x normal
+----
+
+==== Route Cost ID
+
+Specify which cost type to use:
+
+[source,python]
+----
+# Create movement with cost identifier
+instance.move("walk", target, 5.0, "movement")
+----
+
+=== Blocking Behavior
+
+==== Blocking Instances
+
+Blocking instances prevent paths from going through them:
+
+[source,python]
+----
+# Set instance as blocking
+instance.setBlocking(True)
+
+# Override blocking (instance can pass through)
+instance.setOverrideBlocking(True)
+----
+
+==== Ignoring Blockers
+
+Routes can optionally ignore dynamic blockers:
+
+[source,python]
+----
+route.setDynamicBlockerIgnored(True)
+
+# Get locations where blockers are ignored
+blocking_locations = route.getBlockingPathLocations()
+----
+
+=== Pathfinding Algorithms
+
+FIFE uses A* (A-star) for pathfinding.
+The algorithm considers:
+
+* Distance heuristic (Manhattan or Euclidean)
+* Cell costs (terrain modifiers)
+* Blocking instances
+* Multi-cell object sizes
+
+=== Route Replanning
+
+Routes can be marked for replanning if the environment changes:
+
+[source,python]
+----
+route.setReplanned(True)
+----
+
+=== Movement Actions
+
+Instance actions are played automatically during movement:
+
+[source,python]
+----
+# The "walk" action animation plays while moving
+instance.move("walk", target, 5.0)
+
+# Different actions for different speeds
+instance.move("run", target, 10.0)
+instance.move("sneak", target, 2.0)
+----
+
+=== Path Navigation
+
+Navigate through a path manually:
+
+[source,python]
+----
+route = instance.getRoute()
+
+# Get current position on path
+current = route.getCurrentNode()
+
+# Get next position
+next_node = route.getNextNode()
+
+# Get previous position
+prev_node = route.getPreviousNode()
+
+# Move to next node
+if route.walkToNextNode():
+    print("Moved to next node")
+
+# Check if at end
+if route.reachedEnd():
+    print("Destination reached")
+----
+
+=== Distance Calculations
+
+Calculate distances between locations:
+
+[source,python]
+----
+location1 = fife.Location(layer)
+location1.setLayerCoordinates(fife.ModelCoordinate(0, 0))
+
+location2 = fife.Location(layer)
+location2.setLayerCoordinates(fife.ModelCoordinate(10, 10))
+
+# Map coordinate distance
+map_dist = location1.getMapDistanceTo(location2)
+
+# Layer coordinate distance
+layer_dist = location1.getLayerDistanceTo(location2)
+----
+
+=== Example: Move to Click Location
+
+[source,python]
+----
+class ClickToMove(fife.IMouseListener):
+    def __init__(self, camera, instance):
+        self.camera = camera
+        self.instance = instance
+    
+    def mousePressed(self, event):
+        if event.getButton() == fife.MouseEvent.LEFT:
+            screen = fife.ScreenPoint(event.getX(), event.getY(), 0)
+            map_point = self.camera.toMapCoordinates(screen)
+            
+            target = fife.Location(self.instance.getLocation().getLayer())
+            target.setExactLayerCoordinates(map_point)
+            
+            self.instance.move("walk", target, 5.0)
+----
+
+=== Layer Configuration for Pathfinding
+
+Configure layer behavior for pathfinding:
+
+[source,python]
+----
+# Set pathing strategy
+layer.setPathingStrategy(fife.CELL_EDGES_AND_DIAGONALS)
+
+# Make layer walkable
+layer.setWalkable(True)
+
+# Create interact layer for additional blocking info
+interact_layer.setInteract(True, "ground_layer")
+layer.addInteractLayer(interact_layer)
+----

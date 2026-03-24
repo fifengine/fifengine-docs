@@ -1,0 +1,356 @@
+== Input and Events
+
+This chapter covers the event system, mouse and keyboard input, and command handling.
+
+FIFE uses an event-driven architecture where user input and game events are distributed through listeners.
+
+=== Event Manager
+
+The `EventManager` is the central hub for all input handling.
+It processes SDL events and dispatches them to registered listeners.
+
+==== Getting the Event Manager
+
+[source,python]
+----
+event_manager = engine.getEventManager()
+----
+
+=== Event Listeners
+
+FIFE provides several listener interfaces for different event types:
+
+[horizontal]
+*IKeyListener*:: Keyboard input
+*IMouseListener*:: Mouse input
+*ITextListener*:: Text input (for text fields)
+*IDropListener*:: File drop events
+*ICommandListener*:: Custom command events
+*ISdlEventListener*:: Raw SDL events
+
+=== Mouse Events
+
+==== Mouse Listener Interface
+
+Implement `IMouseListener` to handle mouse events:
+
+[source,python]
+----
+class MyMouseListener(fife.IMouseListener):
+    def mousePressed(self, event):
+        print(f"Mouse pressed at ({event.getX()}, {event.getY()})")
+    
+    def mouseReleased(self, event):
+        print(f"Mouse released at ({event.getX()}, {event.getY()})")
+    
+    def mouseMoved(self, event):
+        print(f"Mouse moved to ({event.getX()}, {event.getY()})")
+    
+    def mouseDragged(self, event):
+        print(f"Mouse dragged to ({event.getX()}, {event.getY()})")
+    
+    def mouseEntered(self, event):
+        print("Mouse entered window")
+    
+    def mouseExited(self, event):
+        print("Mouse exited window")
+    
+    def mouseWheelMovedUp(self, event):
+        print("Wheel moved up")
+    
+    def mouseWheelMovedDown(self, event):
+        print("Wheel moved down")
+----
+
+Register the listener:
+
+[source,python]
+----
+listener = MyMouseListener()
+event_manager.addMouseListener(listener)
+event_manager.addMouseListener(listener)  # Add to front of queue
+
+# Later, remove it
+event_manager.removeMouseListener(listener)
+----
+
+==== Mouse Event Types
+
+[horizontal]
+*MOVED*:: Mouse cursor moved without button press
+*PRESSED*:: Mouse button pressed
+*RELEASED*:: Mouse button released
+*CLICKED*:: Mouse button clicked (press and release)
+*DRAGGED*:: Mouse moved while button is held
+*WHEEL_MOVED_UP*:: Scroll wheel up
+*WHEEL_MOVED_DOWN*:: Scroll wheel down
+*WHEEL_MOVED_RIGHT*:: Scroll wheel right
+*WHEEL_MOVED_LEFT*:: Scroll wheel left
+*ENTERED*:: Mouse entered window
+*EXITED*:: Mouse exited window
+
+==== Mouse Button Types
+
+[horizontal]
+*LEFT*:: Left mouse button
+*RIGHT*:: Right mouse button
+*MIDDLE*:: Middle mouse button (wheel)
+*X1*:: Extra button 1
+*X2*:: Extra button 2
+
+==== MouseEvent Properties
+
+[source,python]
+----
+def mousePressed(self, event):
+    x = event.getX()
+    y = event.getY()
+    button = event.getButton()
+    timestamp = event.getTimeStamp()
+    
+    # Check modifier keys
+    shift = event.isShiftPressed()
+    ctrl = event.isControlPressed()
+    alt = event.isAltPressed()
+    meta = event.isMetaPressed()
+    
+    # Check button type
+    if button == fife.MouseEvent.LEFT:
+        print("Left button pressed")
+    elif button == fife.MouseEvent.RIGHT:
+        print("Right button pressed")
+----
+
+==== Example: Click to Move Instance
+
+[source,python]
+----
+class ClickToMoveListener(fife.IMouseListener):
+    def __init__(self, camera, instance):
+        self.camera = camera
+        self.instance = instance
+    
+    def mousePressed(self, event):
+        if event.getButton() == fife.MouseEvent.LEFT:
+            # Convert screen coordinates to map coordinates
+            screen_point = fife.ScreenPoint(event.getX(), event.getY(), 0)
+            map_point = self.camera.toMapCoordinates(screen_point)
+            
+            # Move instance
+            location = fife.Location(self.instance.getLocation().getLayer())
+            location.setExactLayerCoordinates(map_point)
+            self.instance.move("walk", location, 5.0)
+----
+
+=== Keyboard Events
+
+==== Key Listener Interface
+
+Implement `IKeyListener` to handle keyboard events:
+
+[source,python]
+----
+class MyKeyListener(fife.IKeyListener):
+    def keyPressed(self, event):
+        key = event.getKey()
+        print(f"Key pressed: {key.getAsString()}")
+    
+    def keyReleased(self, event):
+        key = event.getKey()
+        print(f"Key released: {key.getAsString()}")
+----
+
+Register the listener:
+
+[source,python]
+----
+listener = MyKeyListener()
+event_manager.addKeyListener(listener)
+
+# Later, remove it
+event_manager.removeKeyListener(listener)
+----
+
+==== Key Event Types
+
+[horizontal]
+*PRESSED*:: Key was pressed down
+*RELEASED*:: Key was released
+
+==== Key Properties
+
+[source,python]
+----
+def keyPressed(self, event):
+    key = event.getKey()
+    
+    # Get key code
+    code = key.getValue()
+    
+    # Get string representation
+    name = key.getAsString()
+    
+    # Check if numpad
+    is_numpad = event.isNumericPad()
+    
+    # Check modifier keys
+    shift = event.isShiftPressed()
+    ctrl = event.isControlPressed()
+    alt = event.isAltPressed()
+    
+    # Check specific keys
+    if key.getValue() == fife.Key.ESCAPE:
+        print("Escape pressed")
+    elif key.getValue() == fife.Key.ENTER:
+        print("Enter pressed")
+----
+
+==== Key Constants
+
+Common key constants:
+
+[horizontal]
+*Key.ENTER*:: Enter/Return
+*Key.ESCAPE*:: Escape
+*Key.SPACE*:: Spacebar
+*Key.TAB*:: Tab
+*Key.UP*:: Arrow up
+*Key.DOWN*:: Arrow down
+*Key.LEFT*:: Arrow left
+*Key.RIGHT*:: Arrow right
+*Key.LSHIFT*:: Left Shift
+*Key.RSHIFT*:: Right Shift
+*Key.LCTRL*:: Left Control
+*Key.RCTRL*:: Right Control
+*Key.LALT*:: Left Alt
+*Key.RALT*:: Right Alt
+*Key.F1-F12*:: Function keys
+
+=== Text Events
+
+For text input fields, use the text listener:
+
+[source,python]
+----
+class MyTextListener(fife.ITextListener):
+    def textInput(self, event):
+        text = event.getText()
+        print(f"Text entered: {text}")
+
+listener = MyTextListener()
+event_manager.addTextListener(listener)
+----
+
+=== Command Events
+
+Custom commands can be dispatched through the event system:
+
+[source,python]
+----
+class MyCommandListener(fife.ICommandListener):
+    def onCommand(self, command):
+        command_code = command.getCode()
+        if command_code == 1:
+            print("Custom command received")
+
+listener = MyCommandListener()
+event_manager.addCommandListener(listener)
+
+# Dispatch a command
+command = fife.Command()
+command.setCode(1)
+event_manager.dispatchCommand(command)
+----
+
+=== Key Filters
+
+Filter specific keys to be processed by the engine or your application:
+
+[source,python]
+----
+class MyKeyFilter(fife.IKeyFilter):
+    def isFiltered(self, key):
+        # Filter out specific keys
+        return key.getValue() == fife.Key.F12
+
+filter = MyKeyFilter()
+event_manager.setKeyFilter(filter)
+----
+
+=== Drop Events
+
+Handle file drag-and-drop:
+
+[source,python]
+----
+class MyDropListener(fife.IDropListener):
+    def fileDropped(self, event):
+        path = event.getPath()
+        print(f"File dropped: {path}")
+
+listener = MyDropListener()
+event_manager.addDropListener(listener)
+----
+
+=== Mouse Sensitivity
+
+Adjust mouse behavior:
+
+[source,python]
+----
+# Set mouse sensitivity (0.0 = default, positive = faster, negative = slower)
+event_manager.setMouseSensitivity(1.5)
+
+# Enable mouse acceleration
+event_manager.setMouseAccelerationEnabled(True)
+----
+
+=== Clipboard Support
+
+Access system clipboard:
+
+[source,python]
+----
+# Check if clipboard has text
+if event_manager.isClipboardText():
+    # Get clipboard text
+    text = event_manager.getClipboardText()
+
+# Set clipboard text
+event_manager.setClipboardText("Hello, clipboard!")
+----
+
+=== Event Consumption
+
+Events can be consumed to prevent further processing:
+
+[source,python]
+----
+def mousePressed(self, event):
+    if is_handled:
+        event.consume()  # Prevent other listeners from receiving this event
+----
+
+=== SDL Events
+
+For low-level access to SDL events:
+
+[source,python]
+----
+class MySdlListener(fife.ISdlEventListener):
+    def onSdlEvent(self, event):
+        # Raw SDL event
+        event_type = event.type
+        print(f"SDL event type: {event_type}")
+
+listener = MySdlListener()
+event_manager.addSdlEventListener(listener)
+----
+
+=== Event Queue
+
+The event manager processes events automatically during `engine.pump()`.
+You should register your listeners before the game loop starts.
+
+NOTE: Listeners are called in the order they were registered.
+Use `addListenerFront()` to add listeners to the front of the queue.

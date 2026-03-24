@@ -64,9 +64,25 @@ include::chapter01_what-is-fifengine.adoc[]
 
 include::chapter02_getting-started.adoc[]
 
-include::chapter03_map-format-and-lighting.adoc[]
+include::chapter03_core-concepts.adoc[]
 
 include::chapter04_coordinate-systems.adoc[]
+
+include::chapter05_working-with-maps.adoc[]
+
+include::chapter06_rendering.adoc[]
+
+include::chapter07_model-and-instances.adoc[]
+
+include::chapter08_input-and-events.adoc[]
+
+include::chapter09_audio.adoc[]
+
+include::chapter10_gui.adoc[]
+
+include::chapter11_pathfinding.adoc[]
+
+include::chapter12_virtual-filesystem.adoc[]
 
 :!sectnums:
 

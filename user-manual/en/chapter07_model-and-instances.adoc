@@ -1,0 +1,470 @@
+== Model and Instances
+
+This chapter explains objects, instances, layers, and maps.
+The model system is the core data structure that represents the game world.
+
+=== Overview
+
+The model system follows a hierarchy:
+
+[horizontal]
+*Model*:: Top-level container managing all maps
+*Map*:: Contains layers and cameras
+*Layer*:: Contains instances arranged in a grid
+*Instance*:: A placed object in the game world
+
+=== Map
+
+A `Map` is the top-level container for game world data.
+Maps contain layers, which in turn contain instances.
+
+==== Creating a Map
+
+[source,python]
+----
+model = engine.getModel()
+my_map = model.createMap("mymap")
+----
+
+==== Managing Layers
+
+[source,python]
+----
+# Create a cell grid (square or hex)
+grid = fife.SquareGrid()  # or fife.HexGrid()
+
+# Add a layer to the map
+layer = my_map.createLayer("ground_layer", grid)
+
+# Get existing layers
+layers = my_map.getLayers()
+ground = my_map.getLayer("ground_layer")
+----
+
+==== Map Cameras
+
+Maps manage their own cameras:
+
+[source,python]
+----
+# Add camera to map
+camera = my_map.addCamera("main_camera", viewport)
+
+# Get camera
+camera = my_map.getCamera("main_camera")
+
+# Get all cameras
+cameras = my_map.getCameras()
+----
+
+==== Map Updates
+
+Maps update their state each frame:
+
+[source,python]
+----
+# Check if map changed
+if my_map.isChanged():
+    changed_layers = my_map.getChangedLayers()
+----
+
+==== Map Speed
+
+Control time progression on a map:
+
+[source,python]
+----
+my_map.setTimeMultiplier(1.0)   # Normal speed
+my_map.setTimeMultiplier(2.0)   # Double speed
+my_map.setTimeMultiplier(0.5)   # Half speed
+----
+
+=== Layer
+
+A `Layer` is a grid of cells containing game instances.
+Layers allow organizing game objects by type (ground, objects, units).
+
+==== Creating Instances
+
+[source,python]
+----
+# Create instance at exact position
+instance = layer.createInstance(my_object, fife.ModelCoordinate(5, 3), "my_instance")
+
+# Create instance at precise position
+instance = layer.createInstance(my_object, fife.ExactModelCoordinate(5.5, 3.2), "precise")
+----
+
+==== Querying Instances
+
+[source,python]
+----
+# Get all instances
+instances = layer.getInstances()
+
+# Get instance by ID
+instance = layer.getInstance("my_instance")
+
+# Get instances by type
+instances = layer.getInstances("tree")
+
+# Get instances at location
+location = fife.Location(layer)
+location.setLayerCoordinates(fife.ModelCoordinate(5, 3))
+instances_at = layer.getInstancesAt(location)
+
+# Get instances in rectangle
+rect = fife.Rect(0, 0, 10, 10)
+instances_in = layer.getInstancesIn(rect)
+
+# Get instances in circle
+instances = layer.getInstancesInCircle(fife.ModelCoordinate(5, 5), 3)
+
+# Get instances in line
+instances = layer.getInstancesInLine(
+    fife.ModelCoordinate(0, 0),
+    fife.ModelCoordinate(10, 10)
+)
+----
+
+==== Removing Instances
+
+[source,python]
+----
+layer.removeInstance(instance)  # Remove without deleting
+layer.deleteInstance(instance)  # Remove and delete
+----
+
+==== Layer Properties
+
+===== Visibility
+
+[source,python]
+----
+layer.setInstancesVisible(True)
+layer.setInstancesVisible(False)
+layer.toggleInstancesVisible()
+----
+
+===== Transparency
+
+[source,python]
+----
+layer.setLayerTransparency(128)  # Semi-transparent (0-255)
+----
+
+===== Static Layers
+
+Static layers render as a single texture for performance:
+
+[source,python]
+----
+layer.setStatic(True)  # Enable static rendering
+layer.isStatic()       # Check if static
+----
+
+NOTE: Static layers only work correctly with the OpenGL backend.
+Do not use static layers for instances with animations.
+
+===== Walkable Layers
+
+Only walkable layers can have pathfinding:
+
+[source,python]
+----
+layer.setWalkable(True)
+if layer.isWalkable():
+    # Can create CellCache for pathfinding
+    pass
+----
+
+===== Pathing Strategy
+
+Configure how pathfinding works on this layer:
+
+[source,python]
+----
+# Edges only (4-direction movement)
+layer.setPathingStrategy(fife.CELL_EDGES_ONLY)
+
+# Edges and diagonals (8-direction movement)
+layer.setPathingStrategy(fife.CELL_EDGES_AND_DIAGONALS)
+----
+
+===== Sorting Strategy
+
+Control how instances are sorted for rendering:
+
+[source,python]
+----
+layer.setSortingStrategy(fife.SORTING_CAMERA)              # By camera view
+layer.setSortingStrategy(fife.SORTING_LOCATION)            # By location
+layer.setSortingStrategy(fife.SORTING_CAMERA_AND_LOCATION) # Combined
+----
+
+=== Instance
+
+An `Instance` is a placed object in the game world.
+Instances are created from object archetypes and can perform actions.
+
+==== Object Archetypes
+
+Objects define properties that instances inherit:
+
+[source,python]
+----
+# Get or create an object archetype
+object = model.getObject("tree")
+----
+
+==== Instance Location
+
+[source,python]
+----
+# Set location
+location = fife.Location(layer)
+location.setLayerCoordinates(fife.ModelCoordinate(5, 3))
+instance.setLocation(location)
+
+# Get location
+current_location = instance.getLocation()
+
+# Set facing direction
+instance.setFacingLocation(target_location)
+----
+
+==== Instance Actions
+
+Instances can perform actions defined by their object:
+
+[source,python]
+----
+# Play action once
+instance.actOnce("idle")
+
+# Play action repeatedly
+instance.actRepeat("idle")
+
+# Play action with specific direction
+instance.actOnce("walk", direction_location)
+instance.actRepeat("idle", 90)  # 90 degree rotation
+----
+
+==== Instance Movement
+
+Move instances between locations:
+
+[source,python]
+----
+# Move with action animation
+instance.move("walk", target_location, speed=5.0)
+
+# Movement speed: units = distance per second in layer coordinates
+instance.move("run", target_location, speed=10.0)
+
+# Follow another instance
+instance.follow("walk", leader_instance, speed=5.0)
+
+# Follow a route
+instance.follow("walk", route, speed=5.0)
+----
+
+==== Instance Properties
+
+===== Blocking
+
+Blocking instances prevent movement through them:
+
+[source,python]
+----
+instance.setBlocking(True)
+instance.isBlocking()
+----
+
+===== Rotation
+
+[source,python]
+----
+instance.setRotation(90)   # Set rotation offset
+instance.getRotation()     # Get current rotation
+----
+
+===== Speed Control
+
+[source,python]
+----
+instance.setTimeMultiplier(2.0)  # Double speed
+instance.getMovementSpeed()      # Current speed
+----
+
+===== Transparency
+
+[source,python]
+----
+instance.setTransparency(128)  # Semi-transparent (0-255)
+----
+
+==== Instance Say Text
+
+Display text above an instance:
+
+[source,python]
+----
+# Show text for 3 seconds (3000ms)
+instance.say("Hello!", 3000)
+
+# Show text indefinitely
+instance.say("Important message!")
+
+# Clear text
+instance.say("")
+----
+
+==== Instance Listeners
+
+Listen for instance events:
+
+[source,python]
+----
+class MyActionListener(fife.InstanceActionListener):
+    def onInstanceActionFinished(self, instance, action):
+        print("Action finished:", action.getId())
+    
+    def onInstanceActionCancelled(self, instance, action):
+        print("Action cancelled")
+    
+    def onInstanceActionFrame(self, instance, action, frame):
+        pass
+
+listener = MyActionListener()
+instance.addActionListener(listener)
+----
+
+==== Multi-Cell Instances
+
+Instances can occupy multiple cells:
+
+[source,python]
+----
+if instance.isMultiCell():
+    instances = instance.getMultiInstances()
+    for inst in instances:
+        print(inst.getLocation())
+----
+
+==== Overlays
+
+Add visual overlays to instances:
+
+[source,python]
+----
+# Static color overlay
+colors = fife.OverlayColors()
+instance.addStaticColorOverlay(0, colors)
+
+# Action-specific overlay
+instance.addColorOverlay("walk", 0, colors)
+
+# Animation overlay
+instance.addAnimationOverlay("walk", 0, 0, animation_ptr)
+----
+
+=== CellGrid
+
+CellGrids define the coordinate system for layers.
+
+==== Square Grid
+
+Standard square tiles:
+
+[source,python]
+----
+grid = fife.SquareGrid()
+grid.setScale(32, 32)  # Cell size in pixels
+layer = my_map.createLayer("ground", grid)
+----
+
+==== Hexagonal Grid
+
+Hex-based tiles for natural movement:
+
+[source,python]
+----
+grid = fife.HexGrid()
+grid.setScale(32, 32)
+layer = my_map.createLayer("ground", grid)
+----
+
+==== Grid Queries
+
+[source,python]
+----
+# Get cell coordinates from exact position
+cell = grid.getCellCoordinates(exact_position)
+
+# Get exact position from cell
+exact = grid.getExactLayerCoordinates(cell)
+
+# Get cell dimensions
+dims = grid.getCellDimensions()
+----
+
+=== Map Change Listeners
+
+Monitor changes across the entire map:
+
+[source,python]
+----
+class MyMapListener(fife.MapChangeListener):
+    def onMapChanged(self, map, changed_layers):
+        for layer in changed_layers:
+            print("Layer changed:", layer.getId())
+    
+    def onLayerCreate(self, map, layer):
+        print("Layer created:", layer.getId())
+    
+    def onLayerDelete(self, map, layer):
+        print("Layer deleted:", layer.getId())
+
+listener = MyMapListener()
+my_map.addChangeListener(listener)
+----
+
+=== Layer Change Listeners
+
+Monitor changes on a specific layer:
+
+[source,python]
+----
+class MyLayerListener(fife.LayerChangeListener):
+    def onLayerChanged(self, layer, changed_instances):
+        for instance in changed_instances:
+            print("Instance changed:", instance.getId())
+    
+    def onInstanceCreate(self, layer, instance):
+        print("Instance created:", instance.getId())
+    
+    def onInstanceDelete(self, layer, instance):
+        print("Instance deleted:", instance.getId())
+
+listener = MyLayerListener()
+layer.addChangeListener(listener)
+----
+
+=== Saving and Loading Maps
+
+Maps are typically saved in FIFE's XML format using loaders and savers:
+
+[source,python]
+----
+# Load a map
+model = engine.getModel()
+map_loader = fife.MapLoader(model, vfs, image_manager)
+my_map = map_loader.load("mymap.xml")
+
+# Save a map
+map_saver = fife.MapSaver(model)
+map_saver.save(my_map, "mymap.xml")
+----
+
+See xref:chapter05[Working with Maps] for details on the map file format.

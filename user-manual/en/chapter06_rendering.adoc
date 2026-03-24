@@ -1,0 +1,362 @@
+== Rendering
+
+This chapter covers the camera, renderers, and graphics pipeline.
+
+FIFE's rendering system consists of three main components: the render backend, cameras, and renderers.
+The render backend handles low-level graphics operations, cameras define what to display, and renderers draw specific aspects of the view.
+
+=== Render Backend
+
+The `RenderBackend` is the foundation of FIFE's graphics system.
+It provides hardware-acstraction for all drawing operations.
+
+==== Available Backends
+
+FIFE supports two render backends:
+
+[horizontal]
+*SDL*:: Software rendering, widely compatible
+*OpenGL*:: Hardware-accelerated, supports advanced effects
+
+Set the backend before initializing the engine:
+
+[source,python]
+----
+settings = engine.getSettings()
+settings.setRenderBackend("OpenGL")  # or "SDL"
+----
+
+==== Screen Mode
+
+Configure the display before initializing the engine:
+
+[source,python]
+----
+settings = engine.getSettings()
+settings.setScreenWidth(1024)
+settings.setScreenHeight(768)
+settings.setBitsPerPixel(32)
+settings.setFullScreen(True)
+settings.setVSync(True)
+----
+
+==== OpenGL-Specific Settings
+
+The OpenGL backend supports additional features:
+
+[source,python]
+----
+# Texture filtering (improves image quality)
+settings.setGLTextureFiltering("linear")  # none, linear, bilinear, trilinear, anisotropic
+
+# Mipmapping (reduces aliasing at distance)
+settings.setGLUseMipmapping(True)
+
+# Texture compression (reduces memory usage)
+settings.setGLCompressImages(True)
+
+# Framebuffer effects (for post-processing)
+settings.setGLUseFramebuffer(True)
+
+# NPOT textures (non-power-of-two sizes)
+settings.setGLUseNPOT(True)
+
+# Depth buffer (for 3D effects)
+settings.setGLUseDepthBuffer(True)
+----
+
+=== Camera
+
+The `Camera` defines what portion of the game world is visible on screen.
+Each camera can have different settings for tilt, rotation, and zoom.
+
+==== Creating a Camera
+
+[source,python]
+----
+import fifengine
+
+# Get the map
+map = model.getMap("mymap")
+
+# Define viewport (area of screen to render to)
+viewport = fifengine.Rect(0, 0, 800, 600)
+
+# Create camera
+camera = fifengine.Camera("mycam", map, viewport, engine.getRenderBackend())
+----
+
+==== Camera Properties
+
+===== Tilt
+
+Controls the viewing angle. 0 is top-down, 45 is classic isometric:
+
+[source,python]
+----
+camera.setTilt(45)  # Isometric view
+camera.setTilt(60)  # Steeper angle
+----
+
+===== Rotation
+
+Rotates the view around the camera target:
+
+[source,python]
+----
+camera.setRotation(0)    # Default
+camera.setRotation(90)   # Quarter turn
+camera.setRotation(45)   # Diagonal view
+----
+
+===== Zoom
+
+Scales the view (1.0 is default):
+
+[source,python]
+----
+camera.setZoom(1.0)   # Normal zoom
+camera.setZoom(2.0)   # Zoomed in
+camera.setZoom(0.5)   # Zoomed out
+----
+
+===== zToY
+
+Controls the z-axis transformation ratio:
+
+[source,python]
+----
+camera.setZToY(32)  # 1 z-unit = 32 pixels vertically
+----
+
+==== Setting Camera Location
+
+Position the camera in the game world:
+
+[source,python]
+----
+# Create a location
+location = fifife.Location(layer)
+location.setLayerCoordinates(fife.ModelCoordinate(10, 10, 0))
+
+# Move camera to location
+camera.setLocation(location)
+----
+
+==== Camera Attachment
+
+Attach the camera to follow an instance:
+
+[source,python]
+----
+# Attach to instance
+camera.attach(instance)
+
+# Detach
+camera.detach()
+----
+
+==== Coordinate Transformations
+
+The camera transforms between map coordinates and screen coordinates:
+
+[source,python]
+----
+# Map to screen
+screen_point = camera.toScreenCoordinates(map_coords)
+
+# Screen to map
+map_point = camera.toMapCoordinates(screen_point)
+
+# Virtual screen coordinates (sub-pixel precision)
+virtual = camera.toVirtualScreenCoordinates(map_coords)
+----
+
+See xref:chapter04[Coordinate Systems] for details on coordinate transformations.
+
+==== Viewport
+
+The viewport defines the screen area for rendering:
+
+[source,python]
+----
+# Set viewport
+camera.setViewPort(fife.Rect(100, 50, 600, 400))
+
+# Get viewport
+viewport = camera.getViewPort()
+----
+
+Multiple cameras can render to different screen areas.
+
+=== Renderers
+
+Renderers draw specific aspects of the view.
+Each renderer operates in a pipeline, executed in order per frame.
+
+==== Available Renderers
+
+FIFE includes the following built-in renderers:
+
+[horizontal]
+*InstanceRenderer*:: Renders game objects and instances
+*GridRenderer*:: Renders the tile grid overlay
+*CellRenderer*:: Renders individual cells
+*CellSelectionRenderer*:: Renders selected cells
+*CoordinateRenderer*:: Renders coordinate labels
+*BlockingInfoRenderer*:: Renders blocking information
+*FloatingTextRenderer*:: Renders floating text above instances
+*LightRenderer*:: Renders lighting effects (OpenGL only)
+*QuadtreeRenderer*:: Renders spatial partitioning info (debugging)
+*OffRenderer*:: Renders off-screen objects
+*TargetRenderer*:: Renders to target surfaces
+*GenericRenderer*:: Custom rendering with generic shapes
+
+==== Accessing Renderers
+
+Get renderers from the camera:
+
+[source,python]
+----
+instance_renderer = camera.getRenderer("InstanceRenderer")
+light_renderer = camera.getRenderer("LightRenderer")
+grid_renderer = camera.getRenderer("GridRenderer")
+----
+
+==== Enabling/Disabling Renderers
+
+Control which renderers are active:
+
+[source,python]
+----
+renderer = camera.getRenderer("GridRenderer")
+renderer.setEnabled(True)   # Enable
+renderer.setEnabled(False)  # Disable
+----
+
+==== Pipeline Position
+
+Renderers execute in pipeline order. Adjust position to change render order:
+
+[source,python]
+----
+renderer.setPipelinePosition(5)  # Render 5th in pipeline
+----
+
+Lower numbers render first (background), higher numbers render later (foreground).
+
+==== Layer Activation
+
+Renderers can be limited to specific layers:
+
+[source,python]
+----
+renderer.addActiveLayer(my_layer)      # Add one layer
+renderer.clearActiveLayers()           # Clear all
+renderer.activateAllLayers(my_map)     # Activate all from map
+----
+
+==== InstanceRenderer
+
+Renders game objects on screen:
+
+[source,python]
+----
+renderer = camera.getRenderer("InstanceRenderer")
+----
+
+==== GridRenderer
+
+Renders the tile grid for debugging:
+
+[source,python]
+----
+renderer = camera.getRenderer("GridRenderer")
+renderer.setEnabled(True)
+----
+
+==== LightRenderer
+
+Renders dynamic lighting effects (OpenGL only):
+
+[source,python]
+----
+lightrenderer = camera.getRenderer("LightRenderer")
+
+# Add simple light
+lightrenderer.addSimpleLightInfo(
+    layer=layer,
+    x=5, y=5,
+    color=[255, 255, 128],
+    intensity=200,
+    radius=5.0
+)
+
+# Add image-based light
+lightrenderer.addImageLightInfo(
+    layer=layer,
+    image="light.png",
+    x=5, y=5
+)
+
+# Add animated light
+lightrenderer.addAnimationLightInfo(
+    layer=layer,
+    animation="flicker.anim",
+    x=5, y=5
+)
+----
+
+See xref:chapter05[Working with Maps] for lighting system details.
+
+==== GenericRenderer
+
+For custom drawing, use the GenericRenderer:
+
+[source,python]
+----
+renderer = camera.getRenderer("GenericRenderer")
+----
+
+The GenericRenderer allows drawing lines, points, and other shapes directly.
+
+=== Screenshots
+
+Capture the current frame:
+
+[source,python]
+----
+render_backend = engine.getRenderBackend()
+render_backend.captureScreen("screenshot.png")
+render_backend.captureScreen("small.png", 320, 240)
+----
+
+=== Frame Rate Control
+
+Limit the frame rate to reduce CPU usage:
+
+[source,python]
+----
+settings = engine.getSettings()
+settings.setFrameLimitEnabled(True)
+settings.setFrameLimit(60)  # 60 FPS
+----
+
+Enable VSync to synchronize with monitor refresh rate:
+
+[source,python]
+----
+settings.setVSync(True)
+----
+
+=== Rendering Pipeline
+
+The rendering pipeline processes each frame in this order:
+
+1. `RenderBackend.startFrame()` - Begin frame
+2. For each layer (back to front):
+   - Camera updates render lists
+   - Each renderer in pipeline order calls `render()`
+3. `RenderBackend.endFrame()` - Present frame
+
+Renderers are called once per visible layer, allowing per-layer customization.

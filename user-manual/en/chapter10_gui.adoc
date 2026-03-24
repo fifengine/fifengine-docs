@@ -1,0 +1,260 @@
+== GUI
+
+This chapter covers FifeChan integration, widgets, and GUI management.
+
+FIFE supports multiple GUI backends. The primary backend is FifeChan (a fork of Guichan).
+
+=== GUI Manager
+
+The `IGUIManager` interface provides access to the GUI system.
+The `FifechanManager` implements this interface for FifeChan.
+
+==== Getting the GUI Manager
+
+[source,python]
+----
+gui_manager = engine.getGuiManager()
+----
+
+=== FifeChan
+
+FifeChan is the recommended GUI library for FIFE games.
+It provides a widget-based UI with Python bindings.
+
+==== Available Backends
+
+FIFE supports two GUI backends:
+
+[horizontal]
+*FifeChan*:: Default, lightweight, Python bindings via PyChan
+*CEGUI*:: Full-featured, requires PyCEGUI
+
+==== Adding Widgets
+
+[source,python]
+----
+# Get the FifechanManager
+fifechan_manager = gui_manager  # if using FifechanManager
+
+# Add a widget
+fifechan_manager.add(my_widget)
+
+# Remove a widget
+fifechan_manager.remove(my_widget)
+----
+
+=== Widgets
+
+FifeChan provides several built-in widgets:
+
+[horizontal]
+*Window*:: Container window
+*Button*:: Clickable button
+*Label*:: Text label
+*TextField*:: Single-line text input
+*TextBox*:: Multi-line text area
+*Slider*:: Horizontal/vertical slider
+*CheckBox*:: Checkbox control
+*RadioButton*:: Radio button
+*ListBox*:: List of items
+*DropDown*:: Dropdown selector
+*TabbedArea*:: Tabbed container
+*ScrollArea*:: Scrollable container
+*Icon*:: Image display
+
+==== Creating Widgets
+
+[source,python]
+----
+import fife
+
+# Create a button
+button = fife.fifechan.Button("Click Me")
+button.setWidth(100)
+button.setHeight(30)
+button.setPosition(10, 10)
+
+# Create a label
+label = fife.fifechan.Label("Hello World")
+label.setPosition(10, 50)
+
+# Create a text field
+textfield = fife.fifechan.TextField()
+textfield.setWidth(200)
+textfield.setHeight(25)
+textfield.setPosition(10, 80)
+
+# Create a checkbox
+checkbox = fife.fifechan.CheckBox("Enable feature")
+checkbox.setPosition(10, 115)
+
+# Create a window
+window = fife.fifechan.Window("My Window")
+window.setWidth(300)
+window.setHeight(200)
+window.setPosition(50, 50)
+----
+
+==== Widget Properties
+
+[source,python]
+----
+# Position
+widget.setPosition(x, y)
+
+# Size
+widget.setWidth(width)
+widget.setHeight(height)
+
+# Visibility
+widget.setVisible(True)
+widget.setVisible(False)
+
+# Enabled/disabled
+widget.setEnabled(True)
+widget.setEnabled(False)
+
+# Focus
+widget.setFocusable(True)
+----
+
+=== Text Input
+
+==== Default Font
+
+Set the default font before initializing the GUI:
+
+[source,python]
+----
+settings = engine.getSettings()
+settings.setDefaultFontPath("fonts/FreeSans.ttf")
+settings.setDefaultFontSize(12)
+settings.setDefaultFontGlyphs("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+----
+
+==== Font Creation
+
+Create custom fonts for specific widgets:
+
+[source,python]
+----
+font = gui_manager.createFont("fonts/FreeSans.ttf", 14, glyphs)
+widget.setFont(font)
+----
+
+=== Widget Events
+
+Listen for widget events:
+
+[source,python]
+----
+class MyWidgetListener:
+    def __init__(self, button):
+        self.button = button
+    
+    def handleAction(self, event):
+        if event.getSource() == self.button:
+            print("Button clicked!")
+
+# In Python, you typically subclass widgets or use callbacks
+----
+
+=== Console
+
+The built-in console allows executing Python code in-game.
+
+==== Enabling the Console
+
+[source,python]
+----
+gui_manager.setConsoleEnabled(True)
+----
+
+==== Using the Console
+
+Press the default hotkey (typically backtick or tilde) to open the console.
+Type Python expressions and press Enter to execute them.
+
+=== Cursor
+
+Configure the mouse cursor:
+
+[source,python]
+----
+cursor = engine.getCursor()
+
+# Set cursor image
+cursor.setImage(cursor_image)
+
+# Set cursor animation
+cursor.setAnimation(cursor_animation)
+
+# Enable native image cursor (system cursor)
+cursor.setNativeImageCursorEnabled(True)
+----
+
+=== Layout Example
+
+[source,python]
+----
+def create_main_menu():
+    # Create main window
+    window = fife.fifechan.Window("Main Menu")
+    window.setWidth(300)
+    window.setHeight(250)
+    window.setPosition(100, 100)
+    
+    # Create buttons
+    start_btn = fife.fifechan.Button("Start Game")
+    start_btn.setWidth(200)
+    start_btn.setHeight(40)
+    start_btn.setPosition(50, 30)
+    
+    options_btn = fife.fifechan.Button("Options")
+    options_btn.setWidth(200)
+    options_btn.setHeight(40)
+    options_btn.setPosition(50, 80)
+    
+    quit_btn = fife.fifechan.Button("Quit")
+    quit_btn.setWidth(200)
+    quit_btn.setHeight(40)
+    quit_btn.setPosition(50, 130)
+    
+    # Add buttons to window
+    window.add(start_btn)
+    window.add(options_btn)
+    window.add(quit_btn)
+    
+    # Add window to GUI
+    gui_manager.add(window)
+    
+    return window
+----
+
+=== Tabbing
+
+Control keyboard navigation between widgets:
+
+[source,python]
+----
+# Enable/disable tab navigation
+gui_manager.setTabbingEnabled(True)
+----
+
+=== GUI Rendering
+
+The GUI is rendered automatically each frame by `gui_manager.turn()`.
+No manual rendering is required.
+
+=== Top Container
+
+Access the top-level container for layout:
+
+[source,python]
+----
+container = gui_manager.getTopContainer()
+container.setWidth(screen_width)
+container.setHeight(screen_height)
+----
+
+NOTE: The top container is resized automatically when the screen mode changes.

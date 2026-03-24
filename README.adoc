@@ -12,8 +12,8 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 | User Manual              | HTML     | {USR-MAN-HTML-EN}
 | Developer Manual         | HTML     | {DEV-MAN-HTML-EN}
 | FAQ                      | HTML     | {FAQ-HTML}
-| C++ API Documentation    | HTML     | https://fifengine.github.io/fifeengine/api/
-| Python API Documentation | HTML     | https://fifengine.github.io/fifeengine/api/python
+| C++ API Documentation    | HTML     | https://fifengine.github.io/fifengine/api/
+| Python API Documentation | HTML     | https://fifengine.github.io/fifengine/api/python
 | Wiki                     | HTML     | https://github.com/fifengine/fifengine/wiki
 | Github Pages             | HTML     | https://fifengine.github.io/fifengine-docs/
 | Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifengine-docs

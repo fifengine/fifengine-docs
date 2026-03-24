@@ -1,0 +1,283 @@
+== Coordinate Systems
+
+FIFE uses several different coordinate systems to handle positions across the game world, layers, and screen display.
+Understanding these coordinate systems is essential for positioning objects, handling input, and working with the camera.
+
+This chapter explains each coordinate system, how they relate to each other, and provides examples for converting between them.
+
+=== Overview
+
+FIFE has four main coordinate systems:
+
+[horizontal]
+*Model Coordinates*:: Integer-based 3D coordinates representing discrete grid positions (cells)
+*Exact Model Coordinates*:: Floating-point 3D coordinates for precise positioning
+*Layer Coordinates*:: Model coordinates mapped to a specific layer
+*Screen Coordinates*:: 2D pixel coordinates on the screen after camera transformation
+
+The base types are defined in `model/metamodel/modelcoords.h`:
+
+[source,cpp]
+----
+typedef DoublePoint3D ExactModelCoordinate;  // Double precision (x, y, z)
+typedef Point3D ModelCoordinate;             // Integer precision (x, y, z)
+typedef DoublePoint3D AudioSpaceCoordinate;  // Audio positioning
+----
+
+=== Model Coordinates
+
+Model coordinates represent positions on the game grid using integers.
+They correspond to discrete cell positions and are useful when you need to reference specific tiles or cells on a layer.
+
+==== Creating Model Coordinates
+
+[source,python]
+----
+# Create a model coordinate at cell (5, 3, 0)
+coord = fife.ModelCoordinate(5, 3, 0)
+
+# Access components
+print(coord.x)  # 5
+print(coord.y)  # 3
+print(coord.z)  # 0
+----
+
+==== Use Cases
+
+* Referencing specific cells on a grid
+* Placing objects at exact tile boundaries
+* Grid-based pathfinding
+* Layer grid calculations
+
+=== Exact Model Coordinates
+
+Exact model coordinates use double-precision floating-point values for smooth, continuous positioning.
+They allow objects to be placed between grid cells, enabling smooth movement and animations.
+
+==== Creating Exact Model Coordinates
+
+[source,python]
+----
+# Create an exact coordinate at (5.5, 3.7, 0.0)
+coord = fife.ExactModelCoordinate(5.5, 3.7, 0.0)
+
+# Access components
+print(coord.x)  # 5.5
+print(coord.y)  # 3.7
+print(coord.z)  # 0.0
+----
+
+==== Use Cases
+
+* Smooth object movement between cells
+* Precise positioning for animations
+* Camera positioning
+* Map coordinate calculations
+
+=== Layer Coordinates
+
+Layer coordinates are model coordinates that are associated with a specific layer.
+The `Location` class ties coordinates to a layer, providing the bridge between coordinate systems.
+
+==== The Location Class
+
+The `Location` class represents a position on a specific layer:
+
+[source,python]
+----
+# Create a location on a layer
+location = fife.Location(layer)
+
+# Set position using layer coordinates (cell precision)
+location.setLayerCoordinates(fife.ModelCoordinate(5, 3, 0))
+
+# Set position using exact layer coordinates (precise)
+location.setExactLayerCoordinates(fife.ExactModelCoordinate(5.5, 3.7, 0.0))
+----
+
+==== Getting Coordinates from a Location
+
+[source,python]
+----
+# Get the layer this location is on
+layer = location.getLayer()
+
+# Get exact layer coordinates
+exact_coords = location.getExactLayerCoordinates()
+print(f"Exact: ({exact_coords.x}, {exact_coords.y}, {exact_coords.z})")
+
+# Get cell precision coordinates
+cell_coords = location.getLayerCoordinates()
+print(f"Cell: ({cell_coords.x}, {cell_coords.y}, {cell_coords.z})")
+
+# Get map coordinates
+map_coords = location.getMapCoordinates()
+print(f"Map: ({map_coords.x}, {map_coords.y}, {map_coords.z})")
+----
+
+==== Checking Location Validity
+
+A location is valid if:
+- A layer is set
+- The layer has a cell grid assigned
+
+[source,python]
+----
+if location.isValid():
+    # Location is ready to use
+    pass
+----
+
+==== Calculating Distances
+
+The `Location` class provides methods for calculating distances:
+
+[source,python]
+----
+# Distance in map coordinates
+map_distance = location.getMapDistanceTo(other_location)
+
+# Distance in layer coordinates
+layer_distance = location.getLayerDistanceTo(other_location)
+----
+
+=== Screen Coordinates
+
+Screen coordinates represent positions on the game window in pixels.
+The camera transforms model coordinates to screen coordinates for rendering.
+
+==== The Camera and ScreenPoint
+
+The `Camera` class handles screen coordinate transformations.
+Screen coordinates use `ScreenPoint`, which is a `Point3D` where `z` represents depth.
+
+==== Converting Between Map and Screen Coordinates
+
+[source,python]
+----
+# Convert map coordinates to screen coordinates
+screen_point = camera.toScreenCoordinates(exact_map_coords)
+
+# Convert screen coordinates back to map coordinates
+map_point = camera.toMapCoordinates(screen_point)
+
+# Convert map to virtual screen coordinates (sub-pixel precision)
+virtual_screen = camera.toVirtualScreenCoordinates(exact_map_coords)
+----
+
+==== Virtual Screen Coordinates
+
+Virtual screen coordinates provide sub-pixel precision before final screen conversion:
+
+[source,python]
+----
+# Map to virtual screen
+virtual = camera.toVirtualScreenCoordinates(map_coords)
+
+# Virtual screen to screen
+screen = camera.virtualScreenToScreen(virtual)
+
+# Screen to virtual screen
+virtual = camera.screenToVirtualScreen(screen)
+----
+
+==== Mouse Click Example
+
+When handling mouse clicks, you typically convert screen coordinates to map coordinates:
+
+[source,python]
+----
+def onMousePress(self, event):
+    # Get screen coordinates from mouse event
+    screen_point = fife.ScreenPoint(event.getX(), event.getY(), 0)
+    
+    # Convert to map coordinates
+    map_point = camera.toMapCoordinates(screen_point)
+    
+    # Convert to layer coordinates for a specific layer
+    # (map coordinates are layer-independent)
+----
+
+=== Coordinate Conversion Summary
+
+This table shows how to convert between coordinate systems:
+
+[horizontal]
+*Model to Exact*:: `ExactModelCoordinate(float(x), float(y), float(z))`
+*Exact to Model*:: `ModelCoordinate(int(x), int(y), int(z))` (truncates)
+*Layer to Screen*:: `camera.toScreenCoordinates(location.getExactLayerCoordinates())`
+*Screen to Map*:: `camera.toMapCoordinates(ScreenPoint(x, y, z))`
+*Map to Layer*:: Use cell grid's `getLayerCoordinates(map_coords)` method
+*Layer to Map*:: Use cell grid's `getExactLayerCoordinates(layer_coords)` method
+
+=== Practical Examples
+
+==== Moving an Instance
+
+[source,python]
+----
+def move_instance(instance, target_x, target_y):
+    # Get current location
+    current = instance.getLocation()
+    
+    # Create target coordinates
+    target = fife.ExactModelCoordinate(target_x, target_y, 0)
+    
+    # Create new location on same layer
+    new_location = fife.Location(current.getLayer())
+    new_location.setExactLayerCoordinates(target)
+    
+    # Move the instance
+    instance.setLocation(new_location)
+----
+
+==== Finding Instance at Mouse Position
+
+[source,python]
+----
+def get_instance_at(screen_x, screen_y, camera, layer):
+    # Convert screen coordinates to screen point
+    screen_point = fife.ScreenPoint(screen_x, screen_y, 0)
+    
+    # Get matching instances
+    instances = []
+    camera.getMatchingInstances(screen_point, layer, instances)
+    
+    return instances[0] if instances else None
+----
+
+==== Placing an Object on a Grid
+
+[source,python]
+----
+def place_object_at(object_id, layer, cell_x, cell_y):
+    # Create location at specific cell
+    location = fife.Location(layer)
+    location.setLayerCoordinates(fife.ModelCoordinate(cell_x, cell_y, 0))
+    
+    # Create instance
+    instance = layer.createInstance(object_id, location)
+    return instance
+----
+
+=== Camera Properties Affecting Coordinate Transformations
+
+The camera's properties affect how coordinates are transformed:
+
+[horizontal]
+*Rotation*:: Rotates the view around the target point
+*Tilt*:: Adjusts the viewing angle (0 = top-down, 45 = isometric)
+*Zoom*:: Scales the view
+*zToY*:: Affects the z-axis to y-axis transformation ratio
+
+These properties can be set via the camera:
+
+[source,python]
+----
+camera.setRotation(45)      # Rotate 45 degrees
+camera.setTilt(60)          # 60 degree tilt angle
+camera.setZoom(1.5)         # Zoom to 1.5x
+camera.setZToY(32)          # 1 z-unit = 32 y-pixels
+----
+
+Understanding these coordinate systems is key to working with FIFE's rendering and input systems effectively.

@@ -66,6 +66,8 @@ include::chapter02_getting-started.adoc[]
 
 include::chapter03_map-format-and-lighting.adoc[]
 
+include::chapter04_coordinate-systems.adoc[]
+
 :!sectnums:
 
 //include::appendix.adoc[]

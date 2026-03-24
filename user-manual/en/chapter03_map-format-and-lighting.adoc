@@ -1,0 +1,200 @@
+== Working with Maps
+
+This chapter explains how maps work in Fife, including the XML file format and lighting system.
+
+=== Map Format
+
+Fife uses a custom XML-based map format. Maps are structured hierarchically with layers, cells, and instances.
+
+==== Map Structure Overview
+
+A map consists of the following components:
+
+[horizontal]
+*Map*:: The top-level container that holds all layers, cameras, and settings.
+*Layer*:: Contains a grid of cells with instances. Multiple layers can exist per map.
+*Cell*:: A single tile or position on the grid.
+*Instance*:: A game object placed on the map at a specific location.
+
+==== XML File Structure
+
+The basic map XML structure looks like this:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<fife version="0.4.0">
+  <map id="mymap">
+    <name>My Map</name>
+    <grid type="square">
+      <cell_scale>1.0</cell_scale>
+      <x_scale>1.0</x_scale>
+      <y_scale>1.0</y_scale>
+      <rot>0</rot>
+      <tilt>0</tilt>
+      <x_offset>0</x_offset>
+      <y_offset>0</y_offset>
+    </grid>
+    <elevation id="el1">
+      <name>Ground Floor</name>
+      <layer id="layer1">
+        <name>Ground Layer</name>
+        <grid type="square">
+          <cell_scale>1.0</cell_scale>
+          <x_scale>1.0</x_scale>
+          <y_scale>1.0</y_scale>
+          <rot>0</rot>
+          <tilt>30</tilt>
+        </grid>
+        <instances>
+          <instance object="myobject" x="0" y="0" id="inst1"/>
+        </instances>
+      </layer>
+    </elevation>
+  </map>
+</fife>
+----
+
+==== Grid Types
+
+Fife supports different tile and object grids with independent geometries:
+
+* *Square* - Standard square tile grid
+* *Hexagonal* - Hexagonal grid for more natural movement
+
+Grids are defined by:
+
+* `cell_scale` - Size of each cell
+* `x_scale` / `y_scale` - Scaling factors
+* `rot` - Rotation angle
+* `tilt` - Camera tilt angle for 3D-like view
+
+==== Layers
+
+Each map can have multiple layers. Layers are useful for separating different types of content:
+
+* Ground layer for terrain
+* Object layer for buildings and decorations
+* Agent layer for game characters
+* Static layer for performance (renders entire layer as one texture)
+
+==== Instances
+
+Instances are game objects placed on the map. Each instance references an object (archetype) that defines its properties.
+
+[source,xml]
+----
+<instance object="tree" x="5" y="3" id="tree1"/>
+<instance object="building" x="10" y="7" id="building1" rotation="90"/>
+----
+
+==== File Loaders
+
+Fife provides multiple loaders for map files:
+
+* **MapLoader** - Main loader that orchestrates map loading from XML
+* **ObjectLoader** - Loads object and instance data from XML
+* **AnimationLoader** - Loads animation definitions from XML
+* **AtlasLoader** - Loads image atlas definitions
+
+Maps are typically saved in the same XML format using MapSaver.
+
+=== Lighting System
+
+Fife includes a lighting system for creating atmospheric lighting effects in your game.
+
+NOTE: The lighting system is only available when using the OpenGL renderer. The SDL renderer does not support lighting effects.
+
+==== Light Sources
+
+Fife supports three types of light sources:
+
+===== Image-Based Lights
+
+Use images as light sources. This allows for complex, custom lighting effects.
+
+[source,python]
+----
+lightrenderer = map.getLightRenderer()
+lightrenderer.addImageLightInfo(
+    layer=my_layer,
+    image="my_light.png",
+    x=5, y=5
+)
+----
+
+===== Animation-Based Lights
+
+Use animations as light sources. Useful for flickering or animated lighting effects.
+
+[source,python]
+----
+lightrenderer.addAnimationLightInfo(
+    layer=my_layer,
+    animation="my_light_animation",
+    x=5, y=5
+)
+----
+
+===== Simple Procedural Lights
+
+Create simple lights programmatically with full control over properties.
+
+[source,python]
+----
+lightrenderer.addSimpleLightInfo(
+    layer=my_layer,
+    x=5, y=5,
+    color=[255, 255, 128],  # Warm yellow light
+    intensity=200,
+    radius=5.0,
+    subdivisions=32,
+    xstretch=1.0,
+    ystretch=1.0
+)
+----
+
+==== Light Parameters
+
+The simple light type supports these parameters:
+
+[horizontal]
+*x, y*:: Position of the light on the map
+*color*:: RGB color value (0-255 per channel)
+*intensity*:: Brightness of the light (0-255)
+*radius*:: How far the light reaches
+*subdivisions*:: Quality of the light circle (more = smoother)
+*xstretch*:: Horizontal stretch factor
+*ystretch*:: Vertical stretch factor
+
+==== Blending Modes
+
+Light sources use additive blending by default. You can configure the blend modes for custom effects:
+
+[source,python]
+----
+lightrenderer.setBlendMode(
+    src_factor="src_alpha",
+    dst_factor="one"  # Additive blending
+)
+----
+
+==== Fog of War
+
+Fife supports fog of war effects in the OpenGL renderer. This creates areas of the map that are hidden from the player until they explore them.
+
+NOTE: Fog of war is only available when using the OpenGL renderer.
+
+==== Light Groups
+
+You can group lights together for easier management and organization. This is useful when you have many lights in a scene and want to control them as a group.
+
+[source,python]
+----
+lightrenderer.setGroupIndex(my_group_index)
+lightrenderer.addSimpleLightInfo(...)
+----
+
+==== Editor Support
+
+The Fife Map Editor includes a Light Editor plugin for visual creation and editing of light sources. This provides a WYSIWYG interface for placing and configuring lights on your map.

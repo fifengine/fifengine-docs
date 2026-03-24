@@ -8,15 +8,16 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 
 [width="100%",options="header", cols="2,^1,4"]
 |====================
-| Resource                 | Format   | Language / Link
-| User Manual              | HTML     | {USR-MAN-HTML-EN}
-| Developer Manual         | HTML     | {DEV-MAN-HTML-EN}
-| FAQ                      | HTML     | {FAQ-HTML}
-| C++ API Documentation    | HTML     | https://fifengine.github.io/fifengine/api/
-| Python API Documentation | HTML     | https://fifengine.github.io/fifengine/api/python
-| Wiki                     | HTML     | https://github.com/fifengine/fifengine/wiki
-| Github Pages             | HTML     | https://fifengine.github.io/fifengine-docs/
-| Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifengine-docs
+| Resource                      | Format   | Language / Link
+| User Manual                   | HTML     | {USR-MAN-HTML-EN}
+| Developer Manual              | HTML     | {DEV-MAN-HTML-EN}
+| FAQ                           | HTML     | {FAQ-HTML}
+| C++ API Documentation         | HTML     | https://fifengine.github.io/fifengine/api/
+| Python API Documentation      | HTML     | https://fifengine.github.io/fifengine/api/python
+| Wiki                          | HTML     | https://github.com/fifengine/fifengine/wiki
+| Github Pages (fifengine)      | HTML     | https://fifengine.github.io/fifengine = https://wwww.fifengine.net/
+| Github Pages (fifengine-docs) | HTML     | https://fifengine.github.io/fifengine-docs/ = https://docs.fifengine.net/
+| Docs Repository               | ASCIIDOC | https://github.com/fifengine/fifengine-docs
 |====================
 
 :FIFEGUI-DEV-MAN-HTML-EN: https://fifengine.github.io/fifechan/docs/developer-manual/en/[EN]

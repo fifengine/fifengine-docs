@@ -64,6 +64,8 @@ include::chapter01_what-is-fifengine.adoc[]
 
 include::chapter02_getting-started.adoc[]
 
+include::chapter03_map-format-and-lighting.adoc[]
+
 :!sectnums:
 
 //include::appendix.adoc[]

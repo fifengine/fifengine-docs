@@ -1,6 +1,6 @@
 # Fifengine - Documentations
 
-image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="https://travis-ci.org/fifengine/fifengine-docs"]
+image:https://github.com/fifengine/fifengine-docs/actions/workflows/build-docs.yml/badge.svg?branch=master["Build Status", link="https://github.com/fifengine/fifengine-docs"]
 
 :USR-MAN-HTML-EN:   https://fifengine.github.io/fifengine-docs/user-manual/en/[EN]
 :DEV-MAN-HTML-EN:   https://fifengine.github.io/fifengine-docs/developer-manual/en/[EN]

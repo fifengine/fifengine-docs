@@ -13,7 +13,6 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 | Developer Manual         | HTML     | {DEV-MAN-HTML-EN}
 | FAQ                      | HTML     | {FAQ-HTML}
 | C++ API Documentation    | HTML     | http://www.ragingreality.com/doxygen/
-| C++ API Logs             | HTML     | http://www.ragingreality.com/doxygen/doxygen-log.txt
 | Python API Documentation | HTML     | http://www.ragingreality.com/epydoc/
 | Python API Logs          | HTML     | http://www.ragingreality.com/epydoc/epydoc-log.html
 | Wiki                     | HTML     | https://github.com/fifengine/fifengine/wiki
@@ -30,7 +29,6 @@ image:https://travis-ci.org/fifengine/fifengine-docs.svg["Build Status", link="h
 | Resource                 | Format   | Language / Link
 | Developer Manual         | HTML     | {FIFEGUI-DEV-MAN-HTML-EN}
 | C++ API Documentation    | HTML     | https://fifengine.github.io/fifechan/api/
-| C++ API Logs             | HTML     | https://fifengine.github.io/fifechan/api/doxygen-log.txt
 | Website (Github Pages)   | HTML     | https://fifengine.github.io/fifechan/
 | Docs Repository          | ASCIIDOC | https://github.com/fifengine/fifechan/tree/main/docs
 |====================

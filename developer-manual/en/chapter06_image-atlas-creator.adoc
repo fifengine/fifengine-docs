@@ -1,5 +1,7 @@
 == Image Atlas Creator
 
+NOTE: This chapter is under development and contains incomplete sections.
+
 The Image Atlas Creator allows users to combine multiple images into an image atlas. 
 This reduces the number of files you need to ship with your game and speeds up rendering!
 
@@ -9,7 +11,53 @@ You find the repo here: https://github.com/fifengine/fifengine-atlas-creator
 
 === Usage
 
-TODO
+==== GUI Mode
+
+Launch the application to open the graphical interface:
+
+[source,bash]
+----
+./atlas-creator
+----
+
+1. Click *Add Images* to select input images.
+2. Configure atlas settings (max size, padding, output format).
+3. Click *Generate* to create the atlas.
+4. Preview the result and save.
+
+==== Command-Line Mode
+
+For batch processing, use the command-line interface:
+
+[source,bash]
+----
+./atlas-creator --input images/ --output atlas.png --format png --max-size 2048
+----
+
+Options:
+
+[cols="1,3", options="header"]
+|===
+| Option | Description
+
+| `--input <dir>`
+| Directory containing source images
+
+| `--output <file>`
+| Output atlas image file
+
+| `--format <fmt>`
+| Output format: png, tga, bmp
+
+| `--max-size <px>`
+| Maximum atlas dimension (default: 4096)
+
+| `--padding <px>`
+| Padding between images in pixels (default: 1)
+
+| `--metadata <file>`
+| Output metadata XML file (default: <output>.xml)
+|===
 
 ==== Input
 
@@ -22,8 +70,40 @@ The supported Image File Types are:
 
 See https://github.com/fifengine/fifengine-atlas-creator/blob/9f0649131f34114b9f2fc90e4bdc17c493f544bf/src/mainwindow.cpp#L94-L98[Source]
 
-TODO
+Input images can be provided as:
+* A directory of images (processed recursively)
+* A list of individual files
+* A manifest file listing image paths
 
 ==== Output
 
-TODO
+The tool produces:
+
+* *Atlas image* — A single PNG/TGA/BMP containing all input images packed together.
+* *Metadata XML* — An XML file describing the position and size of each image within the atlas:
++
+[source,xml]
+----
+<atlas image="atlas.png">
+    <image name="hero_walk_0" x="0" y="0" width="32" height="32" />
+    <image name="hero_walk_1" x="32" y="0" width="32" height="32" />
+</atlas>
+----
+
+This metadata file is compatible with FIFE's object XML format and can be referenced directly in object definitions.
+
+==== Common Use Cases
+
+Create a sprite atlas from a directory of character sprites:
+
+[source,bash]
+----
+./atlas-creator --input sprites/hero/ --output hero_atlas.png --metadata hero_atlas.xml
+----
+
+Create a tile atlas with specific padding:
+
+[source,bash]
+----
+./atlas-creator --input tiles/ --output tileset.png --padding 2 --max-size 2048
+----

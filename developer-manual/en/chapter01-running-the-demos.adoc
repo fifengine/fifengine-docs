@@ -2,7 +2,65 @@
 
 The demos have their own git repository: https://github.com/fifengine/fifengine-demos
 
-Assuming that you have successfully built fife, 
+Assuming that you have successfully built fife,
 you will be able to change directory to one of the fife demos located in `<fifengine-demos>` and type: `python run.py`.
 
 NOTE: You might also run the demos by double-clicking the `run.py` file in your file browser. This requires python to be associated with .py files in order to work.
+
+==== Available Demos
+
+[cols="1,3", options="header"]
+|===
+| Demo | Description
+
+| *rio_de_hola*
+| The flagship demo. Shows isometric rendering, pathfinding, agent movement, and layered maps.
+
+| *pychan_demo*
+| Demonstrates the PyChan GUI toolkit: buttons, text fields, windows, and layouts.
+
+| *fife_test*
+| Minimal test case for engine initialization and basic map loading.
+|===
+
+==== Troubleshooting
+
+* *ImportError: No module named fife* — FIFE Python bindings are not installed or not on `PYTHONPATH`. Build FIFE first and ensure the bindings are accessible.
+
+* *SDL2 not found* — Install SDL2 development libraries for your platform (see build instructions for your OS).
+
+* *Black screen / no rendering* — Verify OpenGL drivers are installed. Try setting `RenderBackend=SDL` in the engine settings to use software rendering.
+
+* *Segfault on startup* — Often caused by mismatched FIFE library and demo versions. Ensure both are from the same commit or release.
+
+==== Creating a Minimal Project
+
+To create a minimal FIFE project from scratch:
+
+1. Create a directory for your project:
++
+[source,bash]
+----
+mkdir my-fife-game && cd my-fife-game
+----
+
+2. Create `run.py` with minimal engine initialization:
++
+[source,python]
+----
+import fife
+
+settings = fife.Settings()
+engine = fife.Engine(settings)
+engine.init()
+
+# Your game logic here
+
+engine.destroy()
+----
+
+3. Create a `settings.xml` file to configure the engine (see xref:chapter02-engine-settings.adoc[Engine Settings] for available options).
+
+4. Create an `objects/` directory for your game objects and a `maps/` directory for your map files.
+
+NOTE: For a complete working example, see the `rio_de_hola` demo in the fife-demos repository.

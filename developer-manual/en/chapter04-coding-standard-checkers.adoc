@@ -1,50 +1,211 @@
 === Coding Standard Checkers
 
-==== Formatting {cpp} code with Astyle
+The fifengine repository includes a `./build-tools` folder with scripts for running
+code quality checks. The tools listed below are also configured individually and
+can be run standalone.
 
-We use http://astyle.sourceforge.net/[ArtisticStye] (`astyle`) for coding style checks and automatical formatting of {cpp} source code.
-You find the https://github.com/fifengine/fifengine/blob/master/.astylerc[.astylerc] configuration file in the fifengine repository.
+==== {cpp} Tools
 
-**Installation of astyle**
+===== clang-format
 
-Linux:
+https://clang.llvm.org/docs/ClangFormat.html[clang-format] automatically formats {cpp}
+code according to the project style. Configuration is in `.clang-format` in the repository root.
+
+**Installation**
+
+[source,bash]
+----
+# Linux
+apt-get install clang-format
+
+# Mac
+brew install clang-format
+
+# Windows - included with Visual Studio or LLVM
+----
+
+**Usage**
+
+[source,bash]
+----
+# Format a single file
+clang-format -i engine/core/path/to/file.cpp
+
+# Format all changed files
+git diff --name-only | grep -E '\.(cpp|h)$' | xargs clang-format -i
+
+# Check without modifying (CI mode)
+clang-format --dry-run --Werror engine/core/path/to/file.cpp
+----
+
+===== clang-tidy
+
+https://clang.llvm.org/extra/clang-tidy/[clang-tidy] performs static analysis and
+modernization checks beyond formatting. Configuration is in `.clang-tidy` in the
+repository root.
+
+**Installation**
+
+[source,bash]
+----
+# Linux
+apt-get install clang-tidy
+
+# Mac
+brew install clang-tidy
+----
+
+**Usage**
+
+[source,bash]
+----
+# Analyze a file
+clang-tidy engine/core/path/to/file.cpp -- -std=c++17
+
+# Fix issues automatically where possible
+clang-tidy --fix engine/core/path/to/file.cpp -- -std=c++17
+----
+
+===== cppcheck
+
+http://cppcheck.sourceforge.net/[cppcheck] performs static analysis to find bugs,
+undefined behavior, and style issues.
+
+**Installation**
+
+[source,bash]
+----
+# Linux
+apt-get install cppcheck
+
+# Mac
+brew install cppcheck
+----
+
+**Usage**
+
+[source,bash]
+----
+# Check all engine source
+cppcheck --enable=all --suppress=missingIncludeSystem engine/core/
+
+# Check a single file
+cppcheck engine/core/path/to/file.cpp
+----
+
+===== cpplint
+
+https://github.com/cpplint/cpplint[cpplint] checks Google C++ style compliance.
+Useful as a quick lint pass.
+
+**Installation**
+
+[source,bash]
+----
+pip install cpplint
+----
+
+**Usage**
+
+[source,bash]
+----
+cpplint --recursive engine/core/
+----
+
+===== Astyle (legacy)
+
+http://astyle.sourceforge.net/[ArtisticStyle] (`astyle`) was used historically for
+formatting. It may still work but prefer `clang-format` for new work.
+Configuration is in `.astylerc`.
+
+**Installation**
 
 [source,bash]
 ----
 apt-get install astyle
 ----
 
-Windows:
-
-https://sourceforge.net/projects/astyle/files/astyle/
-
 **Usage**
 
-[source, bash]
+[source,bash]
 ----
-# Check style        
 astyle --recursive --options=.astylerc "engine/core/*.h" "engine/core/*.cpp"
 ----
 
-==== Formatting Python code with Pylint
+==== Python Tools
 
-We use the `pylint` for coding style checks and automatical formatting of Python source code.
-You find the https://github.com/fifengine/fifengine/blob/master/.pylintrc[.pylintrc] configuration file in the fifengine repository.
+Python tooling is configured in `pyproject.toml` at the repository root.
 
-**Installation of pylint**
+===== Ruff
 
-[source, bash]
+https://docs.astral.sh/ruff/[Ruff] is a fast linter that replaces flake8, isort,
+and other linting tools.
+
+**Installation**
+
+[source,bash]
 ----
-# Install pylint (installs pylint.exe in %PYTHON%\Scripts)
-python -m pip install pylint
+pip install ruff
 ----
-
-Test run: 
-
-`%PYTHON%\Scripts\pylint --version` 
 
 **Usage**
 
-To check all Python files in the folder `./engine/python/fife/` run:
+[source,bash]
+----
+# Lint all Python files
+ruff check engine/python/
 
-`- pylint --rcfile=.pylintrc ./engine/python/fife/`
+# Fix auto-fixable issues
+ruff check --fix engine/python/
+----
+
+===== Black
+
+https://black.readthedocs.io/[Black] is an uncompromising code formatter.
+
+**Installation**
+
+[source,bash]
+----
+pip install black
+----
+
+**Usage**
+
+[source,bash]
+----
+# Format all Python files
+black engine/python/
+
+# Check without modifying (CI mode)
+black --check engine/python/
+----
+
+===== mypy
+
+https://mypy.readthedocs.io/[mypy] performs static type checking for Python.
+
+**Installation**
+
+[source,bash]
+----
+pip install mypy
+----
+
+**Usage**
+
+[source,bash]
+----
+# Type check all Python files
+mypy engine/python/
+
+# Check a single file
+mypy engine/python/fife/module.py
+----
+
+==== Build Tools Scripts
+
+The `./build-tools` directory in the fifengine repository contains wrapper scripts
+that run the above checkers. Consult that folder for the exact scripts available
+and their usage. These scripts are typically used in CI and can also be run locally
+before submitting pull requests.

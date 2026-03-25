@@ -1,0 +1,140 @@
+=== Source Code Architecture
+
+This section describes the FIFE engine from a developer's perspective — how the source is organized, how modules depend on each other, and what build artifacts are produced.
+
+==== Source Directory Layout
+
+The FIFE repository is organized as follows:
+
+[source]
+----
+fifengine/
+├── engine/
+│   ├── core/           # C++ engine core (rendering, model, audio, pathfinding, VFS)
+│   │   ├── video/      # Rendering subsystem (backends, renderers, camera)
+│   │   ├── model/      # Data model (maps, layers, instances, objects)
+│   │   ├── audio/      # Audio subsystem (OpenAL integration)
+│   │   ├── pathfinder/ # Pathfinding algorithms (A*, cell-based routing)
+│   │   ├── vfs/        # Virtual filesystem (asset loading, archives)
+│   │   ├── eventchannel/ # Event system (input, timers, listeners)
+│   │   ├── gui/        # FifeChan GUI integration
+│   │   └── util/       # Shared utilities (logger, settings, math)
+│   ├── python/         # SWIG interface files and Python-specific wrappers
+│   │   └── fife/       # PyChan and Python extension module
+│   └── swigwraps/      # SWIG .i interface files for each subsystem
+├── dependencies/       # Dependency build scripts (CMakeLists.txt, get-*.cmake)
+├── cmake/              # CMake modules and helper scripts
+├── doc/                # Generated documentation output
+└── tests/              # Test suite
+----
+
+==== Module Boundaries
+
+The engine is divided into loosely coupled modules within `engine/core/`. Each module has a clear responsibility:
+
+[cols="1,3", options="header"]
+|===
+| Module | Responsibility
+
+| *video*
+| Rendering pipeline, backend abstraction (SDL2/OpenGL), camera, renderers
+
+| *model*
+| Game world representation: maps, layers, instances, objects, coordinates
+
+| *audio*
+| Sound playback via OpenAL, sound clip management
+
+| *pathfinder*
+| Cell-based pathfinding (A*, graph algorithms), route planning
+
+| *vfs*
+| Virtual filesystem abstraction for loading assets from disk or archives
+
+| *eventchannel*
+| Event dispatching, input handling, listener registration
+
+| *gui*
+| FifeChan widget integration, PyChan Python wrapper
+
+| *util*
+| Logger, settings parser, math utilities, exception handling
+|===
+
+Modules communicate through well-defined interfaces. The `model` module does not depend on `video`, and `pathfinder` does not depend on `audio`. Cross-cutting concerns (logging, settings) are in `util` and used by all modules.
+
+==== Layer Stack
+
+From a code perspective, the engine is layered:
+
+----
+Game Client (Python or C++)
+        │
+        ▼
+┌───────────────────────────────────┐
+│  SWIG Python Bindings             │  ← Generated from .i files in engine/swigwraps/
+├───────────────────────────────────┤
+│  PyChan (Python FifeChan Wrapper) │  ← engine/python/fife/
+├───────────────────────────────────┤
+│  FIFE Core (C++)                  │  ← engine/core/
+├───────────────────────────────────┤
+│  FifeChan (C++ GUI Library)       │  ← External dependency
+├───────────────────────────────────┤
+│  SDL2 (Graphics, Input, Audio)    │  ← External dependency
+└───────────────────────────────────┘
+----
+
+Each layer only depends on the layer below it. Game code can call either the Python API (via SWIG) or the native C++ API directly.
+
+==== Build Artifacts
+
+Depending on CMake options, the build produces:
+
+[cols="1,2,1", options="header"]
+|===
+| Artifact | Description | CMake Option
+
+| `libfife.so` / `fife.dll`
+| Shared C++ library for native game clients
+| `-Dbuild-library=ON`
+
+| `_fife.so` / `_fife.pyd`
+| Python extension module (SWIG-generated wrapper)
+| Default (always built)
+
+| `libfifechan.so` / `fifechan.dll`
+| FifeChan GUI library (external dependency)
+| Built separately
+|===
+
+When `-Dbuild-library=OFF`, only the Python extension is built (linked statically against the engine core).
+
+==== Threading Model
+
+FIFE uses a single-threaded model for the main game loop:
+
+1. The game client calls `engine.initializePump()` once at startup
+2. Each frame, the client calls `engine.pump()` which processes:
+   - Input events
+   - Model updates (instance logic, animation ticks)
+   - Pathfinding requests (queued, processed incrementally)
+   - Rendering
+3. The client calls `engine.finalizePump()` on shutdown
+
+Pathfinding is the only operation that can be offloaded to a background thread (via `RoutePather::setAsync(true)`), but results must be consumed on the main thread.
+
+NOTE: The engine is not thread-safe. All API calls must originate from the thread that created the engine instance.
+
+==== Memory Ownership
+
+FIFE follows these ownership patterns:
+
+* *Engine owns subsystems* — `Engine` owns and manages the lifecycle of all subsystems (renderer, model, audio, etc.). Do not delete subsystem pointers.
+
+* *Model owns maps* — `Model` owns all `Map` objects. Maps own their `Layer` objects, and layers own their `Instance` objects. Use `deleteMap()`, `deleteLayers()`, `deleteInstance()` to remove.
+
+* *Instances own references* — An `Instance` does not own its `Object` template. Objects are managed by the model's object registry.
+
+* *SWIG manages Python wrappers* — SWIG generates reference-counted Python wrappers. The Python garbage collector releases them when they go out of scope. Avoid holding raw C++ pointers across Python/C++ boundaries.
+
+* *Resource managers own cached assets* — `ImageManager`, `AnimationManager`, and `SoundClipManager` cache loaded resources. Release unused resources explicitly to free memory.

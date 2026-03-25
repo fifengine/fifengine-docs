@@ -1,0 +1,78 @@
+=== Map Format Internals
+
+This section documents the FIFE map format from a code perspective — how maps are structured, loaded, and extended.
+
+==== XML Map File Schema
+
+FIFE maps are stored as XML files. The basic structure:
+
+[source,xml]
+----
+<Map id="mymap" version="1">
+    <Metadata>
+        <Author name="developer" />
+    </Metadata>
+    <Settings>
+        <Setting name="some_setting" type="int">42</Setting>
+    </Settings>
+    <Elevations>
+        <Elevation id="0">
+            <Layers>
+                <Layer id="ground_layer" grid_type="square" pathing="cell_edges_only">
+                    <Instances>
+                        <Instance object="tree" x="5" y="3" />
+                    </Instances>
+                </Layer>
+            </Layers>
+        </Elevation>
+    </Elevations>
+</Map>
+----
+
+==== Object/Atlas XML Format
+
+Objects are defined in separate XML files and loaded by `ObjectLoader`:
+
+[source,xml]
+----
+<assets>
+    <object id="tree" namespace="trees">
+        <image source="tree.png" />
+        <pivot x="0.5" y="1.0" />
+        <blocking block="true" />
+    </object>
+</assets>
+----
+
+Image atlases group multiple images:
+
+[source,xml]
+----
+<atlas image="spritesheet.png">
+    <image x="0" y="0" width="32" height="32" name="frame_0" />
+    <image x="32" y="0" width="32" height="32" name="frame_1" />
+</atlas>
+----
+
+==== MapLoader and MapSaver
+
+The `MapLoader` class handles loading maps from XML:
+
+1. Parses the XML using TinyXML2
+2. Creates `Map` object with given ID
+3. Iterates `<Elevation>` elements, creating elevations
+4. For each elevation, iterates `<Layer>` elements, creating layers with specified grid type
+5. For each layer, iterates `<Instance>` elements, creating instances by resolving object references
+
+The `MapSaver` class writes maps back to XML, serializing the in-memory model.
+
+==== Extending the Map Format
+
+To add custom data to the map:
+
+1. Add a new XML element under `<Map>`, `<Elevation>`, or `<Layer>`.
+2. Modify `MapLoader` to parse the new element.
+3. Store the parsed data in the appropriate model object (e.g., `Map::setCustomData()`).
+4. Modify `MapSaver` to serialize the custom data back.
+
+NOTE: For user-facing map documentation, see the https://fifengine.github.io/fifengine-docs/user-manual/en/#_working_with_maps[User Manual - Working with Maps].

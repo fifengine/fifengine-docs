@@ -1,5 +1,23 @@
 == Engine
 
+NOTE: This chapter is under development. See the user-manual for detailed API documentation.
+
+The FIFE engine is the core C++ library that provides all game engine functionality.
+It handles rendering, audio, input, pathfinding, and the model system.
+
+For game developers using FIFE, see the https://fifengine.github.io/fifengine-docs/user-manual/en/[User Manual] for API usage.
+For engine developers extending FIFE, this chapter covers the internal architecture and extension points.
+
+include::chapter02-source-code-architecture.adoc[]
+
+include::chapter02-engine-internals.adoc[]
+
+include::chapter02-cpp-development-patterns.adoc[]
+
+include::chapter02-python-bindings.adoc[]
+
+include::chapter02-map-format-internals.adoc[]
+
 === Overview Diagram
 
 include::chapter02-engine-overview-diagram.adoc[]

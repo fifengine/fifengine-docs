@@ -1,17 +1,75 @@
 [preface]
 == Getting Started
 
-Flexible Isometric Free Engine (FIFE) is a multi-platform isometric game engine written in C++. 
-It comes with Python bindings allowing users to create games using Python as well as C++. 
+Flexible Isometric Free Engine (FIFE) is a multi-platform isometric game engine written in C++.
+It comes with Python bindings allowing users to create games using Python as well as C++.
 The engine is extendable and enables you to add any feature you can imagine to your project.
-It’s a very flexible game creation framework and not tied to any genre, but geared towards an RTS or RPG using an isometric or top-down view style.
+It's a very flexible game creation framework and not tied to any genre, but geared towards an RTS or RPG using an isometric or top-down view style.
 
 The developer manual offers programmers documentation and examples useful in working with fifengine.
+
+=== Prerequisites
+
+To work with FIFE effectively, you should be familiar with:
+
+* *C++17* — the engine core is written in C++; knowledge of modern C++ features is expected
+* *Python 3* — for scripting and binding development
+* *CMake* — used as the build system for all platforms
+* *Basic game engine concepts* — entity/component patterns, rendering pipelines, event systems
+
+=== System Requirements
+
+[cols="1,1,1,1", options="header"]
+|===
+| Resource | Windows | Linux | macOS
+
+| OS
+| Windows 10+
+| Ubuntu 20.04+, Fedora 36+, Arch
+| macOS 12+
+
+| Disk Space
+| ~2 GB (with dependencies)
+| ~1.5 GB
+| ~1.5 GB
+
+| RAM
+| 4 GB minimum, 8 GB recommended
+| 4 GB minimum, 8 GB recommended
+| 4 GB minimum, 8 GB recommended
+|===
+
+=== Recommended IDE Setup
+
+==== Visual Studio Code (all platforms)
+
+Install these extensions for FIFE development:
+
+* *C/C++* (ms-vscode.cpptools) — IntelliSense and debugging
+* *CMake Tools* (ms-vscode.cmake-tools) — CMake integration
+* *Python* (ms-python.python) — Python support
+* *Clangd* (llvm-vs-code-extensions.vscode-clangd) — advanced C++ linting
+
+==== Visual Studio (Windows)
+
+Use Visual Studio 2022 Community or later. Open the CMake project directly or generate a solution with CMake.
+
+==== CLion (all platforms)
+
+Open the repository root. CLion auto-detects CMakeLists.txt and configures the project.
 
 === What's in the Manual
 
 This manual will cover all aspects of custom development with fifengine:
 
-  - the compilation of fife
-  - the engine 
-  - the Programming Style Guide explains the programming style and coding standards used
+  - the compilation of FIFE (Part I)
+  - the engine architecture and internals (Part II)
+  - developing with FIFE: C++, Python bindings, map format (Part III)
+  - contributing: workflow, coding standards, testing, releases (Part IV)
+  - tools and reference: dependencies, glossary (Part V)
+
+=== Related Documentation
+
+  - https://fifengine.github.io/fifengine-docs/user-manual/en/[User Manual] — covers game development with FIFE (rendering, model, audio, input, GUI, pathfinding, VFS)
+  - https://fifengine.github.io/fifengine/api/[C++ API Documentation] — generated Doxygen docs
+  - https://fifengine.github.io/fifengine/api/python[Python API Documentation] — generated Python API docs

@@ -1,0 +1,80 @@
+=== C++ Development Patterns
+
+This section covers common patterns for extending and developing with the FIFE engine in C++.
+
+==== Extending FIFE Classes
+
+FIFE uses virtual methods and interfaces for extensibility. Common patterns:
+
+* *Subclass and override* — Create a derived class and override virtual methods (e.g., `RendererBase`, `MouseListener`).
+* *Register your implementation* — Pass your subclass to the appropriate manager or subsystem.
+* *Use existing patterns* — Follow the observer/listener pattern for events, the manager pattern for resources.
+
+==== Implementing a Custom Renderer
+
+To create a custom renderer:
+
+1. Subclass `fife::RendererBase`:
++
+[source,cpp]
+----
+class MyRenderer : public fife::RendererBase {
+public:
+    MyRenderer() : fife::RendererBase("MyRenderer") {}
+    void render(fife::RenderBackend& backend, fife::Layer* layer) override {
+        // Custom rendering logic
+    }
+};
+----
+
+2. Register with the view:
++
+[source,cpp]
+----
+view->addRenderer(new MyRenderer());
+----
+
+==== Adding a New Pathfinder Algorithm
+
+1. Create a new class in `engine/core/pathfinder/` inheriting from the pathfinder interface.
+2. Implement the search method (A*, Dijkstra, etc.).
+3. Register in the pathfinder router so it can be selected via `RoutePather::setPathingStrategy()`.
+
+==== Adding a New Resource Type
+
+1. Create a resource class (e.g., `MyResource`) with load/release methods.
+2. Create a manager class (`MyResourceManager`) following the pattern of `ImageManager`.
+3. Register the manager in the engine initialization.
+
+==== Key Internal Classes
+
+[cols="1,3", options="header"]
+|===
+| Class | Purpose
+
+| `Engine`
+| Entry point; owns all subsystems, manages lifecycle
+
+| `Model`
+| Game world container; owns maps, layers, instances
+
+| `Map`
+| A single game map; owns layers and cameras
+
+| `Layer`
+| A grid of instances; provides spatial queries
+
+| `Instance`
+| A placed object in the world; has position, rotation, animation
+
+| `Object`
+| Template/archetype defining instance properties
+
+| `RendererBase`
+| Base class for all renderers
+
+| `View`
+| Manages cameras and renderer pipeline
+|===
+
+For the complete API, see the https://fifengine.github.io/fifengine/api/[C++ API Documentation].

@@ -1,0 +1,98 @@
+=== Python Bindings & SWIG Workflow
+
+This section explains how the Python bindings are generated and how to work with them as an engine developer.
+
+==== SWIG Interface File Structure
+
+SWIG interface files (`.i`) define which C++ declarations are exposed to Python. Each file follows this structure:
+
+[source,swig]
+----
+%module fife
+
+%{
+#include "core/model/model.h"
+#include "core/video/renderbackend.h"
+// ... other headers
+%}
+
+%include "core/model/model.h"
+%include "core/video/renderbackend.h"
+// ... other includes
+----
+
+The `%{ ... %}` block contains C++ code inserted into the generated wrapper (typically `#include` directives). The `%include` directives tell SWIG which headers to wrap.
+
+==== Exposing New C++ Methods
+
+To expose a new C++ method to Python:
+
+1. Add the method to the C++ header with proper documentation.
+2. Find the corresponding `.i` file in `engine/swigwraps/`.
+3. Add a `%include` for the header if not already present:
++
+[source,swig]
+----
+%include "core/mysubsystem/mynewclass.h"
+----
+4. If the method returns a newly allocated object, add `%newobject`:
++
+[source,swig]
+----
+%newobject Model::createMap;
+----
+5. Rebuild the project. CMake automatically regenerates the Python wrapper.
+
+==== Python-Specific Quirks
+
+==== Memory Ownership
+
+SWIG generates reference-counted Python wrappers. Key rules:
+
+* Objects returned by value are copied — Python owns the copy.
+* Objects returned by pointer are owned by C++ unless `%newobject` is specified.
+* Holding a C++ pointer after the owning object is deleted causes undefined behavior.
+
+==== Method Naming
+
+SWIG converts C++ method names to Python conventions:
+* `getSomething()` → `getSomething()` (unchanged by default)
+* Use `%rename` to customize: `%rename("get_something") getSomething;`
+
+==== Enum Handling
+
+C++ enums become Python classes with integer values:
+
+[source,python]
+----
+# Access enum values
+render_backend = fife.RenderBackendOpenGL
+----
+
+==== List vs Vector
+
+`std::vector<T>` is automatically converted to Python lists. Return types of `std::vector<T>` become Python lists.
+
+==== Writing Python Extensions
+
+To write a Python extension that integrates with the engine:
+
+1. Import the FIFE module:
++
+[source,python]
+----
+import fife
+----
+2. Use the engine API as documented in the https://fifengine.github.io/fifengine/api/python[Python API Documentation].
+3. Register callbacks and event listeners using the provided interfaces.
+
+==== PyChan for Engine Developers
+
+PyChan wraps FifeChan widgets for Python. Engine developers working on PyChan:
+
+* Source location: `engine/python/fife/extensions/pychan/`
+* Each widget class wraps a corresponding C++ `fife::fifechan::Widget` subclass
+* Properties are exposed via SWIG getters/setters
+* Signal/slot connections use Python callbacks
+
+NOTE: For game developer usage of PyChan, see the https://fifengine.github.io/fifengine-docs/user-manual/en/[User Manual - GUI chapter].

@@ -1,5 +1,7 @@
 ## Fife Windows SDK
 
+NOTE: This chapter contains incomplete sections marked with TODO.
+
 The Fife Windows SDK is a collection of software development tools for working with Fifengine.
 
 The Fife SDK installer build scripts fetch all required packages for working with fifengine, 
@@ -57,19 +59,46 @@ with all the components we want to ship, ready for inclusion into the installer.
 
 #### 1-download
 
-todo
+The `1-download.bat` script downloads all required software components. It uses `aria2` (a lightweight download utility) to fetch:
+
+* Pre-built FIFE dependencies (SDL2, SDL2_image, SDL2_ttf, SDL2_mixer, OpenAL, etc.)
+* Build tools (CMake, SWIG, Python)
+* FifeChan library
+
+Downloads are fetched from:
+* GitHub releases and official project websites
+* Appveyor artifact storage (for pre-built dependencies)
+
+The download list is defined in `download-lists/fifengine.txt` and `download-lists/fifengine-build-tools.txt`. Each line specifies a URL and target filename.
 
 #### 2-extract
 
-todo
+The `2-extract.bat` script extracts downloaded archives using `7zip` (`7z.exe`). It:
+
+* Extracts `.zip`, `.7z`, and `.tar.gz` archives
+* Organizes extracted files into the expected directory structure
+* Renames versioned directories to consistent names (e.g., `SDL2-2.28.0` → `SDL2`)
 
 #### 3-copy
 
-todo
+The `3-copy.bat` script copies files into the SDK staging directory:
+
+* Copies header files to `include/`
+* Copies library files to `lib/`
+* Copies DLLs to `bin/`
+* Copies Python runtime and bindings
+* Copies CMake modules and build scripts
+* Copies documentation and examples
 
 #### 4-stripdown
 
-todo
+The `3-stripdown.bat` script removes unnecessary files to reduce installer size:
+
+* Removes debug symbols and PDB files from Release builds
+* Removes source code files (`.cpp`, `.c`) — only headers and libraries are shipped
+* Removes unused platform-specific files (e.g., Linux `.so` files on Windows)
+* Removes documentation source files (only generated docs are included)
+* Strips redundant copies of shared libraries
 
 ### Building the Installer (build_script)
 

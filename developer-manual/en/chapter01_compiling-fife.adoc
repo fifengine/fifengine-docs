@@ -3,7 +3,7 @@
 Compiling Fifengine is a complicated and time consuming task.
 This chapter explains how to setup a compilation environment for Fife.
 
-You'll find detailed setup steps for fifengine on the operating systems Linux, Windows and Mac.
+You'll find detailed setup steps for fifengine on the operating systems Windows, Linux and Mac.
 
 The individual subchapters have the same structure:
 
@@ -15,9 +15,9 @@ Thirdly, we'll show how to build fifengine itself.
 
 Without further ado, let's get started.
 
-include::chapter01-building-fifengine-on-linux.adoc[]
-
 include::chapter01-building-fifengine-on-windows.adoc[]
+
+include::chapter01-building-fifengine-on-linux.adoc[]
 
 include::chapter01-building-fifengine-on-mac.adoc[]
 

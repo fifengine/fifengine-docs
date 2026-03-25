@@ -1,0 +1,212 @@
+== Testing & Debugging
+
+This chapter covers how to test and debug the FIFE engine itself.
+
+=== Building and Running Tests
+
+FIFE uses Catch2 for C++ unit tests and pytest for Python tests.
+
+==== C++ Tests (Catch2)
+
+To build and run C++ tests:
+
+[source,bash]
+----
+cd _build
+cmake -DBUILD_TESTS=ON ..
+cmake --build .
+./tests/fife_tests
+----
+
+To run specific test cases:
+
+[source,bash]
+----
+./tests/fife_tests "[model]"     # Run only model tests
+./tests/fife_tests "[video]"     # Run only video tests
+./tests/fife_tests -s            # Show successful tests
+----
+
+==== Python Tests
+
+To run Python tests:
+
+[source,bash]
+----
+cd tests
+python -m pytest
+----
+
+To run with verbose output:
+
+[source,bash]
+----
+python -m pytest -v
+----
+
+=== Writing New Unit Tests
+
+==== C++ Test Structure
+
+Create test files in `tests/` following the Catch2 pattern:
+
+[source,cpp]
+----
+#include <catch2/catch_test_macros.hpp>
+#include "core/model/model.h"
+
+TEST_CASE("Map creation", "[model]") {
+    fife::Model model;
+    fife::Map* map = model.createMap("test_map");
+    REQUIRE(map != nullptr);
+    REQUIRE(map->getId() == "test_map");
+    model.deleteMap(map);
+}
+----
+
+==== Python Test Structure
+
+Create test files in `tests/` following the pytest pattern:
+
+[source,python]
+----
+import fife
+import pytest
+
+def test_engine_init():
+    settings = fife.Settings()
+    engine = fife.Engine(settings)
+    engine.init()
+    assert engine.getModel() is not None
+    engine.destroy()
+----
+
+=== Debugging Setup
+
+==== Visual Studio (Windows)
+
+1. Open the CMake-generated `.sln` file in Visual Studio.
+2. Set the startup project to your test executable or demo.
+3. Set breakpoints in C++ code.
+4. Press F5 to start debugging.
+
+For Python/C++ mixed debugging, use the Python Tools for Visual Studio (PTVS) extension.
+
+==== VS Code (all platforms)
+
+Install extensions:
+* *C/C++* for C++ debugging
+* *Python* for Python debugging
+* *CMake Tools* for CMake integration
+
+Create `.vscode/launch.json`:
+
+[source,json]
+----
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug FIFE Tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/_build/tests/fife_tests",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "environment": []
+        }
+    ]
+}
+----
+
+==== CLion / KDevelop (Linux)
+
+Open the repository root. CLion auto-detects CMake and provides integrated debugging. For KDevelop, import the CMake project and configure the run configuration.
+
+==== Xcode (Mac)
+
+Generate an Xcode project:
+
+[source,bash]
+----
+cmake -G Xcode ..
+open fifengine.xcodeproj
+----
+
+Set breakpoints and use Xcode's integrated debugger.
+
+=== Common Debugging Scenarios
+
+==== Breakpoints Across C++/Python Boundary
+
+To debug C++ code called from Python:
+
+1. Set breakpoints in the C++ code.
+2. Run the Python script with the debugger attached.
+3. When Python calls into C++ (via SWIG), the debugger will hit the breakpoint.
+
+==== Memory Issues
+
+* Use *Valgrind* (Linux) to detect memory leaks:
++
+[source,bash]
+----
+valgrind --leak-check=full ./tests/fife_tests
+----
+
+* Use *AddressSanitizer* for faster detection:
++
+[source,bash]
+----
+cmake -DCMAKE_CXX_FLAGS="-fsanitize=address" ..
+----
+
+==== Rendering Pipeline Issues
+
+* Enable debug logging for the video module:
++
+[source,xml]
+----
+<Setting name="LogModules" type="str">video</Setting>
+<Setting name="LogLevelFilter" type="int">0</Setting>
+----
+
+* Use `RenderBackend::captureScreen()` to save frame snapshots.
+
+=== Profiling and Performance Analysis
+
+==== Linux (perf)
+
+[source,bash]
+----
+perf record ./tests/fife_tests
+perf report
+----
+
+==== macOS (Instruments)
+
+Use Xcode Instruments for CPU, memory, and GPU profiling:
+
+[source,bash]
+----
+xcodebuild -scheme fife_tests -configuration Release
+instruments -t "Time Profiler" ./build/Release/fife_tests
+----
+
+==== Windows (Visual Studio Profiler)
+
+Use the Performance Profiler in Visual Studio (Debug → Performance Profiler).
+
+=== Logging as a Debugging Tool
+
+The logging system can be configured at runtime:
+
+[source,python]
+----
+import fife
+log = fife.LogManager.instance()
+log.setLogLevelFilter(fife.LOG_LEVEL_DEBUG)
+log.setModules("controller;video;model")
+----
+
+Log levels: `LOG_DEBUG`, `LOG_LOG`, `LOG_WARN`, `LOG_ERROR`, `LOG_PANIC`

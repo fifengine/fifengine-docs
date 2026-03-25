@@ -25,54 +25,54 @@ Content::
 Contributor::
     Contributors are people working on FIFE on an occasional basis. Contributors have no write access to the FIFE Git repositories. Collaboration is done by forking a repository and sending patches back to the upstream repository via a Github pull request.
 Dataset::
-    TODO
+    A collection of related content files (objects, maps, media) that form a complete or modular part of a game project.
 Developer::
    Developers are people working on FIFE on a regular basis. They have write access to the FIFE Git repositories.
 Elevation::   
     Map consists of elevations. Elevation can be thought as a floor in case you think map being a building. Each map has to have at least one elevation.
-Event:: 
-    TODO
+Event::
+    An action or occurrence detected by the engine, such as mouse clicks, key presses, or timer ticks. Events are dispatched through the listener/callback system.
 FifeChan::
     FifeChan is a C++ GUI library (libfifechan). It's the successor of GuiChan. The pythonic binding to the C++ API is called PyChan.
 Game creator::
    A single person or a whole team of individuals who create a FIFE-based game.
-Gamma level:: 
-    TODO
-Geometry:: 
-    TODO 
+Gamma level::
+    A display setting that controls the brightness curve of rendered output. Used to adjust visual appearance across different monitors.
+Geometry::
+    The shape and structure defining how cells are arranged on a layer. FIFE supports square and hexagonal grid geometries. 
 Gid::
  Graphical ID. Used to uniquely identify any piece of graphic inside a set of related xml-file fragments.
-Grid::   
-    TODO 
-Layer::  
-    TODO
-Location::  
-    TODO 
+Grid::
+    A coordinate system that defines how cells are arranged on a layer. Grids determine adjacency, pathfinding connectivity, and cell dimensions. 
+Layer::
+    A grid of cells containing game instances. Layers organize game objects by type (e.g., ground, units, effects) and can have different properties like walkability and transparency.
+Location::
+    A position in the game world specified by a layer and coordinates (either integer cell or floating-point exact position). Used for pathfinding and spatial queries. 
 Map:: 
     World presentation from FIFE perspective. See Map model.
-Metamodel:: 
-    TODO  
-Model::  
-    TODO
-Object::  
-    TODO
-Offset:: 
-    TODO
-Palette:: 
-    TODO
+Metamodel::
+    The template/definition layer that describes object types, their properties, and visual representations before instances are placed in the game world.  
+Model::
+    The core data structure that represents the game world. Contains maps, which contain layers, which contain instances.
+Object::
+    A template or archetype that defines properties (visual, behavior, metadata) shared by all instances created from it. Objects are defined in XML and loaded into the model.
+Offset::
+    A displacement value applied to rendering position, often used to adjust where sprites or tiles appear relative to their logical cell coordinates.
+Palette::
+    A limited color set used for indexed-color image formats. Allows efficient color replacement and recoloring of sprites.
 PyChan::
     PyChan is the pythonic binding to the C++ API of the GUI library FifeChan.
 Spritesheet animation::
     Specific type of atlas that represents only one action (animations for all defined directions). Typically, it's one direction per row, one frame per column.
 Tid:: 
     Tile ID. Same as Gid, but used only for tile related graphics.
-Tile:: 
-    TODO   
-Tileset:: 
-    TODO
+Tile::
+    A single cell graphic used for map rendering. Tiles are typically arranged in tilesets and referenced by their tile ID (Tid).   
+Tileset::
+    A collection of tile images organized for map rendering. Tilesets group related tiles and define their dimensions and properties.
 User::
 The term user is often utilized for expressing that the respective person is neither a developer nor a contributor of the development team.
 Visual::
-    TODO 
-View::  
-    TODO  
+    The visual representation data associated with an object, including images, animations, and rendering parameters like offset and transparency. 
+View::
+    The rendered perspective of the game world as seen through a camera. The view determines what portion of the map is visible and how it is projected onto the screen.  

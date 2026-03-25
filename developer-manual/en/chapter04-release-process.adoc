@@ -1,0 +1,110 @@
+== Release Process
+
+This chapter documents how FIFE releases are created and published.
+
+=== Versioning Scheme
+
+FIFE uses semantic versioning (semver): `MAJOR.MINOR.PATCH`
+
+* *MAJOR* — Incompatible API changes
+* *MINOR* — New functionality in a backwards-compatible manner
+* *PATCH* — Backwards-compatible bug fixes
+
+Example: `0.5.0` → `0.5.1` (patch) → `0.6.0` (minor)
+
+=== Release Checklist
+
+Before creating a release:
+
+1. [ ] All tests pass (C++ Catch2 tests, Python pytest tests)
+2. [ ] Documentation is updated for new features
+3. [ ] CHANGELOG.md is updated with release notes
+4. [ ] Version number is bumped in CMakeLists.txt
+5. [ ] Build succeeds on all platforms (Windows, Linux, macOS) via CI
+6. [ ] No regressions in demos (rio_de_hola, pychan_demo)
+
+=== CI/CD Pipeline
+
+FIFE uses GitHub Actions for continuous integration.
+
+==== GitHub Actions
+
+The CI workflow runs on every push and pull request:
+
+* Builds C++ code on Linux (GCC, Clang)
+* Runs Catch2 unit tests
+* Runs Python tests
+* Builds documentation
+
+Configuration: `.github/workflows/` in the repository.
+
+==== Appveyor
+
+Appveyor builds Windows binaries:
+
+* Compiles with MSVC
+* Creates the Windows SDK installer
+* Publishes build artifacts
+
+Configuration: `appveyor.yml` in the repository.
+
+=== Creating a Release
+
+1. Create a release branch from `master`:
++
+[source,bash]
+----
+git checkout -b release/0.6.0 master
+----
+
+2. Update version in `CMakeLists.txt`:
++
+[source,cmake]
+----
+set(FIFE_VERSION_MAJOR 0)
+set(FIFE_VERSION_MINOR 6)
+set(FIFE_VERSION_PATCH 0)
+----
+
+3. Update `CHANGELOG.md` with release notes.
+
+4. Commit and tag:
++
+[source,bash]
+----
+git add -A
+git commit -m "Release 0.6.0"
+git tag v0.6.0
+git push origin v0.6.0
+----
+
+5. Create a GitHub Release from the tag with release notes.
+
+6. CI builds artifacts automatically. Download and attach to the release.
+
+=== Changelog Format
+
+`CHANGELOG.md` follows this format:
+
+[source,markdown]
+----
+# Changelog
+
+## [0.6.0] - 2026-03-25
+
+### Added
+- New feature X
+- New feature Y
+
+### Changed
+- Improved performance of Z
+
+### Fixed
+- Bug fix A
+- Bug fix B
+
+### Removed
+- Deprecated feature C
+----
+
+Group changes by category: Added, Changed, Fixed, Removed.

@@ -98,18 +98,6 @@ cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 sudo cmake --install .
 ----
-git clone https://github.com/fifengine/fifechan.git && cd fifechan
-----
-
-[source,bash]
-----
-mkdir _build; cd _build; cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-----
-
-[source,bash]
-----
-make && sudo make install
-----
 
 ==== Building Fifengine
 

@@ -115,6 +115,29 @@ map_coords = location.getMapCoordinates()
 print(f"Map: ({map_coords.x}, {map_coords.y}, {map_coords.z})")
 ----
 
+==== Coordinate Mapping Between Layers
+
+Convert coordinates to a different layer:
+
+[source,python]
+----
+# Get exact coordinates mapped to a specific layer
+other_exact = location.getExactLayerCoordinates(target_layer)
+
+# Get cell coordinates mapped to a specific layer
+other_cell = location.getLayerCoordinates(target_layer)
+----
+
+==== Cell Offset Distance
+
+Get the offset from the nearest cell center:
+
+[source,python]
+----
+offset = location.getCellOffsetDistance()
+# Returns distance between exact position and cell center
+----
+
 ==== Checking Location Validity
 
 A location is valid if:
@@ -281,3 +304,100 @@ camera.setZToY(32)          # 1 z-unit = 32 y-pixels
 ----
 
 Understanding these coordinate systems is key to working with FIFE's rendering and input systems effectively.
+
+=== Point Utilities
+
+The `Point` and `Point3D` classes provide vector math utilities.
+
+==== Point2D Operations
+
+[source,python]
+----
+p = fife.Point(3, 4)
+
+# Vector operations
+p2 = p + fife.Point(1, 2)   # (4, 6)
+p3 = p - fife.Point(1, 1)   # (2, 3)
+p4 = p * 2                   # (6, 8)
+p5 = p / 2                   # (1, 2)
+
+# Length (magnitude)
+length = p.length()  # 5.0
+
+# Normalize to unit vector
+p.normalize()
+
+# Rotate around origin (degrees)
+p.rotate(90)
+
+# Rotate around a specific point
+origin = fife.Point(0, 0)
+p.rotate(origin, 45)
+
+# Set coordinates
+p.set(10, 20)
+----
+
+==== Point3D Operations
+
+[source,python]
+----
+p = fife.Point3D(1, 2, 3)
+
+# Same operations as Point2D, plus z-component
+length = p.length()
+p.normalize()
+p.set(10, 20, 30)
+----
+
+==== Type Conversions
+
+Convert between integer and double point types:
+
+[source,python]
+----
+# Double to int (rounds)
+int_point = fife.doublePt2intPt(double_point)
+
+# Int to double
+double_point = fife.intPt2doublePt(int_point)
+----
+
+==== Typedefs
+
+[horizontal]
+*Point*:: `PointType2D<int32_t>` - 2D integer point
+*DoublePoint*:: `PointType2D<double>` - 2D double point
+*Point3D*:: `PointType3D<int32_t>` - 3D integer point
+*DoublePoint3D*:: `PointType3D<double>` - 3D double point
+
+=== Rect Utilities
+
+The `Rect` class provides rectangle operations for screen areas:
+
+[source,python]
+----
+rect = fife.Rect(x, y, width, height)
+
+# Edge coordinates
+right = rect.right()    # x + width
+bottom = rect.bottom()  # y + height
+
+# Point containment
+if rect.contains(fife.Point(px, py)):
+    print("Point is inside rect")
+
+# Rectangle intersection
+if rect.intersects(other_rect):
+    print("Rectangles overlap")
+
+# In-place intersection (modifies rect)
+rect.intersectInplace(other_rect)
+----
+
+==== Typed Rectangles
+
+[horizontal]
+*Rect*:: `RectType<int32_t>` - Integer rectangle
+*FloatRect*:: `RectType<float>` - Float rectangle
+*DoubleRect*:: `RectType<double>` - Double rectangle

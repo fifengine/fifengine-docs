@@ -88,6 +88,7 @@ event_manager.removeMouseListener(listener)
 *WHEEL_MOVED_LEFT*:: Scroll wheel left
 *ENTERED*:: Mouse entered window
 *EXITED*:: Mouse exited window
+*UNKNOWN_EVENT*:: Unknown mouse event type
 
 ==== Mouse Button Types
 
@@ -97,6 +98,8 @@ event_manager.removeMouseListener(listener)
 *MIDDLE*:: Middle mouse button (wheel)
 *X1*:: Extra button 1
 *X2*:: Extra button 2
+*EMPTY*:: No button
+*UNKNOWN_BUTTON*:: Unknown button type
 
 ==== MouseEvent Properties
 
@@ -119,6 +122,28 @@ def mousePressed(self, event):
         print("Left button pressed")
     elif button == fife.MouseEvent.RIGHT:
         print("Right button pressed")
+----
+
+==== Widget Consumption
+
+Check if a mouse event was consumed by a GUI widget:
+
+[source,python]
+----
+def mousePressed(self, event):
+    if event.isConsumedByWidgets():
+        return  # Don't process if GUI handled it
+----
+
+==== Event Name and Debugging
+
+Get event metadata for debugging:
+
+[source,python]
+----
+name = event.getName()          # Returns "MouseEvent"
+debug = event.getDebugString()  # Human-readable description
+attr = event.getAttrStr()       # Detailed attribute string
 ----
 
 ==== Example: Click to Move Instance
@@ -176,6 +201,7 @@ event_manager.removeKeyListener(listener)
 [horizontal]
 *PRESSED*:: Key was pressed down
 *RELEASED*:: Key was released
+*UNKNOWN*:: Unknown key event type
 
 ==== Key Properties
 
@@ -354,3 +380,75 @@ You should register your listeners before the game loop starts.
 
 NOTE: Listeners are called in the order they were registered.
 Use `addListenerFront()` to add listeners to the front of the queue.
+
+=== Adding Listeners to Front of Queue
+
+Add listeners that receive events before previously registered ones:
+
+[source,python]
+----
+event_manager.addKeyListenerFront(listener)
+event_manager.addMouseListenerFront(listener)
+event_manager.addCommandListenerFront(listener)
+event_manager.addTextListenerFront(listener)
+event_manager.addDropListenerFront(listener)
+event_manager.addSdlEventListenerFront(listener)
+----
+
+=== Joystick and Gamepad Support
+
+FIFE supports joystick and gamepad input through SDL.
+
+==== Enabling Joystick Support
+
+[source,python]
+----
+settings = engine.getSettings()
+settings.setJoystickSupport(True)  # Enable before engine.init()
+----
+
+==== Joystick Manager Methods
+
+[source,python]
+----
+event_manager = engine.getEventManager()
+
+# Get number of connected joysticks
+count = event_manager.getJoystickCount()
+
+# Get a specific joystick by instance ID
+joystick = event_manager.getJoystick(instance_id)
+----
+
+==== Gamepad Mappings
+
+Load and save SDL gamepad controller mappings:
+
+[source,python]
+----
+# Load mappings from file
+event_manager.loadGamepadMapping("gamecontrollerdb.txt")
+
+# Save mapping for a specific GUID
+event_manager.saveGamepadMapping(guid, "mymapping.txt")
+
+# Save all mappings used this session
+event_manager.saveGamepadMappings("all_mappings.txt")
+
+# Get/Set mapping as string
+mapping = event_manager.getGamepadStringMapping(guid)
+event_manager.setGamepadStringMapping(mapping)
+----
+
+==== Joystick Listener
+
+[source,python]
+----
+class MyJoystickListener(fife.IJoystickListener):
+    # Implement joystick event callbacks
+    pass
+
+event_manager.addJoystickListener(listener)
+event_manager.addJoystickListenerFront(listener)  # Front of queue
+event_manager.removeJoystickListener(listener)
+----

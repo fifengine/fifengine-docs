@@ -41,6 +41,52 @@ fifechan_manager.add(my_widget)
 
 # Remove a widget
 fifechan_manager.remove(my_widget)
+
+# Get the top container
+top_container = fifechan_manager.getTopContainer()
+----
+
+==== Initializing FifechanManager
+
+The FifechanManager is initialized by the engine. You can also initialize manually:
+
+[source,python]
+----
+fifechan_manager.init("SDL2", screen_width, screen_height)
+----
+
+==== Tabbing
+
+Enable or disable tab key focus cycling:
+
+[source,python]
+----
+fifechan_manager.setTabbingEnabled(True)
+if fifechan_manager.isTabbingEnabled():
+    print("Tab navigation enabled")
+----
+
+==== Console Access
+
+Access the in-game console directly:
+
+[source,python]
+----
+console = fifechan_manager.getConsole()
+----
+
+==== Frame Update
+
+The `turn()` method is called each frame to process GUI logic and rendering.
+This is handled automatically by the engine.
+
+==== Resizing
+
+Resize the top container (e.g., after window resize):
+
+[source,python]
+----
+gui_manager.resizeTopContainer(x, y, width, height)
 ----
 
 === Widgets

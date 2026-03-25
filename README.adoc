@@ -15,7 +15,7 @@ image:https://github.com/fifengine/fifengine-docs/actions/workflows/build-docs.y
 | C++ API Documentation         | HTML     | https://fifengine.github.io/fifengine/api/
 | Python API Documentation      | HTML     | https://fifengine.github.io/fifengine/api/python
 | Wiki                          | HTML     | https://github.com/fifengine/fifengine/wiki
-| Github Pages (fifengine)      | HTML     | https://fifengine.github.io/fifengine = https://wwww.fifengine.net/
+| Github Pages (fifengine)      | HTML     | https://fifengine.github.io/fifengine = https://fifengine.net/
 | Github Pages (fifengine-docs) | HTML     | https://fifengine.github.io/fifengine-docs/ = https://docs.fifengine.net/
 | Docs Repository               | ASCIIDOC | https://github.com/fifengine/fifengine-docs
 |====================

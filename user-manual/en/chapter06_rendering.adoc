@@ -170,9 +170,133 @@ map_point = camera.toMapCoordinates(screen_point)
 
 # Virtual screen coordinates (sub-pixel precision)
 virtual = camera.toVirtualScreenCoordinates(map_coords)
+
+# Convert between virtual and screen
+screen = camera.virtualScreenToScreen(virtual)
+virtual = camera.screenToVirtualScreen(screen_point)
 ----
 
 See xref:chapter04[Coordinate Systems] for details on coordinate transformations.
+
+==== Camera Position
+
+Set camera position directly without a Location object:
+
+[source,python]
+----
+camera.setPosition(fife.ExactModelCoordinate(10.5, 20.3))
+pos = camera.getPosition()
+----
+
+==== Camera Enabled State
+
+Enable or disable a camera (disabled cameras are not rendered):
+
+[source,python]
+----
+camera.setEnabled(False)  # Disable rendering
+camera.setEnabled(True)   # Enable rendering
+----
+
+==== Z-to-Y Transformation
+
+Control the z-axis transformation. Enable or disable the custom zToY factor:
+
+[source,python]
+----
+camera.setZToY(32)             # 1 z-unit = 32 pixels vertically
+camera.setZToYEnabled(True)    # Enable custom z-to-y
+camera.setZToYEnabled(False)   # Use original matrix value
+is_enabled = camera.isZToYEnabled()
+original = camera.getOriginalZToY()  # Original value from matrix
+----
+
+==== Cell Image Dimensions
+
+Set the screen size of cell images and retrieve reference scale:
+
+[source,python]
+----
+camera.setCellImageDimensions(64, 32)
+dims = camera.getCellImageDimensions()        # For current layer
+dims = camera.getCellImageDimensions(layer)   # For specific layer
+
+# Reference scale factors
+scale_x = camera.getReferenceScaleX()
+scale_y = camera.getReferenceScaleY()
+----
+
+==== Camera Hit Testing
+
+Find instances at screen coordinates:
+
+[source,python]
+----
+# Single point hit test
+instances = []
+camera.getMatchingInstances(
+    fife.ScreenPoint(x, y, 0), layer, instances, alpha=0
+)
+
+# Rectangle selection
+rect = fife.Rect(x, y, width, height)
+instances = []
+camera.getMatchingInstances(rect, layer, instances, alpha=128)
+
+# Location-based matching (sorted by camera view)
+location = fife.Location(layer)
+location.setLayerCoordinates(fife.ModelCoordinate(5, 3))
+instances = []
+camera.getMatchingInstances(location, instances)
+----
+
+==== Camera Lighting
+
+Apply per-camera lighting color:
+
+[source,python]
+----
+# Set lighting color (RGB floats 0.0-1.0)
+camera.setLightingColor(0.5, 0.5, 1.0)  # Blue tint
+
+# Get current lighting
+color = camera.getLightingColor()  # Returns [r, g, b]
+
+# Reset to default
+camera.resetLightingColor()
+----
+
+==== Camera Overlays
+
+Apply color, image, or animation overlays to the entire camera view:
+
+[source,python]
+----
+# Color overlay (RGBA)
+camera.setOverlayColor(255, 0, 0, 128)  # Semi-transparent red
+color = camera.getOverlayColor()
+camera.resetOverlayColor()
+
+# Image overlay
+camera.setOverlayImage(image_id, fill=True)  # Fill viewport
+img_id = camera.getOverlayImage()
+camera.resetOverlayImage()
+
+# Animation overlay
+camera.setOverlayAnimation(anim_ptr, fill=True)
+anim = camera.getOverlayAnimation()
+camera.resetOverlayAnimation()
+----
+
+==== Reset Renderers
+
+Reset the active layer information on all renderers. Call this after
+changing layers or when renderers need to re-evaluate their context:
+
+[source,python]
+----
+camera.resetRenderers()
+----
 
 ==== Viewport
 
@@ -347,6 +471,391 @@ Enable VSync to synchronize with monitor refresh rate:
 [source,python]
 ----
 settings.setVSync(True)
+----
+
+=== RenderBackend Enums
+
+==== GLConstants
+
+Stencil buffer constants used with `changeRenderInfos()` (OpenGL only):
+
+[horizontal]
+*KEEP*:: Keep current stencil value
+*ZERO*:: Set stencil to 0
+*REPLACE*:: Replace stencil with reference value
+*INCR*:: Increment stencil value
+*DECR*:: Decrement stencil value
+*INVERT*:: Bitwise invert stencil value
+*NEVER*:: Never pass stencil test
+*LESS*:: Pass if reference < stencil
+*LEQUAL*:: Pass if reference <= stencil
+*GREATER*:: Pass if reference > stencil
+*GEQUAL*:: Pass if reference >= stencil
+*EQUAL*:: Pass if reference == stencil
+*NOTEQUAL*:: Pass if reference != stencil
+*ALWAYS*:: Always pass stencil test
+
+==== OverlayType
+
+Controls how texture overlays are applied (OpenGL only):
+
+[horizontal]
+*OVERLAY_TYPE_NONE*:: (0) No overlay
+*OVERLAY_TYPE_COLOR*:: (1) Single color overlay
+*OVERLAY_TYPE_COLOR_AND_TEXTURE*:: (2) Color and texture combined
+*OVERLAY_TYPE_TEXTURES_AND_FACTOR*:: (3) Multiple textures with blend factor
+
+==== TextureFiltering
+
+Texture filtering modes (OpenGL only):
+
+[horizontal]
+*TEXTURE_FILTER_NONE*:: (0) No filtering
+*TEXTURE_FILTER_BILINEAR*:: (1) Bilinear filtering
+*TEXTURE_FILTER_TRILINEAR*:: (2) Trilinear filtering
+*TEXTURE_FILTER_ANISOTROPIC*:: (3) Anisotropic filtering
+
+==== RenderDataType
+
+Controls the rendering data type for batched drawing (OpenGL only):
+
+[horizontal]
+*RENDER_DATA_WITHOUT_Z*:: (0) No z-buffer data
+*RENDER_DATA_TEXTURE_Z*:: (1) Texture with z-buffer
+*RENDER_DATA_TEXCOLOR_Z*:: (2) Texture color with z-buffer
+*RENDER_DATA_MULTITEXTURE_Z*:: (3) Multiple textures with z-buffer
+
+=== Drawing Primitives
+
+The `RenderBackend` provides 2D drawing functions for overlays, debug visuals, and UI elements.
+
+==== Basic Shapes
+
+[source,python]
+----
+rb = engine.getRenderBackend()
+
+# Draw a pixel
+rb.putPixel(x, y, r, g, b, a=255)
+
+# Draw a line
+rb.drawLine(fife.Point(x1, y1), fife.Point(x2, y2), r, g, b, a=255)
+
+# Draw a thick line
+rb.drawThickLine(fife.Point(x1, y1), fife.Point(x2, y2), width, r, g, b, a=255)
+
+# Draw connected lines
+points = [fife.Point(0, 0), fife.Point(10, 10), fife.Point(20, 0)]
+rb.drawPolyLine(points, width, r, g, b, a=255)
+
+# Draw bezier curve
+rb.drawBezier(points, steps, width, r, g, b, a=255)
+----
+
+==== Rectangles
+
+[source,python]
+----
+# Draw rectangle outline
+rb.drawRectangle(fife.Point(x, y), width, height, r, g, b, a=255)
+
+# Draw filled rectangle
+rb.fillRectangle(fife.Point(x, y), width, height, r, g, b, a=255)
+----
+
+==== Circles
+
+[source,python]
+----
+# Draw circle outline
+rb.drawCircle(fife.Point(cx, cy), radius, r, g, b, a=255)
+
+# Draw filled circle
+rb.drawFillCircle(fife.Point(cx, cy), radius, r, g, b, a=255)
+
+# Draw circle segment (0 angle is right side)
+rb.drawCircleSegment(fife.Point(cx, cy), radius, start_angle, end_angle, r, g, b, a=255)
+
+# Draw filled circle segment
+rb.drawFillCircleSegment(fife.Point(cx, cy), radius, start_angle, end_angle, r, g, b, a=255)
+----
+
+==== Triangles and Quads
+
+[source,python]
+----
+# Draw triangle
+rb.drawTriangle(fife.Point(x1,y1), fife.Point(x2,y2), fife.Point(x3,y3), r, g, b, a=255)
+
+# Draw quad
+rb.drawQuad(p1, p2, p3, p4, r, g, b, a=255)
+
+# Draw vertex point
+rb.drawVertex(fife.Point(x, y), size, r, g, b, a=255)
+----
+
+==== Scissor Test
+
+Clip rendering to a specific region:
+
+[source,python]
+----
+rb.enableScissorTest()
+# ... draw clipped content ...
+rb.disableScissorTest()
+----
+
+=== Color Class
+
+The `Color` class represents RGBA colors:
+
+[source,python]
+----
+# Create a color (default: black, fully opaque)
+color = fife.Color(r=255, g=128, b=0, alpha=255)
+
+# Get channel values
+r = color.getR()
+g = color.getG()
+b = color.getB()
+a = color.getAlpha()
+
+# Set channel values
+color.setR(100)
+color.setG(200)
+color.setB(50)
+color.setAlpha(128)
+
+# Set all at once
+color.set(255, 255, 255, 255)
+
+# Compare colors
+if color1 == color2:
+    print("Same color")
+----
+
+=== Animation
+
+The `Animation` class manages sequences of images with timing.
+
+==== Creating Animations
+
+Animations are typically loaded from XML files, but can be created programmatically:
+
+[source,python]
+----
+anim = fife.Animation()
+
+# Add frames with durations (in milliseconds)
+anim.addFrame(image_ptr_1, 100)  # Show for 100ms
+anim.addFrame(image_ptr_2, 100)
+anim.addFrame(image_ptr_3, 150)
+----
+
+==== Querying Frames
+
+[source,python]
+----
+# Get frame index by timestamp
+index = anim.getFrameIndex(timestamp)
+
+# Get frame image by index
+frame = anim.getFrame(index)
+
+# Get frame by timestamp
+frame = anim.getFrameByTimestamp(timestamp)
+
+# Get all frames
+frames = anim.getFrames()
+
+# Get frame duration
+duration = anim.getFrameDuration(index)  # milliseconds
+
+# Total frame count
+count = anim.getFrameCount()
+
+# Total animation duration
+total = anim.getDuration()  # milliseconds
+----
+
+==== Action Frame
+
+The action frame is when the associated action takes effect (e.g., a punch hitting):
+
+[source,python]
+----
+anim.setActionFrame(2)   # Action happens on frame 2
+action_frame = anim.getActionFrame()
+----
+
+==== Animation Direction
+
+Direction associates an animation with movement direction:
+
+[source,python]
+----
+anim.setDirection(0)      # Default direction
+direction = anim.getDirection()
+----
+
+=== Image
+
+The `Image` class wraps SDL surfaces and GPU textures.
+
+==== Image Constructors
+
+Images are created by the RenderBackend or loaded via ResourceLoader.
+You can also create them directly:
+
+[source,python]
+----
+# From SDL_Surface (takes ownership)
+image = fife.Image(surface)
+
+# From raw RGBA pixel data
+image = fife.Image(pixel_data, width, height)
+
+# From a resource loader
+image = fife.Image("name", loader)
+----
+
+==== Image Rendering
+
+Render an image to the current target:
+
+[source,python]
+----
+# Basic render with optional alpha
+image.render(rect, alpha=255)
+
+# Render with color overlay (RGB bytes)
+image.render(rect, alpha=255, rgb=[r, g, b])
+
+# Render with z-depth (OpenGL only)
+image.renderZ(rect, vertexZ, alpha=255)
+
+# Render with overlay image and z-depth
+image.renderZ(rect, vertexZ, overlay_image, alpha=255)
+----
+
+==== Detaching Surface
+
+Remove ownership of the SDL_Surface from the Image so it is not freed on destruction:
+
+[source,python]
+----
+surface = image.detachSurface()
+# Now caller is responsible for freeing the surface
+----
+
+==== Surface Replacement
+
+Replace the underlying SDL_Surface:
+
+[source,python]
+----
+image.setSurface(new_surface)
+----
+
+==== Force GPU Load
+
+Force an image into GPU memory (OpenGL backend):
+
+[source,python]
+----
+image.forceLoadInternal()
+----
+
+==== Image Properties
+
+[source,python]
+----
+width = image.getWidth()
+height = image.getHeight()
+area = image.getArea()  # Returns Rect(0, 0, width, height)
+----
+
+==== Pixel Access
+
+[source,python]
+----
+r, g, b, a = image.getPixelRGBA(x, y)
+----
+
+==== Image Shifts
+
+Offset the rendering position of an image:
+
+[source,python]
+----
+image.setXShift(10)
+image.setYShift(-5)
+shift_x = image.getXShift()
+shift_y = image.getYShift()
+----
+
+==== Saving Images
+
+[source,python]
+----
+image.saveImage("output.png")
+----
+
+==== Shared Images
+
+Use texture atlasing by sharing image data:
+
+[source,python]
+----
+image.useSharedImage(shared_image_ptr, region_rect)
+if image.isSharedImage():
+    rect = image.getSubImageRect()
+----
+
+==== Copying Sub-Images
+
+[source,python]
+----
+target_image.copySubimage(xoffset, yoffset, source_image_ptr)
+----
+
+=== Background Color
+
+Set the render backend background color:
+
+[source,python]
+----
+rb = engine.getRenderBackend()
+rb.setBackgroundColor(0, 0, 128)  # Dark blue background
+rb.resetBackgroundColor()          # Reset to black
+----
+
+=== Render-to-Texture
+
+Attach an Image as the render target instead of the main screen.
+All subsequent rendering commands draw to the image:
+
+[source,python]
+----
+# Attach render target (discard = clear the image first)
+rb.attachRenderTarget(target_image, discard=True)
+
+# ... render commands draw into target_image ...
+
+# Detach and resume rendering to main screen
+rb.detachRenderTarget()
+----
+
+NOTE: Render-to-texture is only available with the OpenGL backend.
+
+=== GUI Geometry
+
+The render backend provides a method to render geometry required by the GUI subsystem:
+
+[source,python]
+----
+# This is an internal method used by FifechanManager
+rb.renderGuiGeometry(vertices, indices, translation, texture)
 ----
 
 === Rendering Pipeline

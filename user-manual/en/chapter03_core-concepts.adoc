@@ -166,6 +166,182 @@ dt = time_manager.getTimeDelta()  # Time since last frame in seconds
 
 Use `dt` to scale movement and animation speeds for consistent behavior regardless of frame rate.
 
+=== Engine Change Listener
+
+Monitor engine-level changes such as screen mode switches:
+
+[source,python]
+----
+class MyEngineChangeListener(fife.IEngineChangeListener):
+    def onScreenModeChanged(self, newmode):
+        print("Screen mode changed")
+
+listener = MyEngineChangeListener()
+engine.addChangeListener(listener)
+
+# Later, remove it
+engine.removeChangeListener(listener)
+----
+
+=== Changing Screen Mode at Runtime
+
+Change the display mode without re-initializing the engine:
+
+[source,python]
+----
+# Get available screen modes from device capabilities
+device_caps = engine.getDeviceCaps()
+modes = device_caps.getNearestScreenMode(width, height, bpp, fullscreen)
+
+# Apply the new mode
+engine.changeScreenMode(modes)
+----
+
+The `changeScreenMode()` method handles re-creation of internal objects that depend on the display.
+
+=== Device Capabilities
+
+Query supported display configurations:
+
+[source,python]
+----
+device_caps = engine.getDeviceCaps()
+
+# Get available screen modes
+modes = device_caps.getAvailableScreenModes()
+
+# Get available render drivers
+drivers = device_caps.getAvailableRenderDrivers()
+----
+
+=== Additional Engine Accessors
+
+The Engine provides access to additional subsystems:
+
+[source,python]
+----
+# Logging subsystem
+log_manager = engine.getLogManager()
+
+# Special renderers (owned by engine, do not delete)
+off_renderer = engine.getOffRenderer()
+target_renderer = engine.getTargetRenderer()
+
+# Cursor control
+cursor = engine.getCursor()
+----
+
+=== Engine Settings Reference
+
+==== Display Index
+
+For multi-monitor setups, select which display to use:
+
+[source,python]
+----
+settings.setDisplay(0)  # Primary display (default)
+settings.setDisplay(1)  # Secondary display
+----
+
+==== SDL Render Driver
+
+Select a specific SDL render driver:
+
+[source,python]
+----
+settings.setSDLDriver("software")  # Platform-dependent values
+----
+
+==== Video Driver
+
+Set the video driver (platform-dependent):
+
+[source,python]
+----
+settings.setVideoDriver("x11")  # Linux X11
+----
+
+==== Color Key Transparency
+
+Enable global colorkey-based transparency:
+
+[source,python]
+----
+settings.setColorKeyEnabled(True)
+settings.setColorKey(255, 0, 255)  # Magenta as transparent color
+----
+
+==== Monochrome Rendering
+
+Render in grayscale (OpenGL only):
+
+[source,python]
+----
+settings.setGLUseMonochrome(True)
+----
+
+==== Alpha Test Value
+
+Set the alpha threshold for depth buffer discarding (OpenGL only):
+
+[source,python]
+----
+settings.setGLUseDepthBuffer(True)
+settings.setGLAlphaTestValue(0.1)  # Discard fragments with alpha < 0.1
+----
+
+==== SDL Fake Alpha Removal
+
+Remove fake alpha in SDL backend:
+
+[source,python]
+----
+settings.setSDLRemoveFakeAlpha(True)
+----
+
+==== Joystick Support
+
+Enable or disable joystick and gamepad input:
+
+[source,python]
+----
+settings.setJoystickSupport(True)  # Enable gamepad support
+----
+
+==== Frame Limit
+
+Limit the frame rate at the settings level. Also documented in xref:chapter06[Rendering].
+
+[source,python]
+----
+settings.setFrameLimitEnabled(True)
+settings.setFrameLimit(60)  # 60 FPS max
+if settings.isFrameLimitEnabled():
+    print("Frame limit:", settings.getFrameLimit())
+----
+
+==== Mouse Sensitivity
+
+Configure mouse input sensitivity and acceleration via settings
+(also configurable at runtime through xref:chapter08[EventManager]):
+
+[source,python]
+----
+settings.setMouseSensitivity(1.5)       # Speed factor (1.0 = default)
+settings.setMouseAccelerationEnabled(True)  # Enable mouse acceleration
+----
+
+==== Native Image Cursor
+
+Use a native OS cursor backed by an image file:
+
+[source,python]
+----
+settings.setNativeImageCursorEnabled(True)
+if settings.isNativeImageCursorEnabled():
+    print("Using native cursor")
+----
+
 === Log Modules
 
 FIFE uses a hierarchical logging system. Each subsystem is a log module:

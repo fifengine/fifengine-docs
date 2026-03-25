@@ -79,6 +79,82 @@ my_map.setTimeMultiplier(2.0)   # Double speed
 my_map.setTimeMultiplier(0.5)   # Half speed
 ----
 
+==== Map TimeProvider
+
+Access the map's time provider for scaled game time:
+
+[source,python]
+----
+time_provider = my_map.getTimeProvider()
+game_time = time_provider.getGameTime()
+----
+
+==== Map Layers
+
+Delete layers and get layer count:
+
+[source,python]
+----
+count = my_map.getLayerCount()
+my_map.deleteLayers()  # Remove all layers
+----
+
+==== Map Bounding Box
+
+Get the min/max coordinates of all instances across all layers:
+
+[source,python]
+----
+min_coord, max_coord = my_map.getMinMaxCoordinates()
+----
+
+==== Map Filename
+
+Get or set the filename for the map:
+
+[source,python]
+----
+my_map.setFilename("saves/mymap.sav")
+filename = my_map.getFilename()
+----
+
+==== Map Camera Count
+
+Get the number of active cameras on this map:
+
+[source,python]
+----
+count = my_map.getActiveCameraCount()
+----
+
+==== Instance Transfer
+
+Transfer instances between layers (used internally by the pathfinder):
+
+[source,python]
+----
+# Register instance for transfer
+my_map.addInstanceForTransfer(instance)
+
+# Unregister
+my_map.removeInstanceForTransfer(instance)
+
+# Initialize cell caches after all transfers
+my_map.initializeCellCaches()
+
+# Clean up cell caches
+my_map.finalizeCellCaches()
+----
+
+==== Trigger Controller
+
+Access the map's trigger system:
+
+[source,python]
+----
+trigger_ctrl = my_map.getTriggerController()
+----
+
 === Layer
 
 A `Layer` is a grid of cells containing game instances.
@@ -202,19 +278,326 @@ layer.setSortingStrategy(fife.SORTING_LOCATION)            # By location
 layer.setSortingStrategy(fife.SORTING_CAMERA_AND_LOCATION) # Combined
 ----
 
+===== Instance Queries
+
+Get instances within a circle segment (angle range):
+
+[source,python]
+----
+# center, radius, starting angle, ending angle, use_exact_coordinates
+instances = layer.getInstancesInCircleSegment(
+    center_location, radius, start_angle, end_angle, True
+)
+----
+
+Get bounding coordinates of all instances on the layer:
+
+[source,python]
+----
+min_coord, max_coord = layer.getMinMaxCoordinates()
+----
+
+===== Z-Offset
+
+Get the z-offset for instances on this layer:
+
+[source,python]
+----
+offset = layer.getZOffset()
+----
+
+===== Blocking Queries
+
+Check if a cell contains a blocking instance:
+
+[source,python]
+----
+if layer.cellContainsBlockingInstance(cell_coord):
+    print("Cell is blocked")
+
+# Get all blocking instances
+blockers = layer.getBlockingInstances()
+----
+
+===== Layer Count
+
+Get number of layers on the parent map:
+
+[source,python]
+----
+count = layer.getLayerCount()
+----
+
+===== Instance Activity
+
+Activate or deactivate instances on a layer to skip updates:
+
+[source,python]
+----
+layer.setInstanceActivityStatus(False)  # Pause all instances
+layer.setInstanceActivityStatus(True)   # Resume updates
+----
+
+===== Interact Layers
+
+Interact layers merge pathfinding data from multiple layers.
+Useful for buildings with floors:
+
+[source,python]
+----
+# Mark this as an interact layer
+layer.setInteract(True)
+if layer.isInteract():
+    walkable_id = layer.getWalkableId()
+
+# Add another layer's interact data to this layer
+layer.addInteractLayer(other_layer)
+interact_layers = layer.getInteractLayers()
+
+# Remove an interact layer
+layer.removeInteractLayer(other_layer)
+----
+
+===== CellCache
+
+The CellCache stores pathfinding data. Create it before using the pathfinder:
+
+[source,python]
+----
+layer.createCellCache()
+cache = layer.getCellCache()
+
+# When done (rarely needed)
+layer.destroyCellCache()
+----
+
+=== Instance Change Tracking
+
+FIFE tracks changes to instances using a bitmask system.
+The `InstanceChangeType` enum defines possible changes:
+
+[horizontal]
+*ICHANGE_NO_CHANGES*:: (0x0000) No changes
+*ICHANGE_LOC*:: (0x0001) Location changed
+*ICHANGE_ROTATION*:: (0x0002) Rotation changed
+*ICHANGE_SPEED*:: (0x0004) Speed changed
+*ICHANGE_ACTION*:: (0x0008) Action changed
+*ICHANGE_TIME_MULTIPLIER*:: (0x0010) Time multiplier changed
+*ICHANGE_SAYTEXT*:: (0x0020) Say text changed
+*ICHANGE_BLOCK*:: (0x0040) Blocking state changed
+*ICHANGE_CELL*:: (0x0080) Cell changed
+*ICHANGE_TRANSPARENCY*:: (0x0100) Transparency changed
+*ICHANGE_VISIBLE*:: (0x0200) Visibility changed
+*ICHANGE_STACKPOS*:: (0x0400) Stack position changed
+*ICHANGE_VISUAL*:: (0x0800) Visual changed
+
+Use `getChangeInfo()` to retrieve the change bitmask from the last update:
+
+[source,python]
+----
+changes = instance.getChangeInfo()
+if changes & fife.ICHANGE_LOC:
+    print("Location changed")
+----
+
+=== Instance Change Listener
+
+Listen for any instance property changes:
+
+[source,python]
+----
+class MyChangeListener(fife.InstanceChangeListener):
+    def onInstanceChanged(self, instance, info):
+        if info & fife.ICHANGE_LOC:
+            print("Instance moved:", instance.getId())
+
+listener = MyChangeListener()
+instance.addChangeListener(listener)
+----
+
+=== Instance Delete Listener
+
+Be notified when an instance is deleted:
+
+[source,python]
+----
+class MyDeleteListener(fife.InstanceDeleteListener):
+    def onInstanceDeleted(self, instance):
+        print("Instance deleted:", instance.getId())
+
+listener = MyDeleteListener()
+instance.addDeleteListener(listener)
+----
+
 === Instance
 
 An `Instance` is a placed object in the game world.
 Instances are created from object archetypes and can perform actions.
 
-==== Object Archetypes
+==== TimeProvider
 
-Objects define properties that instances inherit:
+The `TimeProvider` class manages hierarchical time scaling.
+Each level (model, map, instance) has its own time provider that multiplies with its parent.
+
+==== Creating a TimeProvider
+
+[source,python]
+----
+# Create with a master provider (or None for root)
+provider = fife.TimeProvider(master_provider)
+----
+
+==== Time Multiplier
+
+[source,python]
+----
+# Set local multiplier (0.5 = half speed, 2.0 = double speed)
+provider.setMultiplier(2.0)
+
+# Get local multiplier
+local = provider.getMultiplier()
+
+# Get total multiplier including all parents
+total = provider.getTotalMultiplier()  # E.g., master=2.0, local=0.5 -> 1.0
+----
+
+==== Game Time
+
+[source,python]
+----
+# Get current scaled game time in milliseconds
+game_time = provider.getGameTime()
+----
+
+=== Object
+
+Objects define the template properties that instances inherit.
 
 [source,python]
 ----
 # Get or create an object archetype
 object = model.getObject("tree")
+----
+
+==== Object Namespace
+
+Objects can be organized into namespaces:
+
+[source,python]
+----
+namespace = object.getNamespace()  # e.g., "vegetation"
+object.setId("oak_tree")           # Set object identifier
+----
+
+==== Object Properties
+
+===== Blocking and Static
+
+[source,python]
+----
+object.setBlocking(True)   # Instances block movement
+object.setStatic(True)     # Object does not move
+----
+
+===== Cell Stack Position
+
+Set default stack position for instances:
+
+[source,python]
+----
+object.setCellStackPosition(3)  # Default stack order
+pos = object.getCellStackPosition()
+----
+
+===== Pather Assignment
+
+Assign a pather algorithm to instances of this object:
+
+[source,python]
+----
+object.setPather(my_pather)  # Set custom pather
+pather = object.getPather()  # Get current pather
+----
+
+===== Cost and Speed
+
+Set pathfinding cost properties on the object:
+
+[source,python]
+----
+object.setCostId("terrain")   # Cost category
+object.setCost(2.5)           # Cost multiplier
+object.setSpeed(0.8)          # Speed modifier
+
+# Query properties
+if object.isSpecialCost():
+    print("Cost:", object.getCost(), "ID:", object.getCostId())
+if object.isSpecialSpeed():
+    print("Speed modifier:", object.getSpeed())
+----
+
+===== Z-Step Range
+
+Limit how many z-levels an object can climb:
+
+[source,python]
+----
+object.setZStepRange(1)  # Can climb 1 z-level
+range = object.getZStepRange()  # -1 if unlimited
+----
+
+===== Walkable Areas
+
+Restrict which areas an object can walk on:
+
+[source,python]
+----
+object.addWalkableArea("main_path")
+object.addWalkableArea("forest_trail")
+areas = object.getWalkableAreas()
+object.removeWalkableArea("forest_trail")
+
+# Set the area this object contributes to
+object.setArea("building_zone")
+----
+
+==== Multi-Part Objects
+
+Objects can consist of multiple parts for large buildings or structures:
+
+[source,python]
+----
+# Mark object as a multi-part component
+object.setMultiPart(True)
+
+# Add part identifiers
+object.addMultiPartId("tower_base")
+object.addMultiPartId("tower_top")
+
+# Get all part IDs
+part_ids = object.getMultiPartIds()
+
+# Set rotation anchor for the multi object
+object.setRotationAnchor(fife.ExactModelCoordinate(0.5, 0.5))
+
+# Enable restricted rotation (only use predefined angles)
+object.setRestrictedRotation(True)
+
+# Get obvious rotation from any angle
+snapped = object.getRestrictedRotation(47)  # Returns nearest valid angle
+----
+
+Add rotation-dependent coordinates for parts:
+
+[source,python]
+----
+# Add coordinates for specific rotations
+object.addMultiPartCoordinate(0, fife.ModelCoordinate(0, 0))
+object.addMultiPartCoordinate(90, fife.ModelCoordinate(1, 0))
+
+# Get coordinates for a rotation
+coords = object.getMultiPartCoordinates(90)
+all_coords = object.getMultiPartCoordinates()  # All rotations
 ----
 
 ==== Instance Location
@@ -231,6 +614,33 @@ current_location = instance.getLocation()
 
 # Set facing direction
 instance.setFacingLocation(target_location)
+
+# Get facing location
+facing = instance.getFacingLocation()
+
+# Get reference to previous location (before last move)
+old_loc = instance.getOldLocationRef()
+----
+
+==== Instance State
+
+Check if an instance needs active updates:
+
+[source,python]
+----
+if instance.isActive():
+    print("Instance requires updates each frame")
+----
+
+==== Instance Say Text
+
+Get the current say text pointer (None if not speaking):
+
+[source,python]
+----
+text = instance.getSayText()
+if text:
+    print("Saying:", text)
 ----
 
 ==== Instance Actions
@@ -287,6 +697,18 @@ instance.isBlocking()
 ----
 instance.setRotation(90)   # Set rotation offset
 instance.getRotation()     # Get current rotation
+instance.getOldRotation()  # Get previous frame's rotation
+----
+
+===== Override Blocking
+
+Allow instances to pass through blocking objects:
+
+[source,python]
+----
+instance.setOverrideBlocking(True)  # Can pass through blockers
+if instance.isOverrideBlocking():
+    print("Can override blocking")
 ----
 
 ===== Speed Control
@@ -295,6 +717,45 @@ instance.getRotation()     # Get current rotation
 ----
 instance.setTimeMultiplier(2.0)  # Double speed
 instance.getMovementSpeed()      # Current speed
+----
+
+Get total time multiplier including map and model speeds:
+
+[source,python]
+----
+total = instance.getTotalTimeMultiplier()  # Includes all parent multipliers
+----
+
+===== Instance Runtime
+
+Get scaled runtime in milliseconds:
+
+[source,python]
+----
+runtime = instance.getRuntime()  # Time scaled by time multiplier
+----
+
+===== Action Runtime
+
+Save and restore action animation state:
+
+[source,python]
+----
+# Get current action time offset
+offset = instance.getActionRuntime()
+
+# Restore action state later
+instance.setActionRuntime(offset)
+----
+
+===== Instance Refresh
+
+After directly modifying an instance's location (bypassing `setLocation()`),
+call `refresh()` to update internal state:
+
+[source,python]
+----
+instance.refresh()  # Update time provider and other internals
 ----
 
 ===== Transparency
@@ -340,6 +801,37 @@ listener = MyActionListener()
 instance.addActionListener(listener)
 ----
 
+==== Cell Stack Position
+
+Control rendering order within a cell (higher values render on top):
+
+[source,python]
+----
+instance.setCellStackPosition(5)  # Render above stack position 0
+pos = instance.getCellStackPosition()
+----
+
+==== Cost and Speed Overrides
+
+Override pathfinding cost and movement speed per instance:
+
+[source,python]
+----
+# Set custom pathfinding cost
+instance.setCost("movement", 2.0)  # Costs 2x normal
+instance.resetCost()                # Use object default
+
+# Check if instance has custom cost
+if instance.isSpecialCost():
+    cost = instance.getCost()
+    cost_id = instance.getCostId()
+
+# Get movement speed modifier
+speed = instance.getSpeed()
+if instance.isSpecialSpeed():
+    print("Has custom speed:", speed)
+----
+
 ==== Multi-Cell Instances
 
 Instances can occupy multiple cells:
@@ -358,15 +850,32 @@ Add visual overlays to instances:
 
 [source,python]
 ----
-# Static color overlay
+# Static color overlay (applies regardless of action)
 colors = fife.OverlayColors()
 instance.addStaticColorOverlay(0, colors)
 
-# Action-specific overlay
+# Query static color overlay
+if instance.isStaticColorOverlay(0):
+    overlay = instance.getStaticColorOverlay(0)
+    instance.removeStaticColorOverlay(0)
+
+# Action-specific color overlay
 instance.addColorOverlay("walk", 0, colors)
 
-# Animation overlay
+# Query color overlay
+if instance.isColorOverlay("walk"):
+    pass
+
+# Animation overlay (action, order, animation)
 instance.addAnimationOverlay("walk", 0, 0, animation_ptr)
+
+# Query animation overlay
+if instance.isAnimationOverlay("walk"):
+    anim = instance.getAnimationOverlay("walk", 0)
+    instance.removeAnimationOverlay("walk", 0)
+
+# Convert action visual to overlays (e.g., for tinting)
+instance.convertToOverlays("walk")
 ----
 
 === CellGrid

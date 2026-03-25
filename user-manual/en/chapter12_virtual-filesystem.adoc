@@ -52,6 +52,42 @@ content = raw_data.read()
 raw_data.close()
 ----
 
+=== VFS Cleanup
+
+Clean up VFS resources:
+
+[source,python]
+----
+vfs.cleanup()  # Close all open sources and clean up
+----
+
+=== Custom VFS Providers
+
+Register custom file source providers:
+
+[source,python]
+----
+# Add a custom provider (C++ level)
+vfs.addProvider(my_provider)
+
+# Create a source from a file (tries all providers)
+source = vfs.createSource("custom_archive.dat")
+
+# Add a pre-created source
+vfs.addSource(source)
+----
+
+=== Removing Sources
+
+[source,python]
+----
+# Remove by path
+vfs.removeSource("assets.zip")
+
+# Remove by source object
+vfs.removeSource(source_object)
+----
+
 === Directory Listing
 
 ==== List Files
@@ -74,6 +110,14 @@ dirs = vfs.listDirectories("assets/")
 
 # List directories matching pattern
 dirs = vfs.listDirectories("assets/", "level_.*")
+----
+
+=== Checking Sources
+
+[source,python]
+----
+if vfs.hasSource("assets.zip"):
+    print("ZIP archive is mounted")
 ----
 
 === Archive Support

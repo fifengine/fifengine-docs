@@ -34,17 +34,6 @@ instance.setBlocking(True)
 
 A `Route` represents a path from a start location to a destination.
 
-==== Route Status
-
-Routes have a status indicating their current state:
-
-[horizontal]
-*ROUTE_CREATED*:: Route created but not yet calculated
-*ROUTE_SEARCHING*:: Path calculation in progress
-*ROUTE_SEARCHED*:: Search complete, ready to solve
-*ROUTE_SOLVED*:: Path found successfully
-*ROUTE_FAILED*:: No path could be found
-
 ==== Creating Routes
 
 Routes are typically created when calling `instance.move()`:
@@ -53,6 +42,52 @@ Routes are typically created when calling `instance.move()`:
 ----
 # The move method internally creates a route
 instance.move("walk", target_location, 5.0)
+----
+
+You can also create routes manually:
+
+[source,python]
+----
+route = fife.Route(start_location, end_location)
+----
+
+==== Route Status
+
+Routes have a status indicating their current state:
+
+[horizontal]
+*ROUTE_CREATED*:: (0) Route created but not yet calculated
+*ROUTE_SEARCHING*:: (1) Path calculation in progress
+*ROUTE_SEARCHED*:: (2) Search complete, ready to solve
+*ROUTE_SOLVED*:: (3) Path found successfully
+*ROUTE_FAILED*:: (4) No path could be found
+
+Query the status:
+
+[source,python]
+----
+status = route.getRouteStatus()
+route.setRouteStatus(fife.ROUTE_SOLVED)
+----
+
+==== Route Nodes
+
+[source,python]
+----
+# Get start and end locations
+start = route.getStartNode()
+end = route.getEndNode()
+
+# Set new start/end
+route.setStartNode(new_start)
+route.setEndNode(new_end)
+
+# Get current position on path
+current = route.getCurrentNode()
+
+# Get next/previous positions
+next_node = route.getNextNode()
+prev_node = route.getPreviousNode()
 ----
 
 ==== Route Properties
@@ -71,7 +106,95 @@ if route:
             print(node.getLayerCoordinates())
 ----
 
-==== Pathing Strategy
+==== Path Manipulation
+
+[source,python]
+----
+# Set path manually
+route.setPath(path_list)
+
+# Cut path after certain length
+route.cutPath(3)  # Keep only first 3 steps
+
+# Check if at end of path
+if route.reachedEnd():
+    print("Destination reached")
+
+# Walk to next node
+if route.walkToNextNode(step=1):
+    print("Moved forward")
+----
+
+==== Route Replanning
+
+Routes can be marked for replanning if the environment changes:
+
+[source,python]
+----
+route.setReplanned(True)
+if route.isReplanned():
+    print("Route will be recalculated")
+----
+
+==== Session and Rotation
+
+[source,python]
+----
+# Set search session ID
+route.setSessionId(42)
+session = route.getSessionId()
+
+# Set current rotation for multi-cell pathfinding
+route.setRotation(90)
+rotation = route.getRotation()
+----
+
+==== Cost Configuration
+
+[source,python]
+----
+# Set cost identifier for pathfinding
+route.setCostId("movement")
+cost_id = route.getCostId()
+----
+
+==== Multi-Cell Pathfinding
+
+For objects that occupy multiple cells:
+
+[source,python]
+----
+# Set occupied area on the route
+route.setOccupiedArea([fife.ModelCoordinate(0, 0), fife.ModelCoordinate(1, 0)])
+
+# Get occupied cells based on rotation
+cells = route.getOccupiedCells(rotation)
+
+# Check if multi-cell route
+if route.isMultiCell():
+    area = route.getOccupiedArea()
+----
+
+==== Object Association
+
+Associate route with an object for z-step range and multi-cell info:
+
+[source,python]
+----
+route.setObject(my_object)
+obj = route.getObject()
+z_range = route.getZStepRange()
+----
+
+==== Area Limitations
+
+[source,python]
+----
+if route.isAreaLimited():
+    areas = route.getLimitedAreas()
+----
+
+==== Cost Modifiers
 
 Configure how pathfinding works on a layer:
 

@@ -100,6 +100,21 @@ emitter = sound_manager.createEmitter()
 emitter = sound_manager.createEmitter("mysound.ogg")
 ----
 
+==== Emitter Listener
+
+Listen for sound completion events:
+
+[source,python]
+----
+class MySoundListener(fife.SoundEmitterListener):
+    def onSoundFinished(self, emitterId, soundClipId):
+        print("Sound finished:", emitterId)
+
+listener = MySoundListener()
+emitter.addListener(listener)
+emitter.removeListener(listener)
+----
+
 ==== Loading Sound Clips
 
 [source,python]
@@ -219,9 +234,57 @@ elif state == fife.SD_PAUSED_STATE:
     print("Paused")
 elif state == fife.SD_STOPPED_STATE:
     print("Stopped")
+elif state == fife.SD_INITIAL_STATE:
+    print("Initial (not yet played)")
 
 if emitter.isFinished():
     print("Sound finished playing")
+----
+
+==== Emitter Activity
+
+Check if emitter has an active OpenAL source:
+
+[source,python]
+----
+if emitter.isActive():
+    print("Emitter has an OpenAL source")
+----
+
+==== Cursor Position
+
+Get and set playback cursor position:
+
+[source,python]
+----
+# Set cursor by sample offset
+emitter.setCursor(fife.SD_SAMPLE_POS, 44100.0)
+
+# Set cursor by time (seconds)
+emitter.setCursor(fife.SD_TIME_POS, 1.5)
+
+# Set cursor by byte offset
+emitter.setCursor(fife.SD_BYTE_POS, 1024.0)
+
+# Get cursor position
+pos = emitter.getCursor(fife.SD_TIME_POS)
+----
+
+The `SoundPositionType` enum values:
+
+[horizontal]
+*SD_SAMPLE_POS*:: Position by sample offset
+*SD_TIME_POS*:: Position in seconds
+*SD_BYTE_POS*:: Position by byte offset
+
+==== Emitter Reset
+
+Reset emitter to default state:
+
+[source,python]
+----
+emitter.reset(defaultall=True)  # Reset position, velocity, gain, etc.
+emitter.reset(defaultall=False)  # Reset only internal buffers
 ----
 
 ==== Sound Information
@@ -233,7 +296,39 @@ Get details about the loaded sound:
 is_stereo = emitter.isStereo()
 bit_depth = emitter.getBitResolution()
 sample_rate = emitter.getSampleRate()
+decoded_length = emitter.getDecodedLength()  # In bytes
 duration = emitter.getDuration()  # In milliseconds
+play_time = emitter.getPlayTimestamp()  # Last play start in ms
+----
+
+==== Relative Positioning
+
+Use relative positioning for ambient sounds:
+
+[source,python]
+----
+emitter.setRelativePositioning(True)  # Position relative to listener
+is_rel = emitter.isRelativePositioning()
+----
+
+==== Emitter ID and SoundClip
+
+Get the emitter's unique ID and current sound clip:
+
+[source,python]
+----
+emitter_id = emitter.getId()
+sound_clip = emitter.getSoundClip()  # Returns SoundClipPtr
+----
+
+==== Emitter Reset
+
+Reset emitter to default state:
+
+[source,python]
+----
+emitter.reset(defaultall=True)  # Reset position, velocity, gain, etc.
+emitter.reset(defaultall=False)  # Reset only internal buffers
 ----
 
 === Sound Groups
@@ -264,8 +359,11 @@ Add effects like reverb to sounds:
 
 [source,python]
 ----
-# Create an effect
+# Create an effect by type
 effect = sound_manager.createSoundEffect(fife.SF_EAXREVERB)
+
+# Create effect with preset
+effect = sound_manager.createSoundEffectPreset(fife.SEP_GENERIC)
 
 # Add emitter to effect
 sound_manager.addEmitterToSoundEffect(effect, emitter)
@@ -275,6 +373,145 @@ sound_manager.enableSoundEffect(effect)
 
 # Later, disable effect
 sound_manager.disableSoundEffect(effect)
+
+# Remove emitter from effect
+sound_manager.removeEmitterFromSoundEffect(effect, emitter)
+
+# Delete effect
+sound_manager.deleteSoundEffect(effect)
+----
+
+=== Sound Filters
+
+Apply direct filters to individual emitters:
+
+[source,python]
+----
+# Create a filter
+sound_filter = sound_manager.createSoundFilter(fife.SFT_LOWPASS)
+
+# Add emitter to direct filter
+sound_manager.addEmitterToDirectSoundFilter(sound_filter, emitter)
+
+# Enable/disable direct filter
+sound_manager.enableDirectSoundFilter(sound_filter)
+sound_manager.disableDirectSoundFilter(sound_filter)
+
+# Remove emitter from filter
+sound_manager.removeEmitterFromDirectSoundFilter(sound_filter, emitter)
+
+# Delete filter
+sound_manager.deleteSoundFilter(sound_filter)
+----
+
+=== Listener Max Distance
+
+Set maximum distance for emitter activation.
+Emitters beyond this distance are automatically deactivated:
+
+[source,python]
+----
+sound_manager.setListenerMaxDistance(500.0)
+max_dist = sound_manager.getListenerMaxDistance()
+----
+
+=== Sound Manager Initialization
+
+Explicitly initialize the audio system (called automatically by Engine):
+
+[source,python]
+----
+sound_manager.init()
+if sound_manager.isActive():
+    print("Audio system is active")
+
+# Access the OpenAL context (advanced usage)
+context = sound_manager.getContext()
+----
+
+=== Group Management Extended
+
+Additional group operations:
+
+[source,python]
+----
+# Set gain limits for a group
+sound_manager.setMaxGain("music", 0.9)
+sound_manager.setMinGain("music", 0.1)
+
+# Remove all groups
+sound_manager.removeAllGroups()
+----
+
+=== SoundClip
+
+`SoundClip` manages audio data buffers and supports streaming for large files.
+
+==== Streaming Check
+
+Determine if the clip requires streaming:
+
+[source,python]
+----
+sound_clip = emitter.getSoundClip()
+if sound_clip.isStream():
+    print("Uses streaming (large file)")
+----
+
+==== Buffer Management
+
+For non-streaming clips:
+
+[source,python]
+----
+count = sound_clip.countBuffers()  # Number of OpenAL buffers
+buffers = sound_clip.getBuffers()  # Buffer IDs for queuing
+----
+
+==== Streaming Control
+
+For streaming audio, manage the stream lifecycle:
+
+[source,python]
+----
+stream_id = sound_clip.beginStreaming()
+sound_clip.acquireStream(stream_id)  # Fill initial buffers
+
+# Set/get stream position
+sound_clip.setStreamPos(stream_id, fife.SD_TIME_POS, 5.0)  # Seek to 5s
+pos = sound_clip.getStreamPos(stream_id, fife.SD_TIME_POS)
+
+# Refill buffer (returns True at EOF)
+eof = sound_clip.getStream(stream_id, buffer_id)
+
+sound_clip.quitStreaming(stream_id)
+sound_clip.endStreaming(stream_id)
+----
+
+==== Decoder
+
+Attach a custom sound decoder:
+
+[source,python]
+----
+sound_clip.setDecoder(decoder)
+decoder = sound_clip.getDecoder()
+----
+
+=== Cleanup
+
+Release emitters when no longer needed:
+
+[source,python]
+----
+emitter.release()  # Release the emitter
+sound_manager.deleteEmitter(emitter)  # Delete the emitter
+
+# Or release by ID
+sound_manager.releaseEmitter(emitter_id)
+
+# Release OpenAL source handle (advanced)
+sound_manager.releaseSource(emitter)
 ----
 
 === Attaching to Instances
@@ -293,16 +530,6 @@ def update():
     location = instance.getLocation()
     coords = location.getExactLayerCoordinates()
     emitter.setPosition(fife.AudioSpaceCoordinate(coords.x, coords.y, coords.z))
-----
-
-=== Cleanup
-
-Release emitters when no longer needed:
-
-[source,python]
-----
-emitter.release()  # Release the emitter
-sound_manager.deleteEmitter(emitter)  # Delete the emitter
 ----
 
 === Example: Ambient Music

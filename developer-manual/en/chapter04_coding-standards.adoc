@@ -2,6 +2,12 @@
 
 We have a set of quite detailed coding standards that have been followed for some time.
 
+=== Input file formats
+
+FIFE's accepted input file format is XML. The XML format should be used when
+describing data (metadata). Any new or existing functionality (like font file
+definitions) should also use the XML format.
+
 include::chapter04-cpp-coding-standard.adoc[]
 
 include::chapter04-python-coding-standard.adoc[]

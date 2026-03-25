@@ -170,6 +170,23 @@ Levels: `LOG_DEBUG`, `LOG_INFO`, `LOG_WARNING`, `LOG_ERROR`
 
 Modules can be filtered at runtime via `Log::setModuleLogLevel()`.
 
+===== C++ Logging Macros
+
+When writing C++ code, always use the provided log macros defined in
+`engine/core/modules.h`:
+
+[source,cpp]
+----
+FL_DBG(module, msg)   // Debug level
+FL_LOG(module, msg)   // Informational level
+FL_WARN(module, msg)  // Warning level
+FL_ERR(module, msg)   // Error level
+FL_PANIC(module, msg) // Panic level (causes abort)
+----
+
+Modules are defined in `<FIFE>/engine/core/modules.h`. Always use the correct
+log module when writing to the log.
+
 ==== XML Settings to EngineSettings
 
 The XML settings file maps directly to `EngineSettings`:

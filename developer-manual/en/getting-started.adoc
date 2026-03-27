@@ -12,7 +12,7 @@ The developer manual offers programmers documentation and examples useful in wor
 
 To work with FIFE effectively, you should be familiar with:
 
-* *C++17* — the engine core is written in C++; knowledge of modern C++ features is expected
+* *C{plus}{plus}17* — the engine core is written in C{plus}{plus}
 * *Python 3* — for scripting and binding development
 * *CMake* — used as the build system for all platforms
 * *Basic game engine concepts* — entity/component patterns, rendering pipelines, event systems

@@ -7,7 +7,7 @@
 :toc-placement:       macro
 
 This page exists to answer common questions about Fifengine.
-It is a reference to answer oft-repeated questions people in the Fife community encounter. 
+It is a reference to answer oft-repeated questions people in the Fife community encounter.
 It is not a complete guide to Fife, nor a tool for teaching how to use it.
 
 If there is some common or important question you feel is wrongly left
@@ -31,19 +31,20 @@ Formerly: Free Isometric Fallout Engine.
 
 == What platforms does FIFE run on?
 
-It currently runs on Linux, Mac OSX, and Windows.
+It currently runs on Linux, ~Mac OSX~, and Windows.
 
 == What is the current status of FIFE project?
 
-FIFE has several stable releases under its belt. 
+FIFE has several stable releases.
+
 We are continuing to work on it to add and improve features.
 
 == How easy is it to create a game with FIFE?
 
-Creating a full-featured game is a complicated task. 
-FIFE tries to ease the development process for you by providing a stable basis for your game project. 
-It helps to have some programming experience to get started. 
-FIFE is an engine and you have to extend the engine to suit your needs. 
+Creating a full-featured game is a complicated task.
+FIFE tries to ease the development process for you by providing a stable basis for your game project.
+It helps to have some programming experience to get started.
+FIFE is an engine and you have to extend the engine to suit your needs.
 We have provided Python bindings to make the development process a little easier.
 
 == What projects are using FIFE?
@@ -76,30 +77,27 @@ For a full list a features please visit our [[Features]] page.
 
 === Does FIFE support any scripting languages?
 
-Yes! We use SWIG to generate Python bindings. 
+Yes! We use SWIG to generate Python bindings.
 
-See http://www.swig.org/[SWIG's] homepage for more information on SWIG. 
+See http://www.swig.org/[SWIG's] homepage for more information on SWIG.
 
-At this time we only generate Python bindings.
+=== Do you plan to support other scripting languages?
 
-=== Do you have any plans on supporting other scripting languages?
-
-Not in the immediate future.
+Not at this time. We only generate Python bindings.
 
 === Will the engine support network features so you can create multiplayer games based on FIFE?
 
-FIFE does NOT have any network code at the moment so it does not support multiplayer games. 
+FIFE does NOT have any network code at the moment so it does not support multiplayer games.
 
-We are however hoping to add networking support in the future. 
+We are however hoping to add networking support in the future.
 We are looking for developers who have experience in writing network code.
 
 == Miscellaneous
 
 === I'd like to help out and support you. How can I contribute to the development of FIFE?
 
-Great idea :-) 
+We'd love your help! 🙌
 
-We suggest you start by introducing yourself on our http://forums.fifengine.net/index.php?board=8.0[forum] 
-and then head over to our http://irc.fifengine.net[IRC] channel #fife on freenode.
+Start by introducing yourself in our https://github.com/fifengine/fifengine/discussions[GitHub Discussions].
 
-
+We work on Github, so you can contribute by submitting pull requests with bug fixes or new features.

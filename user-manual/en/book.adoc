@@ -46,13 +46,13 @@ endif::backend-pdf[]
 :license:            https://github.com/fifengine/fifengine/blob/master/LICENSE.md
 :issue-ref:          https://github.com/fifengine/fifengine/issues
 :docs-issue-ref:     https://github.com/fifengine/fifengine-docs/issues
-:irc-ref:            http://webchat.freenode.net/?channels=%23fife
+:github-discussions-ref:            https://github.com/fifengine/fifengine/discussions
 
 [NOTE]
 .This document is under active development and discussion!
 ====
 If you find errors or omissions in this document, please don't hesitate to {docs-issue-ref}[submit an issue or open a pull request] with a fix.
-We also encourage you to ask questions and discuss any aspects of the project on {irc-ref}[IRC].
+We also encourage you to ask questions and discuss any aspects of the project on {github-discussions-ref}[GitHub Discussions].
 New contributors are always welcome!
 ====
 
